@@ -38349,6 +38349,18 @@ var staticRenderFns = [function () {
       "align-items": "center"
     }
   }, [_c("div", {
+    staticClass: "box-logo"
+  }, [_c("img", {
+    staticClass: "img-logo",
+    staticStyle: {
+      width: "100%",
+      height: "auto",
+      "border-radius": "100%"
+    },
+    attrs: {
+      src: "/images/logo.jpg"
+    }
+  })]), _vm._v(" "), _c("div", {
     staticStyle: {
       padding: "10px"
     }

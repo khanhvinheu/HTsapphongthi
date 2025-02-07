@@ -850,7 +850,7 @@ var render = function render() {
       opacity: ".8"
     },
     attrs: {
-      src: _vm.$appSetting.LOGO_META,
+      src: "/images/AdminLTELogo.png",
       alt: "AdminLTE Logo"
     }
   }), _vm._v(" "), _c("span", {
@@ -935,7 +935,7 @@ var staticRenderFns = [function () {
   }, [_c("img", {
     staticClass: "img-circle elevation-2",
     attrs: {
-      src: "/images/logo.webp",
+      src: "/images/no_img.jpg",
       alt: "User Image"
     }
   })]);

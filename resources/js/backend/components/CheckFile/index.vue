@@ -4,9 +4,9 @@
         <div class="header-page">
             <div class="container-header">
                 <div style="display: flex; align-items: center;">
-                    <!-- <div class="box-logo">
-                        <img class="img-logo" style="width:100%; height: auto;" src="/images/logo.webp" />
-                    </div> -->
+                    <div class="box-logo">
+                        <img class="img-logo" style="width:100%; height: auto; border-radius: 100%;" src="/images/logo.jpg" />
+                    </div>
                     <div style="padding: 10px;">
                         <span class="text-header">HỆ THỐNG QUẢN LÝ SẮP XẾP PHÒNG THI</span>
                     </div>
