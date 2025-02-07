@@ -2,11 +2,11 @@
     <div class="main-login">
         <div class="login-box">
             <!-- /.login-logo -->
-            <div style="display: flex; justify-content: center; padding-top: 10px">
+            <!-- <div style="display: flex; justify-content: center; padding-top: 10px">
                 <img style="width: 200px; height: auto;" src="/images/logo.webp"/>
-            </div>
+            </div> -->
             <div style="margin-top: 20px; background-color: unset; line-height: 25px;" class="login-logo">
-                <a style="color: #ee4d2d; font-size: 23px; font-weight: bold;" href="/"><b>HỆ THỐNG QUẢN LÝ CẤP CHỨNG CHỈ</b> </a>
+                <a style="color: #ee4d2d; font-size: 23px; font-weight: bold;" href="/"><b>HỆ THỐNG SẮP PHÒNG THI</b> </a>
                 <br>
                 <!-- <a style="color: #ee4d2d; font-size: 20px; text-transform: uppercase; font-weight: bold" href="/"><b>Trường Trung Cấp Nghề Tân Hiệp Tỉnh Kiên Giang</b></a> -->
             </div>
@@ -21,7 +21,7 @@
                     </el-form-item>
                     <el-form-item :inline-message="true" prop="password">
                         <div class="form-group">
-                            <el-input @change="login()" show-password  validate-event placeholder="Password" type="password" v-model="formData.password">
+                            <el-input show-password  validate-event placeholder="Password" type="password" v-model="formData.password">
                                 <i slot="prefix" class="el-input__icon el-icon-lock"></i>
                             </el-input>
                         </div>
@@ -116,11 +116,12 @@ export default {
 
 <style>
     .main-login{
+        /* padding-left: 20px; */
         display: flex;
-        justify-content: center;
+        justify-content: left;
         align-items: center;
         /* background-color: #2d3a4b; */
-        background-image: url('/img/bg.PNG');
+        background-image: url('/img/bg.jpg');
         background-position: center;
         background-repeat: no-repeat;
         background-size: cover;
@@ -132,6 +133,7 @@ export default {
         box-shadow: -16px 18px 0px 5px rgba(222,222,222,0.08);
         -webkit-box-shadow: -16px 18px 0px 5px rgba(222,222,222,0.08);
         -moz-box-shadow: -16px 18px 0px 5px rgba(222,222,222,0.08);
-        width: 500px;
+        width: 600px;
+        height:100vh;
     }
 </style>

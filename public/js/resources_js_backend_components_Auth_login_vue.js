@@ -93,7 +93,7 @@ var render = function render() {
     staticClass: "main-login"
   }, [_c("div", {
     staticClass: "login-box"
-  }, [_vm._m(0), _vm._v(" "), _vm._m(1), _vm._v(" "), _c("div", {
+  }, [_vm._m(0), _vm._v(" "), _c("div", {
     staticClass: "card-body login-card-body",
     staticStyle: {
       "background-color": "unset"
@@ -147,11 +147,6 @@ var render = function render() {
       placeholder: "Password",
       type: "password"
     },
-    on: {
-      change: function change($event) {
-        return _vm.login();
-      }
-    },
     model: {
       value: _vm.formData.password,
       callback: function callback($$v) {
@@ -167,7 +162,7 @@ var render = function render() {
     slot: "prefix"
   })])], 1)])], 1), _vm._v(" "), _c("div", {
     staticClass: "row"
-  }, [_vm._m(2), _vm._v(" "), _c("div", {
+  }, [_vm._m(1), _vm._v(" "), _c("div", {
     staticClass: "col-4"
   }, [_c("el-button", {
     staticStyle: {
@@ -189,24 +184,6 @@ var staticRenderFns = [function () {
   var _vm = this,
     _c = _vm._self._c;
   return _c("div", {
-    staticStyle: {
-      display: "flex",
-      "justify-content": "center",
-      "padding-top": "10px"
-    }
-  }, [_c("img", {
-    staticStyle: {
-      width: "200px",
-      height: "auto"
-    },
-    attrs: {
-      src: "/images/logo.webp"
-    }
-  })]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", {
     staticClass: "login-logo",
     staticStyle: {
       "margin-top": "20px",
@@ -222,7 +199,7 @@ var staticRenderFns = [function () {
     attrs: {
       href: "/"
     }
-  }, [_c("b", [_vm._v("HỆ THỐNG QUẢN LÝ CẤP CHỨNG CHỈ")])]), _vm._v(" "), _c("br")]);
+  }, [_c("b", [_vm._v("HỆ THỐNG SẮP PHÒNG THI")])]), _vm._v(" "), _c("br")]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
@@ -262,7 +239,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".main-login{\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  /* background-color: #2d3a4b; */\n  background-image: url('/img/bg.PNG');\n  background-position: center;\n  background-repeat: no-repeat;\n  background-size: cover;\n  height: 100vh\n}\n.login-box{\n  background-color: rgb(255,255,255,0.9);\n  /* background-color: rgb(0,0,0, 0.6); */\n  box-shadow: -16px 18px 0px 5px rgba(222,222,222,0.08);\n  -webkit-box-shadow: -16px 18px 0px 5px rgba(222,222,222,0.08);\n  -moz-box-shadow: -16px 18px 0px 5px rgba(222,222,222,0.08);\n  width: 500px;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".main-login{\n  /* padding-left: 20px; */\n  display: flex;\n  justify-content: left;\n  align-items: center;\n  /* background-color: #2d3a4b; */\n  background-image: url('/img/bg.jpg');\n  background-position: center;\n  background-repeat: no-repeat;\n  background-size: cover;\n  height: 100vh\n}\n.login-box{\n  background-color: rgb(255,255,255,0.9);\n  /* background-color: rgb(0,0,0, 0.6); */\n  box-shadow: -16px 18px 0px 5px rgba(222,222,222,0.08);\n  -webkit-box-shadow: -16px 18px 0px 5px rgba(222,222,222,0.08);\n  -moz-box-shadow: -16px 18px 0px 5px rgba(222,222,222,0.08);\n  width: 600px;\n  height:100vh;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
