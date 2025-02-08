@@ -15,4 +15,4 @@ npm install
 php artisan config:cache
 
 # Run command
-php artisan run:setup_db laravel
+php artisan run:setup_db laravel_v2
