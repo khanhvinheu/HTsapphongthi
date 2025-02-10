@@ -184,7 +184,32 @@ Route::prefix('admin')->namespace('admin')->group(function () {
 
     //thongTinDonVi
     Route::get('thongtindonvi','thongTinDonViController@index');
-
+    Route::get('thongtindonvi/detail/{id}','thongTinDonViController@show');
+    Route::post('thongtindonvi/update/{id}','thongTinDonViController@update');
+    Route::post('thongtindonvi/create','thongTinDonViController@store');
+    Route::post('thongtindonvi/delete/{id}','thongTinDonViController@destroy');
+    Route::get('thongtindonvi/gen_code','thongTinDonViController@genCode');
+     //danhSachKyThi
+     Route::get('danhsachkythi','danhSachKyThiController@index');
+     Route::get('danhsachkythi/detail/{id}','danhSachKyThiController@show');
+     Route::post('danhsachkythi/update/{id}','danhSachKyThiController@update');
+     Route::post('danhsachkythi/create','danhSachKyThiController@store');
+     Route::post('danhsachkythi/delete/{id}','danhSachKyThiController@destroy');
+     Route::get('danhsachkythi/gen_code','danhSachKyThiController@genCode');
+     //danhSachKyThi
+     Route::get('danhsachkhoithi','danhSachKhoiThiController@index');
+     Route::get('danhsachkhoithi/detail/{id}','danhSachKhoiThiController@show');
+     Route::post('danhsachkhoithi/update/{id}','danhSachKhoiThiController@update');
+     Route::post('danhsachkhoithi/create','danhSachKhoiThiController@store');
+     Route::post('danhsachkhoithi/delete/{id}','danhSachKhoiThiController@destroy');
+     Route::get('danhsachkhoithi/gen_code','danhSachKhoiThiController@genCode');
+     //danhSachMonThi
+     Route::get('danhsachmonthi','DanhSachMonThiController@index');
+     Route::get('danhsachmonthi/detail/{id}','DanhSachMonThiController@show');
+     Route::post('danhsachmonthi/update/{id}','DanhSachMonThiController@update');
+     Route::post('danhsachmonthi/create','DanhSachMonThiController@store');
+     Route::post('danhsachmonthi/delete/{id}','DanhSachMonThiController@destroy');
+     Route::get('danhsachmonthi/gen_code','DanhSachMonThiController@genCode');
 });
 
 

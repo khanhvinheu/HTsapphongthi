@@ -62,6 +62,17 @@ class ThongTinDonViController extends Controller
     public function store(Request $request)
     {
         //
+        try{
+            $formData = $request->post();
+            $res = thongTinDonVis::create($formData);
+            if($res){
+                return response()->json(['success'=>true, 'mess'=>'Thêm mới thành công!']);
+            }else{
+                return response()->json(['success'=>false, 'mess'=>'Thêm mới thất bại!']);
+            }
+        }catch(\Exception $e){
+            return response()->json(['success'=>false, 'mess'=>$e]);
+        }
     }
 
     /**
@@ -73,6 +84,16 @@ class ThongTinDonViController extends Controller
     public function show($id)
     {
         //
+        try{
+            $res = thongTinDonVis::find($id);
+            if($res){
+                return response()->json(['success'=>true, 'data'=>$res]);
+            }else{
+                return response()->json(['success'=>false, 'mess'=>'Danh mục đang tìm không tồn tại!']);
+            }
+        }catch(\Exception $e){
+            return response()->json(['success'=>false, 'mess'=>$e]);
+        }
     }
 
     /**
@@ -84,6 +105,21 @@ class ThongTinDonViController extends Controller
     public function edit($id)
     {
         //
+        try{
+            $formData = $request->post();
+            $file = $request->file('image');
+            if($file){
+                $formData['path']= $this->upoadFile($file);
+            }
+            $res = thongTinDonVis::find($id)->update($formData);
+            if($res){
+                return response()->json(['success'=>true, 'mess'=>'Cập nhật dữ liệu thành công']);
+            }else{
+                return response()->json(['success'=>false, 'mess'=>'Cập nhật thất bại!']);
+            }
+        }catch(\Exception $e){
+            return response()->json(['success'=>false, 'mess'=>$e]);
+        }
     }
 
     /**
@@ -96,6 +132,17 @@ class ThongTinDonViController extends Controller
     public function update(Request $request, $id)
     {
         //
+        try{
+            $formData = $request->post();         
+            $res = thongTinDonVis::find($id)->update($formData);
+            if($res){
+                return response()->json(['success'=>true, 'mess'=>'Cập nhật dữ liệu thành công']);
+            }else{
+                return response()->json(['success'=>false, 'mess'=>'Cập nhật thất bại!']);
+            }
+        }catch(\Exception $e){
+            return response()->json(['success'=>false, 'mess'=>$e]);
+        }
     }
 
     /**
@@ -107,5 +154,25 @@ class ThongTinDonViController extends Controller
     public function destroy($id)
     {
         //
+        try{
+            $res = thongTinDonVis::find($id)->delete();
+            if($res){
+                return response()->json(['success'=>true, 'mess'=>'Xóa dữ liệu thành công!']);
+            }else{
+                return response()->json(['success'=>false, 'mess'=>'Xóa dữ liệu thất bại!']);
+            }
+        }catch(\Exception $e){
+            return response()->json(['success'=>false, 'mess'=>$e]);
+        }
+    }
+    public function genCode(){
+        $lastCode = thongTinDonVis::orderBy('maDonVi', 'desc')->first(); // lấy mã cuối cùng trong database      
+        if (!$lastCode) {
+            $number = 1;
+        } else {
+            $number = intval(substr($lastCode->maDonVi, -3)) + 1; // lấy số cuối cùng của mã và tăng giá trị lên 1
+        }    
+        $newCode = 'DV' . str_pad($number, 4, '0', STR_PAD_LEFT); // tạo mã mới dựa trên số đó và định dạng "ABCXXX"
+        return $newCode;
     }
 }

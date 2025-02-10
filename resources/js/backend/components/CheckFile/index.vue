@@ -1,6 +1,6 @@
 <template>
 
-    <div class="main-login">
+    <div class="main-home">
         <div class="header-page">
             <div class="container-header">
                 <div style="display: flex; align-items: center;">
@@ -403,7 +403,7 @@ export default {
     }
 }
 
-.main-login {
+.main-home {
     display: flex;
     justify-content: center;
     align-items: center;

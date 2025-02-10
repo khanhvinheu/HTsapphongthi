@@ -155,6 +155,28 @@ export const constantRouterMap = [
                 name:'ThongTinDonVi',
                 meta:{title:'UserUpdate', type:'Form'}
             }, 
+
+             //Danh sách kỳ thi
+             {
+                path: '/danhsachkythi',
+                component: () => import('../components/DanhSachKyThi/list'),  
+                name:'DanhSachKyThi',
+                meta:{title:'UserUpdate', type:'Form'}
+            }, 
+             //Danh sách khối thi
+             {
+                path: '/danhsachkhoithi',
+                component: () => import('../components/DanhSachKhoiThi/list'),  
+                name:'DanhSachKhoiThi',
+                meta:{title:'UserUpdate', type:'Form'}
+            }, 
+             //Danh sách môn thi
+             {
+                path: '/danhsachmonthi',
+                component: () => import('../components/DanhSachMonThi/list'),  
+                name:'DanhSachMonThi',
+                meta:{title:'UserUpdate', type:'Form'}
+            }, 
         ]
     },
     {

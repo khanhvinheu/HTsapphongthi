@@ -24,15 +24,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     return {
       title: '',
       form: {
-        maKhoaHoc: '',
-        tenKhoaHoc: '',
-        tenKhoaHocEN: '',
-        chiTietKhoaHoc: '',
-        thoiGianDaoTao: '',
-        tuNgay: '',
-        denNgay: '',
-        noiDaoTao: '',
-        noiDaoTaoEN: ''
+        maDonVi: '',
+        tenDonVi: '',
+        thongTinChiTiet: ''
       },
       requiredForm: {
         required: true,
@@ -43,10 +37,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   mounted: function mounted() {
     if (this.resID) {
-      this.title = 'Cập nhật khóa học';
+      this.title = 'Cập nhật thông tin đơn vị';
       this.getDetail(this.resID);
     } else {
-      this.title = 'Thêm mới khóa học';
+      this.title = 'Thêm mới thông tin đơn vị';
       this.$refs.form.resetFields();
       this.genCode();
     }
@@ -54,10 +48,10 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   watch: {
     trigger: function trigger(e) {
       if (this.resID) {
-        this.title = 'Cập nhật khóa học';
+        this.title = 'Cập nhật thông tin đơn vị';
         this.getDetail(this.resID);
       } else {
-        this.title = 'Thêm mới khóa học';
+        this.title = 'Thêm mới thông tin đơn vị';
         this.$refs.form.resetFields();
         this.genCode();
       }
@@ -72,9 +66,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           while (1) switch (_context.prev = _context.next) {
             case 0:
               _this = _this2;
-              _common_api_service__WEBPACK_IMPORTED_MODULE_0__["default"].query('/api/admin/khoa-hoc/gen_code').then(function (_ref) {
+              _common_api_service__WEBPACK_IMPORTED_MODULE_0__["default"].query('/api/admin/thongtindonvi/gen_code').then(function (_ref) {
                 var data = _ref.data;
-                _this.form.maKhoaHoc = data;
+                _this.form.maDonVi = data;
               });
             case 2:
             case "end":
@@ -87,7 +81,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       var _this3 = this;
       var _this = this;
       var url;
-      url = this.resID ? '/api/admin/khoa-hoc/update/' + this.resID : '/api/admin/khoa-hoc/create';
+      url = this.resID ? '/api/admin/thongtindonvi/update/' + this.resID : '/api/admin/thongtindonvi/create';
       this.$refs['form'].validate(function (valid) {
         if (valid) {
           axios({
@@ -127,20 +121,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
               _context2.next = 3;
               return axios({
                 method: 'get',
-                url: '/api/admin/khoa-hoc/detail/' + id
+                url: '/api/admin/thongtindonvi/detail/' + id
               }).then(function (_ref2) {
                 var data = _ref2.data;
                 if (data['success']) {
                   var res = data['data'];
-                  _this.form.maKhoaHoc = res['maKhoaHoc'];
-                  _this.form.tenKhoaHoc = res['tenKhoaHoc'];
-                  _this.form.tenKhoaHocEN = res['tenKhoaHocEN'];
-                  _this.form.chiTietKhoaHoc = res['chiTietKhoaHoc'];
-                  _this.form.thoiGianDaoTao = res['thoiGianDaoTao'];
-                  _this.form.tuNgay = res['tuNgay'];
-                  _this.form.denNgay = res['denNgay'];
-                  _this.form.noiDaoTao = res['noiDaoTao'];
-                  _this.form.noiDaoTaoEN = res['noiDaoTaoEN'];
+                  _this.form.maDonVi = res['maDonVi'];
+                  _this.form.tenDonVi = res['tenDonVi'];
+                  _this.form.tenDonViEN = res['tenDonViEN'];
+                  _this.form.thongTinChiTiet = res['thongTinChiTiet'];
                 }
               });
             case 3:
@@ -217,7 +206,7 @@ __webpack_require__.r(__webpack_exports__);
       formData.append('hidden', hidden == "0" ? "1" : "0");
       axios({
         method: 'post',
-        url: '/api/admin/khoa-hoc/update/' + id,
+        url: '/api/admin/thongtindonvi/update/' + id,
         data: formData
       }).then(function (response) {
         if (response.data['success']) {
@@ -240,7 +229,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this = this;
       axios({
         method: 'post',
-        url: '/api/admin/khoa-hoc/delete/' + id
+        url: '/api/admin/thongtindonvi/delete/' + id
       }).then(function (response) {
         if (response.data['success']) {
           _this.$notify({
@@ -336,150 +325,50 @@ var render = function render() {
   }, [_c("el-form-item", {
     attrs: {
       rules: _vm.requiredForm,
-      label: "Mã khóa học",
-      prop: "maKhoaHoc"
+      label: "Mã đơn vị",
+      prop: "maDonVi"
     }
   }, [_c("el-input", {
     attrs: {
       disabled: ""
     },
     model: {
-      value: _vm.form.maKhoaHoc,
+      value: _vm.form.maDonVi,
       callback: function callback($$v) {
-        _vm.$set(_vm.form, "maKhoaHoc", $$v);
+        _vm.$set(_vm.form, "maDonVi", $$v);
       },
-      expression: "form.maKhoaHoc"
+      expression: "form.maDonVi"
     }
   })], 1), _vm._v(" "), _c("el-form-item", {
     attrs: {
       rules: _vm.requiredForm,
-      label: "Tên khóa học",
-      prop: "tenKhoaHoc"
+      label: "Tên đơn vị",
+      prop: "tenDonVi"
     }
   }, [_c("el-input", {
     model: {
-      value: _vm.form.tenKhoaHoc,
+      value: _vm.form.tenDonVi,
       callback: function callback($$v) {
-        _vm.$set(_vm.form, "tenKhoaHoc", $$v);
+        _vm.$set(_vm.form, "tenDonVi", $$v);
       },
-      expression: "form.tenKhoaHoc"
+      expression: "form.tenDonVi"
     }
   })], 1), _vm._v(" "), _c("el-form-item", {
     attrs: {
       rules: _vm.requiredForm,
-      label: "Tên khóa học (EN)",
-      prop: "tenKhoaHocEN"
-    }
-  }, [_c("el-input", {
-    model: {
-      value: _vm.form.tenKhoaHocEN,
-      callback: function callback($$v) {
-        _vm.$set(_vm.form, "tenKhoaHocEN", $$v);
-      },
-      expression: "form.tenKhoaHocEN"
-    }
-  })], 1), _vm._v(" "), _c("el-form-item", {
-    attrs: {
-      rules: _vm.requiredForm,
-      label: "Chi tiết khóa học",
-      prop: "chiTietKhoaHoc"
+      label: "Chi tiết đơn vị",
+      prop: "thongTinChiTiet"
     }
   }, [_c("el-input", {
     attrs: {
       type: "textarea"
     },
     model: {
-      value: _vm.form.chiTietKhoaHoc,
+      value: _vm.form.thongTinChiTiet,
       callback: function callback($$v) {
-        _vm.$set(_vm.form, "chiTietKhoaHoc", $$v);
+        _vm.$set(_vm.form, "thongTinChiTiet", $$v);
       },
-      expression: "form.chiTietKhoaHoc"
-    }
-  })], 1), _vm._v(" "), _c("el-form-item", {
-    attrs: {
-      rules: _vm.requiredForm,
-      label: "Thời gian đào tạo",
-      prop: "thoiGianDaoTao"
-    }
-  }, [_c("el-input", {
-    model: {
-      value: _vm.form.thoiGianDaoTao,
-      callback: function callback($$v) {
-        _vm.$set(_vm.form, "thoiGianDaoTao", $$v);
-      },
-      expression: "form.thoiGianDaoTao"
-    }
-  })], 1), _vm._v(" "), _c("el-form-item", {
-    attrs: {
-      rules: _vm.requiredForm,
-      label: "Từ ngày",
-      prop: "tuNgay"
-    }
-  }, [_c("el-date-picker", {
-    staticStyle: {
-      width: "100%"
-    },
-    attrs: {
-      format: "dd/MM/yyyy",
-      type: "date",
-      placeholder: "Pick a day"
-    },
-    model: {
-      value: _vm.form.tuNgay,
-      callback: function callback($$v) {
-        _vm.$set(_vm.form, "tuNgay", $$v);
-      },
-      expression: "form.tuNgay"
-    }
-  })], 1), _vm._v(" "), _c("el-form-item", {
-    attrs: {
-      rules: _vm.requiredForm,
-      label: "Đến ngày",
-      prop: "denNgay"
-    }
-  }, [_c("el-date-picker", {
-    staticStyle: {
-      width: "100%"
-    },
-    attrs: {
-      format: "dd/MM/yyyy",
-      type: "date",
-      placeholder: "Pick a day"
-    },
-    model: {
-      value: _vm.form.denNgay,
-      callback: function callback($$v) {
-        _vm.$set(_vm.form, "denNgay", $$v);
-      },
-      expression: "form.denNgay"
-    }
-  })], 1), _vm._v(" "), _c("el-form-item", {
-    attrs: {
-      rules: _vm.requiredForm,
-      label: "Nơi đào tạo",
-      prop: "noiDaoTao"
-    }
-  }, [_c("el-input", {
-    model: {
-      value: _vm.form.noiDaoTao,
-      callback: function callback($$v) {
-        _vm.$set(_vm.form, "noiDaoTao", $$v);
-      },
-      expression: "form.noiDaoTao"
-    }
-  })], 1), _vm._v(" "), _c("el-form-item", {
-    attrs: {
-      rules: _vm.requiredForm,
-      label: "Nơi đào tạo (EN)",
-      prop: "noiDaoTaoEN"
-    }
-  }, [_c("el-input", {
-    model: {
-      value: _vm.form.noiDaoTaoEN,
-      callback: function callback($$v) {
-        _vm.$set(_vm.form, "noiDaoTaoEN", $$v);
-      },
-      expression: "form.noiDaoTaoEN"
+      expression: "form.thongTinChiTiet"
     }
   })], 1)], 1), _vm._v(" "), _c("div", {
     staticStyle: {

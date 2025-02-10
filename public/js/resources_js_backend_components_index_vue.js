@@ -301,7 +301,7 @@ var render = function render() {
   var _vm = this,
     _c = _vm._self._c;
   return _c("body", {
-    staticClass: "hold-transition sidebar-mini sidebar-collapse layout-fixed"
+    staticClass: "hold-transition sidebar-mini layout-fixed"
   }, [_c("div", {
     staticClass: "wrapper"
   }, [_c("Transition", {
@@ -874,7 +874,7 @@ var render = function render() {
     attrs: {
       router: true,
       "default-active": _vm.active,
-      collapse: !_vm.$store.getters.sidebar.opened,
+      collapse: _vm.$store.getters.sidebar.opened,
       "background-color": "#343a40",
       "text-color": "#fff",
       "active-text-color": "#ffd04b"

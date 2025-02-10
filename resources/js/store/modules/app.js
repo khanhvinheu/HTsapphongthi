@@ -4,7 +4,7 @@ import { logging } from '../../api/admin/app';
 const state = {
   errors: {},
   sidebar: {
-    opened: Cookies.get('sidebarStatus') ? !!+Cookies.get('sidebarStatus') : false,
+    opened: Cookies.get('sidebarStatus') ? !!+Cookies.get('sidebarStatus') : true,
     withoutAnimation: false,
   },
   device: 'desktop',

@@ -171,7 +171,7 @@ export default {
             formData.append('hidden', hidden == "0" ? "1" : "0")
             axios({
                 method: 'post',
-                url: '/api/admin/khoa-hoc/update/' + id,
+                url: '/api/admin/thongtindonvi/update/' + id,
                 data: formData
             })
                 .then(function (response) {
@@ -197,7 +197,7 @@ export default {
             let _this = this
             axios({
                 method: 'post',
-                url: '/api/admin/khoa-hoc/delete/' + id,
+                url: '/api/admin/thongtindonvi/delete/' + id,
             })
                 .then(function (response) {
                     if (response.data['success']) {
