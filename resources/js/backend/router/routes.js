@@ -153,7 +153,7 @@ export const constantRouterMap = [
                 path: '/thongtindonvi',
                 component: () => import('../components/ThongTinDonVi/list'),  
                 name:'ThongTinDonVi',
-                meta:{title:'UserUpdate', type:'Form'}
+                meta:{title:'ThongTinDonVi', type:'Form'}
             }, 
 
              //Danh sách kỳ thi
@@ -161,21 +161,21 @@ export const constantRouterMap = [
                 path: '/danhsachkythi',
                 component: () => import('../components/DanhSachKyThi/list'),  
                 name:'DanhSachKyThi',
-                meta:{title:'UserUpdate', type:'Form'}
+                meta:{title:'DanhSachKyThi', type:'Form'}
             }, 
              //Danh sách khối thi
              {
                 path: '/danhsachkhoithi',
                 component: () => import('../components/DanhSachKhoiThi/list'),  
                 name:'DanhSachKhoiThi',
-                meta:{title:'UserUpdate', type:'Form'}
+                meta:{title:'DanhSachKhoiThi', type:'Form'}
             }, 
              //Danh sách môn thi
              {
                 path: '/danhsachmonthi',
                 component: () => import('../components/DanhSachMonThi/list'),  
                 name:'DanhSachMonThi',
-                meta:{title:'UserUpdate', type:'Form'}
+                meta:{title:'DanhSachMonThi', type:'Form'}
             }, 
         ]
     },
