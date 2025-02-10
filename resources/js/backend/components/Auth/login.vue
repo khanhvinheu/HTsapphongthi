@@ -36,18 +36,20 @@
                             </label>
                         </div>
                     </div>
-                    <div class="col-4">
-                        <el-button style="background: #ee4d2d; color: #fff; width: 100%" :loading="loading" @click="login()">Sign In</el-button>
+                    <div class="col-12">
+                        <el-button style="background: #ee4d2d; color: #fff;text-transform: uppercase; width: 100%; height: 50px;" :loading="loading" @click="login()">Đăng nhập</el-button>
                     </div>
+                    <div class="col-12 mt-2">
+                        <el-button style="background: rgb(0,0,0,0.5); color: #fff;text-transform: uppercase; width: 100%" >Đăng ký</el-button>
+                    </div>
+                   
+                </div
+                <div class="mt-2" style="width:100%; display:flex; justify-content: center">
+                    <a href="/" style="color: #ee4d2d">
+                        <i class="el-icon-s-home"></i>  Return to home
+                    </a>
                 </div>
-
-
-                <!-- <el-divider content-position="center">
-                    Or
-                </el-divider> -->
-                <!-- <a href="/" style="color: #ee4d2d">
-                  <i class="el-icon-s-home"></i>  Return to home
-                </a> -->
+             
 
 
             </div>
@@ -135,5 +137,6 @@ export default {
         -moz-box-shadow: -16px 18px 0px 5px rgba(222,222,222,0.08);
         width: 600px;
         height:100vh;
+        border-radius: 0px 50px 50px 0px;
     }
 </style>

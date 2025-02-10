@@ -163,12 +163,14 @@ var render = function render() {
   })])], 1)])], 1), _vm._v(" "), _c("div", {
     staticClass: "row"
   }, [_vm._m(1), _vm._v(" "), _c("div", {
-    staticClass: "col-4"
+    staticClass: "col-12"
   }, [_c("el-button", {
     staticStyle: {
       background: "#ee4d2d",
       color: "#fff",
-      width: "100%"
+      "text-transform": "uppercase",
+      width: "100%",
+      height: "50px"
     },
     attrs: {
       loading: _vm.loading
@@ -178,7 +180,16 @@ var render = function render() {
         return _vm.login();
       }
     }
-  }, [_vm._v("Sign In")])], 1)])], 1)])]);
+  }, [_vm._v("Đăng nhập")])], 1), _vm._v(" "), _c("div", {
+    staticClass: "col-12 mt-2"
+  }, [_c("el-button", {
+    staticStyle: {
+      background: "rgb(0,0,0,0.5)",
+      color: "#fff",
+      "text-transform": "uppercase",
+      width: "100%"
+    }
+  }, [_vm._v("Đăng ký")])], 1)]), _vm._v(" "), _vm._m(2)], 1)])]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
@@ -217,6 +228,19 @@ var staticRenderFns = [function () {
       "for": "remember"
     }
   }, [_vm._v("\n                            Remember Me\n                        ")])])]);
+}, function () {
+  var _vm = this,
+    _c = _vm._self._c;
+  return _c("a", {
+    staticStyle: {
+      color: "#ee4d2d"
+    },
+    attrs: {
+      href: "/"
+    }
+  }, [_c("i", {
+    staticClass: "el-icon-s-home"
+  }), _vm._v("  Return to home\n                ")]);
 }];
 render._withStripped = true;
 
@@ -239,7 +263,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".main-login{\n  /* padding-left: 20px; */\n  display: flex;\n  justify-content: left;\n  align-items: center;\n  /* background-color: #2d3a4b; */\n  background-image: url('/img/bg.jpg');\n  background-position: center;\n  background-repeat: no-repeat;\n  background-size: cover;\n  height: 100vh\n}\n.login-box{\n  background-color: rgb(255,255,255,0.9);\n  /* background-color: rgb(0,0,0, 0.6); */\n  box-shadow: -16px 18px 0px 5px rgba(222,222,222,0.08);\n  -webkit-box-shadow: -16px 18px 0px 5px rgba(222,222,222,0.08);\n  -moz-box-shadow: -16px 18px 0px 5px rgba(222,222,222,0.08);\n  width: 600px;\n  height:100vh;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".main-login{\n  /* padding-left: 20px; */\n  display: flex;\n  justify-content: left;\n  align-items: center;\n  /* background-color: #2d3a4b; */\n  background-image: url('/img/bg.jpg');\n  background-position: center;\n  background-repeat: no-repeat;\n  background-size: cover;\n  height: 100vh\n}\n.login-box{\n  background-color: rgb(255,255,255,0.9);\n  /* background-color: rgb(0,0,0, 0.6); */\n  box-shadow: -16px 18px 0px 5px rgba(222,222,222,0.08);\n  -webkit-box-shadow: -16px 18px 0px 5px rgba(222,222,222,0.08);\n  -moz-box-shadow: -16px 18px 0px 5px rgba(222,222,222,0.08);\n  width: 600px;\n  height:100vh;\n  border-radius: 0px 50px 50px 0px;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

@@ -210,6 +210,28 @@ Route::prefix('admin')->namespace('admin')->group(function () {
      Route::post('danhsachmonthi/create','DanhSachMonThiController@store');
      Route::post('danhsachmonthi/delete/{id}','DanhSachMonThiController@destroy');
      Route::get('danhsachmonthi/gen_code','DanhSachMonThiController@genCode');
+     //danhSachPhongThi
+     Route::get('danhsachphongthi','DanhSachPhongThiController@index');
+     Route::get('danhsachphongthi/detail/{id}','DanhSachPhongThiController@show');
+     Route::post('danhsachphongthi/update/{id}','DanhSachPhongThiController@update');
+     Route::post('danhsachphongthi/create','DanhSachPhongThiController@store');
+     Route::post('danhsachphongthi/delete/{id}','DanhSachPhongThiController@destroy');
+     Route::get('danhsachphongthi/gen_code','DanhSachPhongThiController@genCode');
+     //danhSachThiSinh
+     Route::get('danhsachthisinh','DanhSachThiSinhController@index');
+     Route::get('danhsachthisinh/detail/{id}','DanhSachThiSinhController@show');
+     Route::post('danhsachthisinh/update/{id}','DanhSachThiSinhController@update');
+     Route::post('danhsachthisinh/create','DanhSachThiSinhController@store');
+     Route::post('danhsachthisinh/delete/{id}','DanhSachThiSinhController@destroy');
+     Route::get('danhsachthisinh/gen_code','DanhSachThiSinhController@genCode');
+     //danhSachNamHoc
+     Route::get('danhsachnamhoc','DanhSachNamHocController@index');
+     Route::get('danhsachnamhoc/detail/{id}','DanhSachNamHocController@show');
+     Route::post('danhsachnamhoc/update/{id}','DanhSachNamHocController@update');
+     Route::post('danhsachnamhoc/create','DanhSachNamHocController@store');
+     Route::post('danhsachnamhoc/delete/{id}','DanhSachNamHocController@destroy');
+     Route::get('danhsachnamhoc/gen_code','DanhSachNamHocController@genCode');
+
 });
 
 

@@ -110,7 +110,7 @@
                         </svg>
                     </a>
                 </div> -->
-                <div class="hexagon-item"  @click="$router.push({name:'lookUp'})">
+                <!-- <div class="hexagon-item"  @click="$router.push({name:'lookUp'})">
                     <div class="hex-item">
                         <div></div>
                         <div></div>
@@ -135,7 +135,7 @@
                                 fill="#1e2530"></path>
                         </svg>
                     </a>
-                </div>
+                </div> -->
                 <div class="hexagon-item">
                     <div class="hex-item">
                         <div></div>

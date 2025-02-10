@@ -37891,13 +37891,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var pdf_lib__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! pdf-lib */ "./node_modules/pdf-lib/es/index.js");
 /* harmony import */ var _pdf_lib_fontkit__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @pdf-lib/fontkit */ "./node_modules/@pdf-lib/fontkit/dist/fontkit.es.js");
-/* harmony import */ var _assets_fonts_Roboto_Regular_ttf__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../../../assets/fonts/Roboto-Regular.ttf */ "./public/assets/fonts/Roboto-Regular.ttf");
+/* harmony import */ var _assets_fonts_Roboto_Regular_ttf__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../assets/fonts/Roboto-Regular.ttf */ "./public/assets/fonts/Roboto-Regular.ttf");
 /* harmony import */ var _assets_fonts_Roboto_Regular_ttf__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_assets_fonts_Roboto_Regular_ttf__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _assets_fonts_Roboto_Italic_ttf__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../assets/fonts/Roboto-Italic.ttf */ "./public/assets/fonts/Roboto-Italic.ttf");
+/* harmony import */ var _assets_fonts_Roboto_Italic_ttf__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../assets/fonts/Roboto-Italic.ttf */ "./public/assets/fonts/Roboto-Italic.ttf");
 /* harmony import */ var _assets_fonts_Roboto_Italic_ttf__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_assets_fonts_Roboto_Italic_ttf__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _assets_chungchimau_chungchiv2_jpg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../../assets/chungchimau/chungchiv2.jpg */ "./public/assets/chungchimau/chungchiv2.jpg");
+/* harmony import */ var _assets_chungchimau_chungchiv2_jpg__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../assets/chungchimau/chungchiv2.jpg */ "./public/assets/chungchimau/chungchiv2.jpg");
 /* harmony import */ var _assets_chungchimau_chungchiv2_jpg__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_assets_chungchimau_chungchiv2_jpg__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _assets_chungchimau_chungchimau_back_jpg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../assets/chungchimau/chungchimau_back.jpg */ "./public/assets/chungchimau/chungchimau_back.jpg");
+/* harmony import */ var _assets_chungchimau_chungchimau_back_jpg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../assets/chungchimau/chungchimau_back.jpg */ "./public/assets/chungchimau/chungchimau_back.jpg");
 /* harmony import */ var _assets_chungchimau_chungchimau_back_jpg__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_assets_chungchimau_chungchimau_back_jpg__WEBPACK_IMPORTED_MODULE_5__);
 /* harmony import */ var qrcode__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! qrcode */ "./node_modules/qrcode/lib/browser.js");
 /* harmony import */ var vue_qrcode_component__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! vue-qrcode-component */ "./node_modules/vue-qrcode-component/src/QRCode.vue");
@@ -38194,34 +38194,10 @@ var render = function render() {
       fill: "#1e2530"
     }
   })])])]), _vm._v(" "), _c("div", {
-    staticClass: "hexagon-item",
-    on: {
-      click: function click($event) {
-        return _vm.$router.push({
-          name: "lookUp"
-        });
-      }
-    }
+    staticClass: "hexagon-item"
   }, [_vm._m(8), _vm._v(" "), _vm._m(9), _vm._v(" "), _c("a", {
     staticClass: "hex-content"
   }, [_vm._m(10), _vm._v(" "), _c("svg", {
-    attrs: {
-      viewBox: "0 0 173.20508075688772 200",
-      height: "200",
-      width: "174",
-      version: "1.1",
-      xmlns: "http://www.w3.org/2000/svg"
-    }
-  }, [_c("path", {
-    attrs: {
-      d: "M86.60254037844386 0L173.20508075688772 50L173.20508075688772 150L86.60254037844386 200L0 150L0 50Z",
-      fill: "#1e2530"
-    }
-  })])])]), _vm._v(" "), _c("div", {
-    staticClass: "hexagon-item"
-  }, [_vm._m(11), _vm._v(" "), _vm._m(12), _vm._v(" "), _c("a", {
-    staticClass: "hex-content"
-  }, [_vm._m(13), _vm._v(" "), _c("svg", {
     attrs: {
       viewBox: "0 0 173.20508075688772 200",
       height: "200",
@@ -38439,30 +38415,6 @@ var staticRenderFns = [function () {
   }, [_c("span", {
     staticClass: "icon"
   }, [_c("i", {
-    staticClass: "fa fa-bullseye"
-  })]), _vm._v(" "), _c("span", {
-    staticClass: "title"
-  }, [_vm._v("Tra cứu")])]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "hex-item"
-  }, [_c("div"), _vm._v(" "), _c("div"), _vm._v(" "), _c("div")]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "hex-item"
-  }, [_c("div"), _vm._v(" "), _c("div"), _vm._v(" "), _c("div")]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("span", {
-    staticClass: "hex-content-inner"
-  }, [_c("span", {
-    staticClass: "icon"
-  }, [_c("i", {
     staticClass: "fa fa-braille"
   })]), _vm._v(" "), _c("span", {
     staticClass: "title"
@@ -38487,15 +38439,15 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var qrcode__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! qrcode */ "./node_modules/qrcode/lib/browser.js");
 /* harmony import */ var pdf_lib__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! pdf-lib */ "./node_modules/pdf-lib/es/index.js");
 /* harmony import */ var _pdf_lib_fontkit__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @pdf-lib/fontkit */ "./node_modules/@pdf-lib/fontkit/dist/fontkit.es.js");
-/* harmony import */ var _assets_fonts_Roboto_Regular_ttf__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../../../../assets/fonts/Roboto-Regular.ttf */ "./public/assets/fonts/Roboto-Regular.ttf");
+/* harmony import */ var _assets_fonts_Roboto_Regular_ttf__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../assets/fonts/Roboto-Regular.ttf */ "./public/assets/fonts/Roboto-Regular.ttf");
 /* harmony import */ var _assets_fonts_Roboto_Regular_ttf__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_assets_fonts_Roboto_Regular_ttf__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var _assets_fonts_Roboto_Italic_ttf__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../../assets/fonts/Roboto-Italic.ttf */ "./public/assets/fonts/Roboto-Italic.ttf");
+/* harmony import */ var _assets_fonts_Roboto_Italic_ttf__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../assets/fonts/Roboto-Italic.ttf */ "./public/assets/fonts/Roboto-Italic.ttf");
 /* harmony import */ var _assets_fonts_Roboto_Italic_ttf__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_assets_fonts_Roboto_Italic_ttf__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var _assets_chungchimau_chungchiv2_jpg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../../assets/chungchimau/chungchiv2.jpg */ "./public/assets/chungchimau/chungchiv2.jpg");
+/* harmony import */ var _assets_chungchimau_chungchiv2_jpg__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../assets/chungchimau/chungchiv2.jpg */ "./public/assets/chungchimau/chungchiv2.jpg");
 /* harmony import */ var _assets_chungchimau_chungchiv2_jpg__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(_assets_chungchimau_chungchiv2_jpg__WEBPACK_IMPORTED_MODULE_5__);
-/* harmony import */ var _assets_chungchimau_chungchimau_back_jpg__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../../assets/chungchimau/chungchimau_back.jpg */ "./public/assets/chungchimau/chungchimau_back.jpg");
+/* harmony import */ var _assets_chungchimau_chungchimau_back_jpg__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../assets/chungchimau/chungchimau_back.jpg */ "./public/assets/chungchimau/chungchimau_back.jpg");
 /* harmony import */ var _assets_chungchimau_chungchimau_back_jpg__WEBPACK_IMPORTED_MODULE_6___default = /*#__PURE__*/__webpack_require__.n(_assets_chungchimau_chungchimau_back_jpg__WEBPACK_IMPORTED_MODULE_6__);
-/* harmony import */ var _assets_chungchimau_sign_png__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../../../../assets/chungchimau/sign.png */ "./public/assets/chungchimau/sign.png");
+/* harmony import */ var _assets_chungchimau_sign_png__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../assets/chungchimau/sign.png */ "./public/assets/chungchimau/sign.png");
 /* harmony import */ var _assets_chungchimau_sign_png__WEBPACK_IMPORTED_MODULE_7___default = /*#__PURE__*/__webpack_require__.n(_assets_chungchimau_sign_png__WEBPACK_IMPORTED_MODULE_7__);
 /* harmony import */ var moment_moment__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! moment/moment */ "./node_modules/moment/moment.js");
 /* harmony import */ var moment_moment__WEBPACK_IMPORTED_MODULE_8___default = /*#__PURE__*/__webpack_require__.n(moment_moment__WEBPACK_IMPORTED_MODULE_8__);

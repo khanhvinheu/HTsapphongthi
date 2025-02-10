@@ -3,7 +3,7 @@
         <div class="col-md-12">
             <div class="card card-default">
                 <div class="card-header" style="background-color: rgb(0,0,0,0.1);">
-                    <h3 class="card-title">DANH SÁCH NHÂN VIÊN</h3>
+                    <h3 class="card-title">DANH SÁCH TÀI KHOẢN</h3>
                     <div class="card-tools">
                         <button type="button" class="btn btn-tool" data-card-widget="collapse">
                             <i class="fas fa-minus"></i>
@@ -83,23 +83,9 @@
 
                                 <el-table-column
                                     label="THAO TÁC"
-                                    width="420"
+                                    width="200"
                                 >
-                                    <template slot-scope="scope">
-                                        <el-button
-                                            type="success"
-                                            size="mini"
-                                            @click="createSign(scope.row)">
-                                            <i class="el-icon-key"></i>
-                                            Tạo ký số
-                                        </el-button>
-                                        <el-button
-                                            type="success"
-                                            size="mini"
-                                            @click="createImgSign(scope.row)">
-                                            <i class="el-icon-key"></i>
-                                            Hình ảnh ký
-                                        </el-button>
+                                    <template slot-scope="scope">                                        
                                         <el-button
                                             size="mini"
                                             @click="update(scope.row)">Cập
@@ -157,9 +143,7 @@
 
 <script>
 import ApiService from '../../common/api.service';
-import formCreateSignature from './formCreateSignature.vue';
 export default {
-    components:{formCreateSignature},
     data() {
         return {
             idUpdate:'',

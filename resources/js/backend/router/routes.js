@@ -54,12 +54,7 @@ export const constantRouterMap = [
                 name:'UserUpdate',
                 meta:{title:'UserUpdate', type:'Form'}
             },   
-            {
-                path: '/log',
-                component: () => import('../components/User/blockChain.vue'),
-                name:'Block',
-                meta:{title:'UserUpdate', type:'Form'}
-            },   
+           
             //Module
             {
                 path: '/list-module',
@@ -115,39 +110,7 @@ export const constantRouterMap = [
                 name:'Setting',
                 meta:{title:'Settings'}
             },
-            //Dot Cap
-            {
-                path: '/danh-sach-dot-cap',
-                component: () => import('../components/DanhSachDotCap/list'),
-                name:'DanhSachDotCap',
-                meta:{title:'DanhSachDotCap'}
-            },
-            //Quan Ly Khoa Hoc
-            {
-                path: '/danh-sach-khoa-hoc',
-                component: () => import('../components/DanhSachKhoaHoc/list'),
-                name:'DanhSachKhoaHoc',
-                meta:{title:'DanhSachKhoaHoc'}
-            },
-              //Quan Ly Cap Chung Chi
-            // {
-            //     path: '/danh-sach-cap-chung-chi',
-            //     component: () => import('../components/DanhSachCapChungChi/list'),
-            //     name:'DanhSachCapChungChi',
-            //     meta:{title:'DanhSachCapChungChi'}
-            // },
-            // {
-            //     path: '/danh-sach-cap-chung-chi/create',
-            //     component: () => import('../components/DanhSachCapChungChi/form'),
-            //     name:'CapChungChiCreate',
-            //     meta:{title:'UserCreate',type:'Form'}
-            // },
-            // {
-            //     path: '/danh-sach-cap-chung-chi/:id?',
-            //     component: () => import('../components/DanhSachCapChungChi/form'),
-            //     name:'CapChungChiUpdate',
-            //     meta:{title:'UserUpdate', type:'Form'}
-            // },   
+  
             //Thong tin don vi
             {
                 path: '/thongtindonvi',
@@ -176,6 +139,39 @@ export const constantRouterMap = [
                 component: () => import('../components/DanhSachMonThi/list'),  
                 name:'DanhSachMonThi',
                 meta:{title:'DanhSachMonThi', type:'Form'}
+            }, 
+              //Danh sách phòng thi
+              {
+                path: '/danhsachphongthi',
+                component: () => import('../components/DanhSachPhongThi/list'),  
+                name:'DanhSachPhongThi',
+                meta:{title:'DanhSachPhongThi', type:'Form'}
+            }, 
+              //Danh sách thí sinh
+            {
+                path: '/danhsachthisinh',
+                component: () => import('../components/DanhSachThiSinh/list'),  
+                name:'DanhSachThiSinh',
+                meta:{title:'DanhSachThiSinh', type:'Form'}
+            }, 
+            {
+                path: '/danhsachthisinh/create',
+                component: () => import('../components/DanhSachThiSinh/form'),
+                name:'DanhSachThiSinhCreate',
+                meta:{title:'DanhSachThiSinhCreate',type:'Form'}
+            },
+            {
+                path: '/danhsachthisinh/:id?',
+                component: () => import('../components/DanhSachThiSinh/form'),
+                name:'DanhSachThiSinhUpdate',
+                meta:{title:'DanhSachThiSinhUpdate', type:'Form'}
+            },   
+             //Danh sách năm học
+             {
+                path: '/danhsachnamhoc',
+                component: () => import('../components/DanhSachNamHoc/list'),  
+                name:'DanhSachNamHoc',
+                meta:{title:'DanhSachNamHoc', type:'Form'}
             }, 
         ]
     },
