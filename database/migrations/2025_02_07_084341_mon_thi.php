@@ -14,6 +14,15 @@ class MonThi extends Migration
     public function up()
     {
         //
+        Schema::create('danhSachMonThis', function (Blueprint $table) {
+            $table->id();
+            $table->string('maMonHoc')->unique();
+            $table->string('tenMonHoc');
+            $table->string('hinhThucThi')->nullable();// Trắc nghiệm, tự luận
+            $table->string('thongTinChiTiet')->nullable();                  
+            $table->string('ghiChu')->nullable();                    
+            $table->timestamps();
+        });
     }
 
     /**
@@ -24,5 +33,6 @@ class MonThi extends Migration
     public function down()
     {
         //
+        Schema::dropIfExists('danhSachMonThis');
     }
 }

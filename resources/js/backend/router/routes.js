@@ -130,24 +130,31 @@ export const constantRouterMap = [
                 meta:{title:'DanhSachKhoaHoc'}
             },
               //Quan Ly Cap Chung Chi
+            // {
+            //     path: '/danh-sach-cap-chung-chi',
+            //     component: () => import('../components/DanhSachCapChungChi/list'),
+            //     name:'DanhSachCapChungChi',
+            //     meta:{title:'DanhSachCapChungChi'}
+            // },
+            // {
+            //     path: '/danh-sach-cap-chung-chi/create',
+            //     component: () => import('../components/DanhSachCapChungChi/form'),
+            //     name:'CapChungChiCreate',
+            //     meta:{title:'UserCreate',type:'Form'}
+            // },
+            // {
+            //     path: '/danh-sach-cap-chung-chi/:id?',
+            //     component: () => import('../components/DanhSachCapChungChi/form'),
+            //     name:'CapChungChiUpdate',
+            //     meta:{title:'UserUpdate', type:'Form'}
+            // },   
+            //Thong tin don vi
             {
-                path: '/danh-sach-cap-chung-chi',
-                component: () => import('../components/DanhSachCapChungChi/list'),
-                name:'DanhSachCapChungChi',
-                meta:{title:'DanhSachCapChungChi'}
-            },
-            {
-                path: '/danh-sach-cap-chung-chi/create',
-                component: () => import('../components/DanhSachCapChungChi/form'),
-                name:'CapChungChiCreate',
-                meta:{title:'UserCreate',type:'Form'}
-            },
-            {
-                path: '/danh-sach-cap-chung-chi/:id?',
-                component: () => import('../components/DanhSachCapChungChi/form'),
-                name:'CapChungChiUpdate',
+                path: '/thongtindonvi',
+                component: () => import('../components/ThongTinDonVi/list'),  
+                name:'ThongTinDonVi',
                 meta:{title:'UserUpdate', type:'Form'}
-            },   
+            }, 
         ]
     },
     {

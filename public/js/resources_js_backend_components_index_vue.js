@@ -486,11 +486,11 @@ var staticRenderFns = [function () {
       "align-items": "center",
       "padding-top": "4px"
     }
-  }, [_c("strong", [_vm._v("Copyright © 2024 "), _c("a", {
+  }, [_c("strong", [_vm._v("Copyright © 2025 "), _c("a", {
     attrs: {
       href: "#"
     }
-  }, [_vm._v("Hệ thống quản lý cấp chứng chỉ: Trường Trung cấp nghề Tân Hiệp tỉnh Kiên Giang")]), _vm._v(".")]), _vm._v(" "), _c("div", {
+  }, [_vm._v("Hệ thống sắp phòng thi tự động")]), _vm._v(".")]), _vm._v(" "), _c("div", {
     staticClass: "float-right d-none d-sm-inline-block"
   }, [_c("b", [_vm._v("Version")]), _vm._v(" 1.0.0\n    ")])])]);
 }];

@@ -14,6 +14,13 @@ class DanhSachPhongThi extends Migration
     public function up()
     {
         //
+        Schema::create('danhSachPhongThis', function (Blueprint $table) {
+            $table->id();
+            $table->string('maPhongThi')->unique();
+            $table->string('tenPhongThi');               
+            $table->string('ghiChu')->nullable();                    
+            $table->timestamps();
+        });
     }
 
     /**
@@ -24,5 +31,6 @@ class DanhSachPhongThi extends Migration
     public function down()
     {
         //
+        Schema::dropIfExists('danhSachPhongThis');
     }
 }

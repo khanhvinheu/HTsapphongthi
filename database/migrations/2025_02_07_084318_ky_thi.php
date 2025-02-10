@@ -14,6 +14,15 @@ class KyThi extends Migration
     public function up()
     {
         //
+        
+        Schema::create('kyThis', function (Blueprint $table) {
+            $table->id();
+            $table->string('maKyThi')->unique();
+            $table->string('tenKyThi');
+            $table->string('thongTinChiTiet')->nullable();;
+            $table->string('ghiChu')->nullable();;                    
+            $table->timestamps();
+        });
     }
 
     /**
@@ -24,5 +33,6 @@ class KyThi extends Migration
     public function down()
     {
         //
+        Schema::dropIfExists('thongTinDonVis');
     }
 }

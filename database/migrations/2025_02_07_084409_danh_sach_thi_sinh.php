@@ -14,6 +14,15 @@ class DanhSachThiSinh extends Migration
     public function up()
     {
         //
+        Schema::create('danhSachThiSinhs', function (Blueprint $table) {
+            $table->id();
+            $table->string('maThiSinh')->unique();
+            $table->string('tenThiSinh');
+            $table->string('ngaySinh')->nullable();// Trắc nghiệm, tự luận
+            $table->string('gioiTinh')->nullable();                  
+            $table->string('hsLop')->nullable();                    
+            $table->timestamps();
+        });
     }
 
     /**
@@ -24,5 +33,6 @@ class DanhSachThiSinh extends Migration
     public function down()
     {
         //
+        Schema::dropIfExists('danhSachThiSinhs');
     }
 }

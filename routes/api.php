@@ -182,6 +182,9 @@ Route::prefix('admin')->namespace('admin')->group(function () {
     Route::get('/blocks/get-all', 'BlockController@index');
     Route::get('/blocks/get-last', 'BlockController@getLast');
 
+    //thongTinDonVi
+    Route::get('thongtindonvi','thongTinDonViController@index');
+
 });
 
 

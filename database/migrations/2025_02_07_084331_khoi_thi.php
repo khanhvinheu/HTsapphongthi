@@ -14,6 +14,14 @@ class KhoiThi extends Migration
     public function up()
     {
         //
+        Schema::create('khoiThis', function (Blueprint $table) {
+            $table->id();
+            $table->string('maKhoiThi')->unique();
+            $table->string('tenKhoiThi');
+            $table->string('thongTinChiTiet')->nullable();;
+            $table->string('ghiChu')->nullable();;                    
+            $table->timestamps();
+        });
     }
 
     /**
@@ -24,5 +32,6 @@ class KhoiThi extends Migration
     public function down()
     {
         //
+        Schema::dropIfExists('khoiThis');
     }
 }

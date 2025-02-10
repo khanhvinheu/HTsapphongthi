@@ -13,7 +13,14 @@ class ThongTinDonVi extends Migration
      */
     public function up()
     {
-        //
+        Schema::create('thongTinDonVis', function (Blueprint $table) {
+            $table->id();
+            $table->string('maDonVi')->unique();
+            $table->string('tenDonVi');
+            $table->string('thongTinChiTiet')->nullable();;
+            $table->string('ghiChu')->nullable();;                    
+            $table->timestamps();
+        });
     }
 
     /**
@@ -23,6 +30,6 @@ class ThongTinDonVi extends Migration
      */
     public function down()
     {
-        //
+        Schema::dropIfExists('thongTinDonVis');
     }
 }
