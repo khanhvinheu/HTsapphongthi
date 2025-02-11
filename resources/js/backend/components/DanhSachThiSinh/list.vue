@@ -66,9 +66,14 @@
                                 </el-table-column>   
                                 <el-table-column
                                     label="THAO TÁC"
-                                    width="270"
+                                    width="420px"
                                 >
-                                    <template slot-scope="scope">      
+                                    <template slot-scope="scope">     
+                                        <el-button                                          
+                                            type="primary"
+                                            size="mini"
+                                            @click="sapPhongThi(scope.row)"><i class="el-icon-finished"></i> Sắp phòng thi
+                                        </el-button>       
                                         <el-button                                          
                                             type="primary"
                                             size="mini"
@@ -163,6 +168,10 @@
                 </el-table>                   
             </div>
         </el-dialog>
+
+        <el-dialog :visible.sync="validSapPhongThi" width="50vw">
+            <sapPhongThi @close="validSapPhongThi = false" :trigerReload="trigerReload" :dataParams="dataActiveList"></sapPhongThi>
+        </el-dialog>
     </div>
 
 </template>
@@ -174,9 +183,9 @@ import VueQRCodeComponent from 'vue-qrcode-component'
 import {PDFDocument, rgb} from 'pdf-lib';
 import genPdfFunction from '../../common/genPdfFunction';
 import commonFn from '../../common/commonFn';
-
+import sapPhongThi from './sapPhongThi.vue';
 export default {
-    components: {formData, VueQRCodeComponent},
+    components: {formData, VueQRCodeComponent, sapPhongThi},
     mixins:[genPdfFunction, commonFn],
     data() {
         return {
@@ -200,10 +209,13 @@ export default {
             signature: '',
             validDialog: false,
             validDialogDanhSach: false,
+            validSapPhongThi: false,
             statusValid: '',
             percentage: 0,
             dataActiveList:'',
-            listDataThiSinh:[]
+            listDataThiSinh:[],
+            trigerReload : new Date().getTime(),
+
         }
     },
     mounted() {  
@@ -221,6 +233,14 @@ export default {
             this.validDialogDanhSach = true
             this.dataActiveList = e
             await this.getDanhSachThiSinh(this.dataActiveList.maKhoiThi, this.dataActiveList.maNamHoc)
+        },
+        async sapPhongThi(e){
+            this.validSapPhongThi = true
+            this.dataActiveList = e
+            this.trigerReload = new Date().getTime()
+            console.log(this.trigerReload);
+            
+            // await this.getDanhSachThiSinh(this.dataActiveList.maKhoiThi, this.dataActiveList.maNamHoc)
         },
         // Handle file upload success
         handleSuccess(response, file, fileList) {
