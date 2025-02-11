@@ -19,23 +19,19 @@ class DanhSachPhongThiController extends Controller
     {
         //
         try {
-            $limit = $request->get('limit', 25);
-            $ascending = (int) $request->get('ascending', 0);
-            $orderBy = $request->get('orderBy', '');            
-            $search = $request->get('TextSearch', '');
-            $columnSearch = $request->get('columnSearch', ['tenDonVi']);           
-            $betweenDate = $request->get('updated_at', []);
-            $queryService = new QueryService(new danhSachPhongThis());
-            $queryService->select = [];
+           
+            $limit = $request->get('PageLimit', 25);
+            $page = $request->get('Page', 1);     
+            $search = $request->get('TextSearch', '');                 
+            $columnSearch = $request->get('columnSearch', ['tenPhongThi']);
+            $queryService = new QueryService(new danhSachPhongThis());                
             $queryService->columnSearch =$columnSearch;
-            $queryService->withRelationship = [];
-            $queryService->search = $search;
-            $queryService->betweenDate = $betweenDate;
+            $queryService->search = $search;    
             $queryService->limit = $limit;
-            $queryService->ascending = $ascending;
-            $queryService->orderBy = $orderBy;           
-            $query = $queryService->queryTable();
-            $query = $query->paginate($limit);
+            $queryService->ascending = 'ascending';
+            $query = $queryService->queryTable();    
+            $query = $query->orderBy('tenPhongThi', 'asc');
+            $query = $query->paginate($limit,['*'],'page',$page);            
             $product = $query->toArray();
             return $this->jsonTable($product);
         } catch (\Exception $e) {

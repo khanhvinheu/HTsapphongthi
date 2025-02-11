@@ -5,6 +5,7 @@ namespace App\Http\Controllers\admin;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\admin\danhSachThiSinhs;
+use App\Models\admin\danhSachThiSinhThuocPhongThis;
 use Illuminate\Http\JsonResponse;
 use App\Services\QueryService;
 use DB;
@@ -76,6 +77,7 @@ class DanhSachThiSinhController extends Controller
             $maNamHoc = $request->get('maNamHoc','');
             $maKhoiThi = $request->get('maKhoiThi','');        
             $query = $query->where([['maNamHoc',$maNamHoc], ['maKhoiThi',$maKhoiThi]]);
+            $query = $query->orderByRaw("LEFT(SUBSTRING_INDEX(tenThiSinh, ' ', -1), 1) ASC");            
             $query = $query->paginate($limit,['*'],'page',$page);            
             $product = $query->toArray();
             return $this->jsonTable($product);
@@ -238,9 +240,140 @@ class DanhSachThiSinhController extends Controller
 
     public function sapPhongThi(Request $request){
         $formData = $request->post();       
-        $formData['danhSachThiSinh'] = json_decode($formData['danhSachThiSinh'] );
+        $formData['danhSachThiSinh'] = json_decode($formData['danhSachThiSinh'] );        
         $formData['monThi'] = json_decode($formData['monThi'] );
         $formData['phongThi'] = json_decode($formData['phongThi'] );
+
+        
+        if($formData['danhSachThiSinh']){
+            $monThi= $formData['monThi'];
+            $donVi= $formData['maDonVi'];
+            $kyThi= $formData['maKyThi'];
+            $students = (array)$formData['danhSachThiSinh'];
+            $rooms = array( $formData['phongThi'])[0];
+            $totalRooms = count($rooms);
+            $totalStudents = count($students);
+
+            // Chia đều số lượng thí sinh cho mỗi phòng
+         
+            $assignedRooms = [];
+            $index = 0;
+            $baseCount = intdiv($totalStudents, $totalRooms); // Số học sinh mỗi phòng cơ bản
+            $extra = $totalStudents % $totalRooms; // Số phòng cần thêm 1 học sinh
+            foreach ($rooms as $i => $room) {
+                $count = $baseCount + ($i < $extra ? 1 : 0); // Phòng cuối nhận phần dư
+                $studentsInRoom = array_slice($students, $index, $count);
+
+                // Gán thông tin phòng thi vào từng học sinh
+                foreach ($studentsInRoom as &$student) {
+                    $student->maPhongThi = $room; // Thêm thông tin phòng thi     
+                    $student->maDonVi = $donVi;               
+                    $student->maKyThi = $kyThi;               
+                    $assignedStudents[] = $student;
+                }
+            
+                $index += $count;
+            }           
+        }
+        
+        $listPhongThiTheoMon=[];
+        foreach($assignedStudents as $index =>$item){
+            foreach($monThi as $index2 => $item2){              
+                $item->maMonHoc=$item2;               
+                $checkExist= danhSachThiSinhThuocPhongThis::where([
+                    ['maThiSinh',$item->maThiSinh],
+                    ['maKhoiThi',$item->maKhoiThi],
+                    ['maNamHoc',$item->maNamHoc],
+                    ['maPhongThi',$item->maPhongThi],
+                    ['maMonHoc',$item->maMonHoc],
+                    ['maKyThi',$item->maKyThi],
+                    ['maDonVi',$item->maDonVi],
+                ])->first();
+                if($checkExist===null){
+                     $res = danhSachThiSinhThuocPhongThis::create((array)$item);
+                }else{
+                    return response()->json(['success'=>false, 'mess'=>$item->maThiSinh]);
+                }          
+               
+            }
+        }
+        // dd($listPhongThiTheoMon);
         return response()->json(['success'=>true, 'mess'=>'Cập nhật danh sách thành công!']);
     }
+
+
+    public function getListKetQuaSapPhongThi(Request $request)
+    {
+        //
+        try {
+            $limit = $request->get('PageLimit', 25);
+            $page = $request->get('Page', 1);
+            
+            $data = danhSachThiSinhThuocPhongThis::with(['namHoc','khoiThi','thiSinh','kyThi','phongThi','monHoc','donVi'])
+            ->select('maNamHoc','maMonHoc','maPhongThi','maDonVi','maKhoiThi','maKyThi')
+            ->groupBy('maNamHoc','maMonHoc','maPhongThi','maDonVi','maKhoiThi','maKyThi')
+            ->paginate($limit, ['*'], 'page', $page)
+            ->toArray();          
+            
+            return $this->jsonTable([
+                'data' => $data['data'],
+                'total' => count($data['data'])
+            ]);
+        } catch (\Exception $e) {
+            return $this->jsonError($e);
+        }
+    }
+
+    public function getDanhSachThiSinhOfPhong(Request $request){
+        // try {
+            $filter=[];
+            $request->input('pack_status')&& array_push($filter,['pack_status','=',$request->input('pack_status')]);
+            $limit = $request->get('PageLimit', 25);
+            $page = $request->get('Page', 1);           
+            $ascending = (int) $request->get('ascending', 0);
+            $orderBy = $request->get('orderBy', '');
+            $search = $request->get('TextSearch', '');
+            $searchWith = $request->get('TextSearchWith', '');
+            $with = $request->get('with', '');
+            $itemWith = $request->get('ItemSearchWith', '');
+            $columnSearch = $request->get('columnSearch', ['']);
+            $betweenDate = $request->get('updated_at', []);
+            $queryService = new QueryService(new danhSachThiSinhThuocPhongThis());
+            $queryService->select = [];
+            $queryService->filter = $filter;
+            $queryService->columnSearch =$columnSearch;
+            $queryService->withRelationship = ['namHoc','khoiThi','thiSinh','kyThi','phongThi','monHoc','donVi'];
+            $queryService->searchRelationship = $searchWith;
+            $queryService->itemRelationship = $itemWith;
+            $queryService->with = $with;
+            $queryService->search = $search;
+            $queryService->betweenDate = $betweenDate;
+            $queryService->limit = $limit;
+            $queryService->ascending = $ascending;
+            $queryService->orderBy = $orderBy;
+            $query = $queryService->queryTable();
+            $maNamHoc = $request->get('maNamHoc','');
+            $maKhoiThi = $request->get('maKhoiThi','');        
+            $maMonHoc = $request->get('maMonHoc','');        
+            $maPhongThi = $request->get('maPhongThi','');        
+            $maKyThi = $request->get('maKyThi','');        
+            $maDonVi = $request->get('maDonVi','');        
+            $query = $query->where([
+                ['maNamHoc',$maNamHoc], 
+                ['maKhoiThi',$maKhoiThi],
+                ['maMonHoc',$maMonHoc],
+                ['maPhongThi',$maPhongThi],
+                ['maKyThi',$maKyThi],
+                ['maDonVi',$maDonVi],
+            ]);
+            // $query = $query->join('danhSachThiSinhs', 'danhSachThiSinhThuocPhongThis.maThiSinh', '=', 'danhSachThiSinhs.maThiSinh');
+            // $query = $query->orderByRaw("LEFT(SUBSTRING_INDEX(danhSachThiSinhs.tenThiSinh, ' ', -1), 1) ASC");            
+            $query = $query->paginate($limit,['*'],'page',$page);            
+            $product = $query->toArray();
+            return $this->jsonTable($product);
+        // } catch (\Exception $e) {
+        //     return $this->jsonError($e);
+        // }
+    }
+   
 }

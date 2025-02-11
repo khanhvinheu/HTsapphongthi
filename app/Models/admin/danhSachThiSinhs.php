@@ -9,7 +9,7 @@ class danhSachThiSinhs extends Model
 {
     use HasFactory;
     protected $table = 'danhSachThiSinhs';
-    protected $fillable = [
+    protected $fillable = [        
         'maThiSinh',
         'tenThiSinh',
         'ngaySinh',

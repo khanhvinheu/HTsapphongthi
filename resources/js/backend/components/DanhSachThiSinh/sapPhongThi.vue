@@ -11,6 +11,32 @@
             <span style="font-weight: bold; text-transform: uppercase;">Chọn thông tin sắp phòng thi</span>
             <el-divider></el-divider>
             <div class="form-group">
+                <el-select :disabled="false" style="width: 100%" v-model="maDonVi" size="large"
+                            filterable 
+                            placeholder="Chọn đơn vị">
+                    <el-option
+                        v-for="item in listDonVi"
+                        :key="item.id"
+                        :label="item.maDonVi + ' | ' + item.tenDonVi"
+                        :value="item.maDonVi"
+                    >                                            
+                    </el-option>
+                </el-select>
+            </div>
+            <div class="form-group">
+                <el-select :disabled="false" style="width: 100%" v-model="maKyThi" size="large"
+                            filterable 
+                            placeholder="Chọn kỳ thi">
+                    <el-option
+                        v-for="item in listKyThi"
+                        :key="item.id"
+                        :label="item.maKyThi + ' | ' + item.tenKyThi"
+                        :value="item.maKyThi"
+                    >                                            
+                    </el-option>
+                </el-select>
+            </div>
+            <div class="form-group">
                 <el-select :disabled="true" style="width: 100%" v-model="maKhoiThi" size="large"
                             filterable 
                             placeholder="Chọn khối thi">
@@ -36,7 +62,7 @@
                     </el-option>
                 </el-select>
             </div>
-            <el-button style="margin-top: 12px;" @click="next">Next step</el-button>
+            <el-button style="margin-top: 12px;" @click="next">Bước tiếp theo</el-button>
         </div>
         <div v-show="active==1" class="mt-2" style="max-height: 400px;">
             <el-divider></el-divider>
@@ -75,20 +101,20 @@
                 >                                       
                 </el-table-column>   
             </el-table>  
-            <el-button style="margin-top: 12px;" @click="next">Next step</el-button> 
+            <el-button style="margin-top: 12px;" @click="next">Bước tiếp theo</el-button> 
         </div>
         <div v-show="active==2" class="mt-2" style="max-height: 400px;">
             <el-divider></el-divider>
                 <span style="font-weight: bold; text-transform: uppercase;">Chọn môn thi</span>
             <el-divider></el-divider>
-            <el-checkbox-group v-model="monThi" v-for="item in listMonThi" :key="item.maMonHoc">
-                <el-checkbox :label="item.maMonHoc">{{ item.tenMonHoc }}</el-checkbox>                
+            <el-checkbox-group v-model="monThi" >
+                <el-checkbox v-for="item in listMonThi" :key="item.maMonHoc" :label="item.maMonHoc">{{ item.tenMonHoc }}</el-checkbox>                
             </el-checkbox-group>
             <el-divider></el-divider>
                 <span style="font-weight: bold; text-transform: uppercase;">Chọn phòng thi</span>
             <el-divider></el-divider>
-            <el-checkbox-group v-model="phongThi" v-for="item in listPhongThi" :key="item.maPhongThi">
-                <el-checkbox :label="item.maPhongThi">{{ item.tenPhongThi }}</el-checkbox>                
+            <el-checkbox-group v-model="phongThi" >
+                <el-checkbox v-for="item in listPhongThi" :key="item.maPhongThi" :label="item.maPhongThi">{{ item.tenPhongThi }}</el-checkbox>                
             </el-checkbox-group>
             <el-button style="margin-top: 12px;" @click="sapPhongThi()">Sắp phòng thi</el-button>
         </div>
@@ -122,6 +148,8 @@ import LottieAnimation from 'lottie-web-vue'
             return{
                 listNamHoc:'',
                 listKhoiThi:'',
+                listDonVi:'',
+                listKyThi:'',
                 maKhoiThi:'',
                 maNamHoc:'',
                 active: 0,
@@ -130,6 +158,8 @@ import LottieAnimation from 'lottie-web-vue'
                 listPhongThi:[],
                 phongThi:[],
                 monThi:[],
+                maDonVi:'',
+                maKyThi:'',
                 form:new FormData(),
                 loading:false
             }
@@ -163,6 +193,8 @@ import LottieAnimation from 'lottie-web-vue'
             async initPage(){
                 await this.getListKhoiThi()
                 await this.getListNamHoc()
+                await this.getListDonVi()
+                await this.getListKyThi()
                 this.maNamHoc = this.dataParams.maNamHoc
                 this.maKhoiThi = this.dataParams.maKhoiThi
             },
@@ -193,6 +225,22 @@ import LottieAnimation from 'lottie-web-vue'
                            
                 })
             },     
+            async getListDonVi() {
+                let _this = this
+                ApiService.query('/api/admin/thongtindonvi', {params: {type: 'data'}}).then(({data}) => {
+                    _this.listDonVi = data['data']       
+                    console.log(data);
+                           
+                })
+            },     
+            async getListKyThi() {
+                let _this = this
+                ApiService.query('/api/admin/danhsachkythi', {params: {type: 'data'}}).then(({data}) => {
+                    _this.listKyThi = data['data']       
+                    console.log(data);
+                           
+                })
+            },     
             getDanhSachThiSinh(){
                 let _this = this
                 ApiService.query('/api/admin/danhsachthisinh/danhsach', {params: {maNamHoc: this.maNamHoc,maKhoiThi:this.maKhoiThi}}).then(({data}) => {
@@ -206,6 +254,8 @@ import LottieAnimation from 'lottie-web-vue'
                 this.form =new FormData()                
                 this.form.set('maNamHoc', this.maNamHoc)
                 this.form.set('maKhoiThi', this.maKhoiThi)
+                this.form.set('maDonVi', this.maDonVi)
+                this.form.set('maKyThi', this.maKyThi)
                 this.form.set('phongThi',JSON.stringify(this.phongThi) )
                 this.form.set('monThi',JSON.stringify(this.monThi))
                 this.form.set('danhSachThiSinh',JSON.stringify(this.listDataThiSinh))                  

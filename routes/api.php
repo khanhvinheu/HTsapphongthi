@@ -217,6 +217,10 @@ Route::prefix('admin')->namespace('admin')->group(function () {
      Route::post('danhsachphongthi/create','DanhSachPhongThiController@store');
      Route::post('danhsachphongthi/delete/{id}','DanhSachPhongThiController@destroy');
      Route::get('danhsachphongthi/gen_code','DanhSachPhongThiController@genCode');
+     //getListKetQuaSapPhongThi
+     Route::get('ketquasapphongthi','DanhSachThiSinhController@getListKetQuaSapPhongThi');
+     Route::get('danhsachthisinhthuocphongthi','DanhSachThiSinhController@getDanhSachThiSinhOfPhong');
+
      //danhSachThiSinh
      Route::get('danhsachthisinh','DanhSachThiSinhController@index');
      Route::get('danhsachthisinh/danhsach','DanhSachThiSinhController@listThiSinhInNamHocKhoiThi');

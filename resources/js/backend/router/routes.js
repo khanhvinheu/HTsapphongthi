@@ -179,6 +179,13 @@ export const constantRouterMap = [
                 name:'DanhSachNamHoc',
                 meta:{title:'DanhSachNamHoc', type:'Form'}
             }, 
+            //Danh sách năm học
+            {
+                path: '/ketquasapphongthi',
+                component: () => import('../components/KetQuaSapPhongThi/list'),  
+                name:'KetQuaSapPhongThi',
+                meta:{title:'KetQuaSapPhongThi', type:'Form'}
+            },   
         ]
     },
     {
