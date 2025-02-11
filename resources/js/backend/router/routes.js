@@ -161,6 +161,12 @@ export const constantRouterMap = [
                 meta:{title:'DanhSachThiSinhCreate',type:'Form'}
             },
             {
+                path: '/danhsachthisinh/:maNamHoc/:maKhoiThi',
+                component: () => import('../components/DanhSachThiSinh/formUpdate'),
+                name:'DanhSachThiSinhUpdate',
+                meta:{title:'DanhSachThiSinhUpdate',type:'Form'}
+            },
+            {
                 path: '/danhsachthisinh/:id?',
                 component: () => import('../components/DanhSachThiSinh/form'),
                 name:'DanhSachThiSinhUpdate',

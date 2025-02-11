@@ -47,48 +47,33 @@
                                 :row-class-name="tableRowClassName">
 
                                 <el-table-column
-                                    prop="maThiSinh"
-                                    label="MÃ THÍ SINH"
+                                    prop="tenKhoiThi"
+                                    label="KHỐI/LỚP"
                                     sortable
-                                >
-                                    <template slot-scope="scope">CNTN{{ scope.row.maThiSinh}}
-                                    </template>
+                                >                                   
                                 </el-table-column>
                                 <el-table-column
-                                    prop="tenThiSinh"
-                                    label="HỌ TÊN"
+                                    prop="tenNamHoc"
+                                    label="NĂM HỌC"
                                     sortable
                                 >
-                                </el-table-column>      
+                                </el-table-column> 
                                 <el-table-column
-                                    prop="gioiTinh"
-                                    label="GIỚI TÍNH"
+                                    prop="ghiChu"
+                                    label="GHI CHÚ"
                                     sortable
                                 >
-                                  
-                                </el-table-column>                         
-                                <el-table-column
-                                    prop="ngaySinh"
-                                    label="NGÀY SINH"
-                                    sortable
-                                >
-                                    <template slot-scope="scope"> {{ scope.row.namSinh | formatDate_Default }}
-                                    </template>
-                                </el-table-column>                               
-                                <el-table-column
-                                    prop="created_at"
-                                    label="NGÀY TẠO"
-                                    width="150"
-                                >
-                                    <template slot-scope="scope">
-                                        {{ scope.row.created_at | formatDate }}
-                                    </template>
-                                </el-table-column>
+                                </el-table-column>   
                                 <el-table-column
                                     label="THAO TÁC"
-                                    width="180"
+                                    width="270"
                                 >
-                                    <template slot-scope="scope">                                    
+                                    <template slot-scope="scope">      
+                                        <el-button                                          
+                                            type="primary"
+                                            size="mini"
+                                            @click="openDialogList(scope.row)"><i class="el-icon-finished"></i> Xem danh sách
+                                        </el-button>                              
                                       
                                         <el-button                                          
                                             type="primary"
@@ -135,103 +120,47 @@
                 </div>
             </div>
         </div>
-        <el-dialog :visible.sync="outerVisible">
-            <formData :resID="idUpdate" @success="success"/>
-        </el-dialog>
-        <el-dialog :visible.sync="viewPdf" width="80vw">
+     
+       
+        <el-dialog :visible.sync="validDialogDanhSach" width="50vw">
             <div style="margin-top: -30px">
-                <span
-                    style="font-size: 13px; font-weight: bold; text-transform: uppercase">QUÉT MÃ ĐỂ TẢI CHỨNG CHỈ</span>
+                <span style="font-size: 13px; font-weight: bold; text-transform: uppercase">DÁNH SÁCH THÍ SINH {{ dataActiveList.tenKhoiThi }} ({{ dataActiveList.tenNamHoc }})</span>
                 <el-divider></el-divider>
             </div>
-            <embed style="width: 100%; height: 60vh" :src="pdfSrc" title="Embedded PDF Viewer" type="application/pdf">
-            </embed>
-            <div style="display: flex; justify-content: center; align-items: center;flex-direction: column;">
-                <!-- <VueQRCodeComponent :text="this.qrValue"></VueQRCodeComponent>
-                <a style="text-align: center; width: 100%;" :href="this.qrValue" target="_brank">Nhấn vào để xem</a> -->
-            </div>
-        </el-dialog>
-        <el-dialog :visible.sync="validDialog" width="50vw">
-            <div style="margin-top: -30px">
-                <span style="font-size: 13px; font-weight: bold; text-transform: uppercase">KIỂM TRA TÍNH HỢP LỆ CỦA CHỨNG CHỈ</span>
-                <el-divider></el-divider>
-            </div>
-            <div>
-                <el-upload                    
-                    accept=".pdf"
-                    class="upload-demo"
-                    drag
-                    action=""
-                    :limit="1"
-                    :on-change="readPdf"
-                    :auto-upload="false"
-                    :on-remove="handleRemove"
-                    :before-upload="beforeUpload"
-                    :file-list="fileList">
-                    <div @click="clearFile" style="height: 100%; width: 100%;">
-                        <i class="el-icon-upload"></i>
-                        <div class="el-upload__text"><em>Click to upload</em></div>
-                    </div>
-                   
-                    <!-- <div class="el-upload__tip" slot="tip">pdf files with a size less than 500kb</div> -->
-                </el-upload>
-            </div>
-            <div v-if="publicKey=='' || signature==''">
-                <el-alert v-if="fileList.length>0"
-                          title="File tải lên chưa được ký duyệt hoặc không đúng định dạng, Vui lòng kiểm tra lại"
-                          type="error">
-                </el-alert>
-            </div>
-            <div v-else>
-                <el-alert
-                    :closable=false
-                    title="File tải lên đã hợp lệ"
-                    type="success">
-                </el-alert>
-            </div>
-            <el-divider v-if="publicKey && signature" content-position="left">
-                <el-button v-show="publicKey && signature" style="margin-left: 10px;" size="small" type="success"
-                           @click="validKey()">Kiểm tra tính hợp lệ chữ ký
-                </el-button>
-            </el-divider>
-            <el-progress v-if="percentage>0 && percentage<100" :percentage="percentage" color="success"></el-progress>
-            <div v-if="percentage==100">
-                <el-alert v-if="statusValid===true"
-                          :closable=false
-                          title="Kết quả"
-                          type="success"
-                          description="Khóa hợp lệ"
-                          show-icon>
-                </el-alert>
-                <el-alert v-if="statusValid===false"
-                          :closable=false
-                          title="Kết quả"
-                          type="error"
-                          description="Khóa không hợp lệ"
-                          show-icon>
-                </el-alert>
-            </div>
-
-        </el-dialog>
-        <el-dialog :visible.sync="validDialogUpload" width="50vw">
-            <div style="margin-top: -30px">
-                <span style="font-size: 13px; font-weight: bold; text-transform: uppercase">Import file excel</span>
-                <el-divider></el-divider>
-            </div>
-            <div>
-                <el-upload
-                    v-model:file-list="fileList"
-                    class="upload-demo"     
-                    action="/api/admin/capchungchi/import"       
-                    :on-success="handleSuccess"    
-                >
-                    <el-button type="primary">Click to upload</el-button>
-                    <template #tip>
-                    <div class="el-upload__tip">
-                        xls/xlsx files with a size less than 500KB.
-                    </div>
-                    </template>
-                </el-upload>
+            <div>               
+                <el-table
+                    :data="listDataThiSinh"
+                    border
+                    style="width: 100%">
+                    <el-table-column                                 
+                    label="STT"
+                    width="50px"
+                    >                                        
+                        <template slot-scope="scope">
+                            <span>{{ scope.$index + 1}}</span>
+                        </template>
+                    </el-table-column>                             
+                    <el-table-column
+                    prop="tenThiSinh"
+                    label="Tên Thí Sinh"
+                    >                                      
+                    </el-table-column>
+                    <el-table-column
+                    prop="gioiTinh"
+                    label="Giới Tính"
+                    >                                     
+                    </el-table-column>
+                    <el-table-column
+                    prop="ngaySinh"
+                    label="Ngày Sinh"
+                    >                                      
+                    </el-table-column>
+                    <el-table-column
+                    prop="hsLop"
+                    label="Lớp"
+                    >                                       
+                    </el-table-column>   
+                </el-table>                   
             </div>
         </el-dialog>
     </div>
@@ -270,9 +199,11 @@ export default {
             publicKey: '',
             signature: '',
             validDialog: false,
-            validDialogUpload: false,
+            validDialogDanhSach: false,
             statusValid: '',
-            percentage: 0
+            percentage: 0,
+            dataActiveList:'',
+            listDataThiSinh:[]
         }
     },
     mounted() {  
@@ -280,6 +211,17 @@ export default {
     },
 
     methods: {
+        async getDanhSachThiSinh(maKhoiThi, maNamHoc){
+            let _this = this
+            await ApiService.query('/api/admin/danhsachthisinh/danhsach', {params: {maNamHoc: maNamHoc,maKhoiThi: maKhoiThi}}).then(({data}) => {
+                _this.listDataThiSinh = data['data']              
+            })
+        },
+        async openDialogList(e){
+            this.validDialogDanhSach = true
+            this.dataActiveList = e
+            await this.getDanhSachThiSinh(this.dataActiveList.maKhoiThi, this.dataActiveList.maNamHoc)
+        },
         // Handle file upload success
         handleSuccess(response, file, fileList) {
             console.log('File uploaded successfully!', response);
@@ -329,9 +271,7 @@ export default {
             this.getList()
         },
         update(e) {
-            this.idUpdate = e.id
-            // this.outerVisible=true
-            this.$router.push({name: 'ThongTinThiSinhUpdate', params: {id: e.id}})
+            this.$router.push({name: 'DanhSachThiSinhUpdate', params: {maNamHoc: e.maNamHoc, maKhoiThi:e.maKhoiThi}})
         },
         handleSizeChange(val) {
             this.options.PageLimit = val

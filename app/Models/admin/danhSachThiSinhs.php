@@ -20,4 +20,12 @@ class danhSachThiSinhs extends Model
         'maKhoiThi',
         'maNamHoc',
     ];
+    public function namHoc(): \Illuminate\Database\Eloquent\Relations\belongsTo
+    {
+        return $this->belongsTo(namHocs::class, 'maNamHoc', 'maNamHoc');
+    }
+    public function khoiThi(): \Illuminate\Database\Eloquent\Relations\belongsTo
+    {
+        return $this->belongsTo(khoiThis::class, 'maKhoiThi', 'maKhoiThi');
+    }
 }

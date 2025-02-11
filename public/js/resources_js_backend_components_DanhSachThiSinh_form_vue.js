@@ -19,6 +19,7 @@ function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try
 function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
 
 
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   watch: {
     filterDataCategorys: function filterDataCategorys(val) {
@@ -30,6 +31,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
   },
   data: function data() {
     return {
+      activeEdit: false,
       title: 'THÊM MỚI THÍ SINH',
       idUpdate: '',
       rules: {
@@ -89,7 +91,8 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       limitImg: 1,
       fileList: [],
       dialogVisible: false,
-      dialogImageUrl: false
+      dialogImageUrl: false,
+      listDataThiSinh: []
     };
   },
   mounted: function mounted() {
@@ -106,18 +109,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
             return _this2.getListKhoiThi();
           case 5:
             if (!_this2.$route.params.id) {
-              _context.next = 11;
+              _context.next = 9;
               break;
             }
             _this2.idUpdate = _this2.$route.params.id;
             _context.next = 9;
             return _this2.getDetail(_this2.$route.params.id);
           case 9:
-            _context.next = 12;
-            break;
-          case 11:
-            _this2.genCode();
-          case 12:
           case "end":
             return _context.stop();
         }
@@ -125,18 +123,37 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     }))();
   },
   methods: {
-    genCode: function genCode() {
+    getDanhSachThiSinh: function getDanhSachThiSinh() {
+      var _this = this;
+      _common_api_service__WEBPACK_IMPORTED_MODULE_0__["default"].query('/api/admin/danhsachthisinh/danhsach', {
+        params: {
+          maNamHoc: this.formData.maNamHoc,
+          maKhoiThi: this.formData.maKhoiThi
+        }
+      }).then(function (_ref) {
+        var data = _ref.data;
+        _this.listDataThiSinh = data['data'];
+      });
+    },
+    deleteRow: function deleteRow(id) {
+      this.listDataThiSinh[id.$index] && this.listDataThiSinh.splice(id.$index, 1);
+    },
+    addRowList: function addRowList() {
       var _this3 = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
-        var _this;
         return _regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) switch (_context2.prev = _context2.next) {
             case 0:
-              _this = _this3;
-              _common_api_service__WEBPACK_IMPORTED_MODULE_0__["default"].query('/api/admin/danhsachthisinh/gen_code').then(function (_ref) {
-                var data = _ref.data;
-                _this.formData.maThiSinh = data;
+              _this3.listDataThiSinh.push({
+                tenThiSinh: '',
+                gioiTinh: '',
+                ngaySinh: '',
+                hsLop: '',
+                maNamHoc: '',
+                maKhoiThi: '',
+                edit: false
               });
+              _this3.activeEdit = true;
             case 2:
             case "end":
               return _context2.stop();
@@ -282,24 +299,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
           _this.form.set(key, _this7.formData[key]);
         }
       });
-    },
-    appendFileToFormData: function appendFileToFormData() {
-      var _this8 = this;
-      var index = 0;
-      this.fileList.map(function (e) {
-        if (e && e.status == "ready") {
-          _this8.form.set('file' + index, e.raw);
-          index++;
-        }
-      });
-      if (this.fileList.length == 0) {
-        this.form.set('image', null);
+      if (this.listDataThiSinh.length > 0) {
+        _this.form.set('ListThiSinh', JSON.stringify(this.listDataThiSinh));
+      } else {
+        _this.form.set('ListThiSinh', 'clear');
       }
     },
     create: function create() {
       var _this = this;
       _this.appendToFormData();
-      _this.appendFileToFormData();
       this.$refs['formData'].validate(function (valid) {
         if (valid) {
           axios({
@@ -415,121 +423,7 @@ var render = function render() {
     }
   }, [_c("span", {
     staticClass: "title-divider"
-  }, [_vm._v("Thông tin thí sinh")]), _vm._v(" "), _c("el-divider"), _vm._v(" "), _c("el-form-item", {
-    attrs: {
-      label: "Mã chứng chỉ",
-      prop: "maThiSinh"
-    }
-  }, [_c("div", {
-    staticClass: "form-group"
-  }, [_c("el-input", {
-    attrs: {
-      disabled: "",
-      "validate-event": "",
-      placeholder: "Mã chứng chỉ"
-    },
-    model: {
-      value: _vm.formData.maThiSinh,
-      callback: function callback($$v) {
-        _vm.$set(_vm.formData, "maThiSinh", $$v);
-      },
-      expression: "formData.maThiSinh"
-    }
-  })], 1)]), _vm._v(" "), _c("el-form-item", {
-    attrs: {
-      label: "Tên học viên",
-      prop: "tenThiSinh"
-    }
-  }, [_c("div", {
-    staticClass: "form-group"
-  }, [_c("el-input", {
-    attrs: {
-      "validate-event": "",
-      placeholder: "Nhập tên học viên"
-    },
-    model: {
-      value: _vm.formData.tenThiSinh,
-      callback: function callback($$v) {
-        _vm.$set(_vm.formData, "tenThiSinh", $$v);
-      },
-      expression: "formData.tenThiSinh"
-    }
-  })], 1)]), _vm._v(" "), _c("el-form-item", {
-    attrs: {
-      label: "Ngày sinh",
-      prop: "ngaySinh"
-    }
-  }, [_c("div", {
-    staticClass: "form-group"
-  }, [_c("el-date-picker", {
-    staticStyle: {
-      width: "100%"
-    },
-    attrs: {
-      format: "dd/MM/yyyy",
-      type: "date",
-      placeholder: "Nhập ngày tháng năm sinh: dd/mm/yyyy"
-    },
-    model: {
-      value: _vm.formData.ngaySinh,
-      callback: function callback($$v) {
-        _vm.$set(_vm.formData, "ngaySinh", $$v);
-      },
-      expression: "formData.ngaySinh"
-    }
-  })], 1)]), _vm._v(" "), _c("el-form-item", {
-    attrs: {
-      label: "Giới tính",
-      prop: "gioiTinh"
-    }
-  }, [_c("div", {
-    staticClass: "form-group"
-  }, [_c("el-select", {
-    staticStyle: {
-      width: "100%"
-    },
-    attrs: {
-      placeholder: "Nhập giới tính"
-    },
-    model: {
-      value: _vm.formData.gioiTinh,
-      callback: function callback($$v) {
-        _vm.$set(_vm.formData, "gioiTinh", $$v);
-      },
-      expression: "formData.gioiTinh"
-    }
-  }, [_c("el-option", {
-    attrs: {
-      label: "Nam",
-      value: "Nam"
-    }
-  }), _vm._v(" "), _c("el-option", {
-    attrs: {
-      label: "Nữ",
-      value: "Nữ"
-    }
-  })], 1)], 1)]), _vm._v(" "), _c("el-form-item", {
-    attrs: {
-      label: "Lớp",
-      prop: "hsLop"
-    }
-  }, [_c("div", {
-    staticClass: "form-group"
-  }, [_c("el-input", {
-    attrs: {
-      "validate-event": "",
-      placeholder: "Lớp"
-    },
-    model: {
-      value: _vm.formData.hsLop,
-      callback: function callback($$v) {
-        _vm.$set(_vm.formData, "hsLop", $$v);
-      },
-      expression: "formData.hsLop"
-    }
-  })], 1)]), _vm._v(" "), _c("span", {
-    staticClass: "title-divider"
-  }, [_vm._v("Thông tin năm học")]), _vm._v(" "), _c("el-form-item", {
+  }, [_vm._v("Thông tin năm học")]), _vm._v(" "), _c("el-divider"), _vm._v(" "), _c("el-form-item", {
     attrs: {
       label: "Khối thi",
       prop: "maKhoiThi"
@@ -556,11 +450,11 @@ var render = function render() {
     return _c("el-option", {
       key: item.id,
       attrs: {
-        label: item.maKhoiThi + " | " + item.maKhoiThi,
+        label: item.maKhoiThi + " | " + item.tenKhoiThi,
         value: item.maKhoiThi
       }
     });
-  }), 1)], 1)]), _vm._v(" "), _c("el-divider"), _vm._v(" "), _c("el-form-item", {
+  }), 1)], 1)]), _vm._v(" "), _c("el-form-item", {
     attrs: {
       label: "Năm học",
       prop: "maNamHoc"
@@ -587,32 +481,233 @@ var render = function render() {
     return _c("el-option", {
       key: item.id,
       attrs: {
-        label: item.maNamHoc + " | " + item.maNamHoc,
+        label: item.maNamHoc + " | " + item.tenNamHoc,
         value: item.maNamHoc
       }
     });
-  }), 1)], 1)]), _vm._v(" "), _c("el-form-item", {
-    attrs: {
-      label: "Ghi chú",
-      prop: "ghiChu"
+  }), 1)], 1)]), _vm._v(" "), _c("div", {
+    staticStyle: {
+      display: "flex",
+      "justify-content": "space-between"
     }
-  }, [_c("div", {
-    staticClass: "form-group"
-  }, [_c("el-input", {
+  }, [_c("span", {
+    staticClass: "title-divider"
+  }, [_vm._v("Danh sách thí sinh")]), _vm._v(" "), _c("div", [_c("el-button", {
     attrs: {
-      type: "textarea",
-      rows: "6",
-      "validate-event": "",
-      placeholder: "Nhập ghi chú"
+      type: "primary"
     },
-    model: {
-      value: _vm.formData.ghiChu,
-      callback: function callback($$v) {
-        _vm.$set(_vm.formData, "ghiChu", $$v);
-      },
-      expression: "formData.ghiChu"
+    on: {
+      click: function click($event) {
+        return _vm.addRowList();
+      }
     }
-  })], 1)])], 1)], 1)])]), _vm._v(" "), _c("div", {
+  }, [_c("i", {
+    staticClass: "el-icon-plus"
+  }), _vm._v("Thêm mới")]), _vm._v(" "), _c("el-button", {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.formData.maKhoiThi && _vm.formData.maNamHoc,
+      expression: "formData.maKhoiThi && formData.maNamHoc"
+    }],
+    attrs: {
+      type: "success"
+    },
+    on: {
+      click: function click($event) {
+        return _vm.getDanhSachThiSinh();
+      }
+    }
+  }, [_c("i", {
+    staticClass: "el-icon-refresh-left"
+  }), _vm._v(" Load danh sách")])], 1)]), _vm._v(" "), _c("el-divider"), _vm._v(" "), _c("el-table", {
+    staticStyle: {
+      width: "100%"
+    },
+    attrs: {
+      data: _vm.listDataThiSinh,
+      border: ""
+    }
+  }, [_c("el-table-column", {
+    attrs: {
+      label: "STT",
+      width: "50px"
+    },
+    scopedSlots: _vm._u([{
+      key: "default",
+      fn: function fn(scope) {
+        return [_c("span", [_vm._v(_vm._s(scope.$index + 1))])];
+      }
+    }])
+  }), _vm._v(" "), _c("el-table-column", {
+    attrs: {
+      prop: "tenThiSinh",
+      label: "Tên Thí Sinh"
+    },
+    scopedSlots: _vm._u([{
+      key: "default",
+      fn: function fn(scope) {
+        return [_c("el-input", {
+          tag: "component",
+          attrs: {
+            readonly: scope.row.edit
+          },
+          model: {
+            value: scope.row.tenThiSinh,
+            callback: function callback($$v) {
+              _vm.$set(scope.row, "tenThiSinh", $$v);
+            },
+            expression: "scope.row.tenThiSinh"
+          }
+        }, [_vm._v(_vm._s(scope.row.tenThiSinh))])];
+      }
+    }])
+  }), _vm._v(" "), _c("el-table-column", {
+    attrs: {
+      prop: "gioiTinh",
+      label: "Giới Tính"
+    },
+    scopedSlots: _vm._u([{
+      key: "default",
+      fn: function fn(scope) {
+        return [_c("el-input", {
+          tag: "component",
+          attrs: {
+            readonly: scope.row.edit
+          },
+          model: {
+            value: scope.row.gioiTinh,
+            callback: function callback($$v) {
+              _vm.$set(scope.row, "gioiTinh", $$v);
+            },
+            expression: "scope.row.gioiTinh"
+          }
+        }, [_vm._v(_vm._s(scope.row.gioiTinh))])];
+      }
+    }])
+  }), _vm._v(" "), _c("el-table-column", {
+    attrs: {
+      prop: "ngaySinh",
+      label: "Ngày Sinh"
+    },
+    scopedSlots: _vm._u([{
+      key: "default",
+      fn: function fn(scope) {
+        return [_c("el-input", {
+          tag: "component",
+          attrs: {
+            readonly: scope.row.edit
+          },
+          model: {
+            value: scope.row.ngaySinh,
+            callback: function callback($$v) {
+              _vm.$set(scope.row, "ngaySinh", $$v);
+            },
+            expression: "scope.row.ngaySinh"
+          }
+        }, [_vm._v(_vm._s(scope.row.ngaySinh))])];
+      }
+    }])
+  }), _vm._v(" "), _c("el-table-column", {
+    attrs: {
+      prop: "hsLop",
+      label: "Lớp"
+    },
+    scopedSlots: _vm._u([{
+      key: "default",
+      fn: function fn(scope) {
+        return [_c("el-input", {
+          tag: "component",
+          attrs: {
+            readonly: scope.row.edit
+          },
+          model: {
+            value: scope.row.hsLop,
+            callback: function callback($$v) {
+              _vm.$set(scope.row, "hsLop", $$v);
+            },
+            expression: "scope.row.hsLop"
+          }
+        }, [_vm._v(_vm._s(scope.row.hsLop))])];
+      }
+    }])
+  }), _vm._v(" "), _c("el-table-column", {
+    attrs: {
+      prop: "ketQua",
+      label: "Kết Quả"
+    },
+    scopedSlots: _vm._u([{
+      key: "default",
+      fn: function fn(scope) {
+        return [_c("el-input", {
+          tag: "component",
+          attrs: {
+            readonly: scope.row.edit
+          },
+          model: {
+            value: scope.row.ketQua,
+            callback: function callback($$v) {
+              _vm.$set(scope.row, "ketQua", $$v);
+            },
+            expression: "scope.row.ketQua"
+          }
+        }, [_vm._v(_vm._s(scope.row.ketQua))])];
+      }
+    }])
+  }), _vm._v(" "), _c("el-table-column", {
+    attrs: {
+      prop: "edit",
+      label: "Thao Tác"
+    },
+    scopedSlots: _vm._u([{
+      key: "default",
+      fn: function fn(scope) {
+        return [_c("el-button", {
+          directives: [{
+            name: "show",
+            rawName: "v-show",
+            value: _vm.listDataThiSinh.length > 0,
+            expression: "listDataThiSinh.length>0"
+          }],
+          on: {
+            click: function click($event) {
+              scope.row.edit = !scope.row.edit;
+            }
+          }
+        }, [_c("i", {
+          staticClass: "el-icon-edit"
+        }), _vm._v(" \n                                            Cập nhật \n                                            "), _c("el-switch", {
+          attrs: {
+            value: !scope.row.edit,
+            "active-color": "#13ce66",
+            "inactive-color": "#ff4949"
+          }
+        })], 1), _vm._v(" "), _c("el-popconfirm", {
+          attrs: {
+            "confirm-button-text": "Xóa",
+            "cancel-button-text": "Không",
+            title: "Bạn có chắc chắn muốn xóa ?"
+          },
+          on: {
+            confirm: function confirm() {
+              return _vm.deleteRow(scope);
+            }
+          }
+        }, [_c("el-button", {
+          staticStyle: {
+            height: "38px"
+          },
+          attrs: {
+            slot: "reference",
+            type: "danger"
+          },
+          slot: "reference"
+        }, [_c("i", {
+          staticClass: "el-icon-delete"
+        }), _vm._v(" Xóa")])], 1)];
+      }
+    }])
+  })], 1)], 1)], 1)])]), _vm._v(" "), _c("div", {
     staticClass: "card-footer",
     staticStyle: {
       display: "flex",

@@ -219,6 +219,7 @@ Route::prefix('admin')->namespace('admin')->group(function () {
      Route::get('danhsachphongthi/gen_code','DanhSachPhongThiController@genCode');
      //danhSachThiSinh
      Route::get('danhsachthisinh','DanhSachThiSinhController@index');
+     Route::get('danhsachthisinh/danhsach','DanhSachThiSinhController@listThiSinhInNamHocKhoiThi');
      Route::get('danhsachthisinh/detail/{id}','DanhSachThiSinhController@show');
      Route::post('danhsachthisinh/update/{id}','DanhSachThiSinhController@update');
      Route::post('danhsachthisinh/create','DanhSachThiSinhController@store');

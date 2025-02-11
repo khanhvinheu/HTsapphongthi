@@ -15,54 +15,10 @@
                     <div class="row">
                         <div class="col-md-12">
                             <el-form label-position="right" :model="formData" :rules="rules" ref="formData"
-                                     label-width="220px" class="demo-ruleForm">   
-                                <span class="title-divider">Thông tin thí sinh</span>     
-                                <el-divider></el-divider>                                
-                                <el-form-item label="Mã chứng chỉ" prop="maThiSinh">
-                                    <div class="form-group">
-                                        <el-input disabled validate-event placeholder="Mã chứng chỉ"
-                                                    v-model="formData.maThiSinh"></el-input>
-                                    </div>
-                                </el-form-item>                         
-                                <el-form-item label="Tên học viên" prop="tenThiSinh">
-                                    <div class="form-group">
-                                        <el-input validate-event placeholder="Nhập tên học viên"
-                                                    v-model="formData.tenThiSinh"></el-input>
-                                    </div>
-                                </el-form-item>                         
-                                <el-form-item label="Ngày sinh" prop="ngaySinh">
-                                    <div class="form-group">
-                                        <!-- <el-input validate-event placeholder="Nhập ngày tháng năm sinh: dd/mm/yyyy"
-                                                    v-model="formData.ngaySinh"></el-input> -->
-                                        <el-date-picker
-                                            style="width: 100%;"
-                                            format="dd/MM/yyyy"
-                                            v-model="formData.ngaySinh"
-                                            type="date"
-                                            placeholder="Nhập ngày tháng năm sinh: dd/mm/yyyy">
-                                        </el-date-picker>
-                                    </div>
-                                </el-form-item>     
-                                <el-form-item label="Giới tính" prop="gioiTinh">
-                                    <div class="form-group">
-                                        <!-- <el-input validate-event placeholder="Nhập giới tính"
-                                                    v-model="formData.gioiTinh"></el-input> -->
-                                        <el-select style="width: 100%;" v-model="formData.gioiTinh" placeholder="Nhập giới tính">
-                                            <el-option label="Nam" value="Nam"></el-option>
-                                            <el-option label="Nữ" value="Nữ"></el-option>
-                                        </el-select>
-                                    </div>
-                                </el-form-item>                       
-                                                            
-                                <el-form-item label="Lớp" prop="hsLop">
-                                    <div class="form-group">
-                                        <el-input validate-event placeholder="Lớp"
-                                                  v-model="formData.hsLop"></el-input>
-                                    </div>
-                                </el-form-item> 
+                                     label-width="220px" class="demo-ruleForm">                                  
                                 
                                 <span class="title-divider">Thông tin năm học</span>     
-                                <!-- <el-divider></el-divider>                                  -->
+                                <el-divider></el-divider>                                 
                                 <el-form-item label="Khối thi" prop="maKhoiThi">
                                     <div class="form-group">
                                         <el-select style="width: 100%" v-model="formData.maKhoiThi" size="large"
@@ -71,7 +27,7 @@
                                             <el-option
                                                 v-for="item in listKhoiThi"
                                                 :key="item.id"
-                                                :label="item.maKhoiThi + ' | ' + item.maKhoiThi"
+                                                :label="item.maKhoiThi + ' | ' + item.tenKhoiThi"
                                                 :value="item.maKhoiThi"
                                             >                                            
                                             </el-option>
@@ -80,7 +36,7 @@
                                 </el-form-item>                                                           
                                  
                                 <!-- <span class="title-divider">Thông tin xét tốt nghiệp và cấp chứng chỉ</span>     -->
-                                <el-divider></el-divider>
+                                <!-- <el-divider></el-divider> -->
                                 <el-form-item label="Năm học" prop="maNamHoc">
                                     <div class="form-group">
                                         <el-select style="width: 100%" v-model="formData.maNamHoc" size="large"
@@ -89,19 +45,101 @@
                                             <el-option
                                                 v-for="item in listNamHoc"
                                                 :key="item.id"
-                                                :label="item.maNamHoc + ' | ' + item.maNamHoc"
+                                                :label="item.maNamHoc + ' | ' + item.tenNamHoc"
                                                 :value="item.maNamHoc"
                                             >                                            
                                             </el-option>
                                         </el-select>
                                     </div>
-                                </el-form-item>     
-                                <el-form-item label="Ghi chú" prop="ghiChu">
-                                    <div class="form-group">
-                                        <el-input type="textarea" rows="6" validate-event placeholder="Nhập ghi chú"
-                                                    v-model="formData.ghiChu"></el-input>
-                                    </div>
-                                </el-form-item>                                                   
+                                </el-form-item>        
+                                <div style="display: flex; justify-content: space-between;">
+                                     <span class="title-divider">Danh sách thí sinh</span>   
+                                     <div>
+                                        <el-button @click="addRowList()" type="primary"><i class="el-icon-plus"></i>Thêm mới</el-button>
+                                        <el-button v-show="formData.maKhoiThi && formData.maNamHoc" @click="getDanhSachThiSinh()" type="success"><i class="el-icon-refresh-left"></i> Load danh sách</el-button>
+                                     </div>
+                                    
+                                </div>
+                              
+                                <el-divider></el-divider>  
+                                <el-table
+                                    :data="listDataThiSinh"
+                                    border
+                                    style="width: 100%">
+                                    <el-table-column                                 
+                                    label="STT"
+                                    width="50px"
+                                    >                                        
+                                        <template slot-scope="scope">
+                                            <span>{{ scope.$index + 1}}</span>
+                                        </template>
+                                    </el-table-column>                             
+                                    <el-table-column
+                                    prop="tenThiSinh"
+                                    label="Tên Thí Sinh"
+                                    >
+                                        <template slot-scope="scope">
+                                            <component :readonly="scope.row.edit" :is="'el-input'" v-model="scope.row.tenThiSinh" >{{ scope.row.tenThiSinh }}</component>
+                                        </template>
+                                    </el-table-column>
+                                    <el-table-column
+                                    prop="gioiTinh"
+                                    label="Giới Tính"
+                                    >
+                                        <template slot-scope="scope">
+                                            <component :readonly="scope.row.edit" :is="'el-input'" v-model="scope.row.gioiTinh" >{{ scope.row.gioiTinh }}</component>
+                                        </template>
+                                    </el-table-column>
+                                    <el-table-column
+                                    prop="ngaySinh"
+                                    label="Ngày Sinh"
+                                    >
+                                        <template slot-scope="scope">
+                                            <component :readonly="scope.row.edit" :is="'el-input'" v-model="scope.row.ngaySinh" >{{ scope.row.ngaySinh }}</component>
+                                        </template>
+                                    </el-table-column>
+                                    <el-table-column
+                                    prop="hsLop"
+                                    label="Lớp"
+                                    >
+                                        <template slot-scope="scope">
+                                            <component :readonly="scope.row.edit" :is="'el-input'" v-model="scope.row.hsLop" >{{ scope.row.hsLop }}</component>
+                                        </template>
+                                    </el-table-column>
+                                    <el-table-column
+                                    prop="ketQua"
+                                    label="Kết Quả"
+                                   >
+                                        <template slot-scope="scope">
+                                            <component :readonly="scope.row.edit" :is="'el-input'" v-model="scope.row.ketQua" >{{ scope.row.ketQua }}</component>
+                                        </template>
+                                    </el-table-column>
+                                    <el-table-column
+                                    prop="edit"
+                                    label="Thao Tác"
+                                   >
+                                        <template slot-scope="scope">
+                                            <el-button v-show="listDataThiSinh.length>0" @click="scope.row.edit= !scope.row.edit" >
+                                                <i class="el-icon-edit"></i> 
+                                                Cập nhật 
+                                                <el-switch
+                                                
+                                                :value="!scope.row.edit"
+                                                active-color="#13ce66"
+                                                inactive-color="#ff4949">
+                                                </el-switch>
+                                            </el-button>
+                                            <el-popconfirm                                            
+                                                confirm-button-text='Xóa'
+                                                cancel-button-text='Không'
+                                                :title="'Bạn có chắc chắn muốn xóa ?'"
+                                                @confirm="()=>deleteRow(scope)"
+                                            >
+                                                <el-button slot="reference" type="danger" style="height: 38px;"><i class="el-icon-delete"></i> Xóa</el-button>
+                                            </el-popconfirm>
+                                        </template>
+                                    </el-table-column>
+                                </el-table>                                                               
                             </el-form>
 
                             <!-- /.form-group -->
@@ -126,6 +164,7 @@
 </template>
 
 <script>
+import { readonly } from 'vue';
 import ApiService from '../../common/api.service';
 import VueUploadMultipleImage from 'vue-upload-multiple-image'
 
@@ -140,9 +179,9 @@ export default {
     components: {
         VueUploadMultipleImage,
     },
-    data() {
-       
+    data() {       
         return {
+            activeEdit:false,
             title:'THÊM MỚI THÍ SINH',           
             idUpdate: '',
             rules: {
@@ -191,8 +230,10 @@ export default {
             limitImg:1,
             fileList:[],
             dialogVisible:false,
-            dialogImageUrl:false
-
+            dialogImageUrl:false,
+            listDataThiSinh:[
+            
+            ]
         }
     },
     async mounted() {
@@ -202,17 +243,32 @@ export default {
         if(this.$route.params.id){
             this.idUpdate=this.$route.params.id
             await this.getDetail(this.$route.params.id)
-        }else{
-            this.genCode()     
         }
     },
     methods: {
-        async genCode() {
+        getDanhSachThiSinh(){
             let _this = this
-            ApiService.query('/api/admin/danhsachthisinh/gen_code').then(({data}) => {
-                _this.formData.maThiSinh = data
+            ApiService.query('/api/admin/danhsachthisinh/danhsach', {params: {maNamHoc: this.formData.maNamHoc,maKhoiThi:this.formData.maKhoiThi}}).then(({data}) => {
+                _this.listDataThiSinh = data['data']              
             })
         },
+        deleteRow(id){
+            this.listDataThiSinh[id.$index] && this.listDataThiSinh.splice(id.$index,1)
+            
+        },
+        async addRowList(){              
+            this.listDataThiSinh.push({            
+                tenThiSinh:'',
+                gioiTinh:'',
+                ngaySinh:'',
+                hsLop:'',
+                maNamHoc:'',
+                maKhoiThi:'',  
+                edit:false,            
+            })
+            this.activeEdit = true
+        },
+       
          //Custorm upload images
         handlePictureCardPreview(file) {
             this.dialogImageUrl = file.url;
@@ -313,27 +369,18 @@ export default {
             Object.keys(this.formData).forEach(key => {   
                 if(this.formData[key]){
                      _this.form.set(key, this.formData[key])
-                }             
-               
-            });          
-        },
-        appendFileToFormData() {
-            let index = 0
-            this.fileList.map((e) => {
-                if (e && e.status == "ready") {
-                    this.form.set('file' + index, e.raw)
-                    index++
-                }
-            })
-            if (this.fileList.length==0) {
-                this.form.set('image', null)
-            }
-
+                } 
+            }); 
+            if(this.listDataThiSinh.length>0){
+                _this.form.set('ListThiSinh',JSON.stringify(this.listDataThiSinh))
+            } else{
+                _this.form.set('ListThiSinh','clear')
+            }              
+            
         },
         create() {
             let _this = this
-            _this.appendToFormData()
-            _this.appendFileToFormData()         
+            _this.appendToFormData()                
             this.$refs['formData'].validate((valid) => {
                 if (valid) {
                     axios({

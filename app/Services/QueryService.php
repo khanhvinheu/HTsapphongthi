@@ -143,9 +143,9 @@ class QueryService extends BaseService
             $endDate = Carbon::parse($this->betweenDate[1])->endOfDay();
             $q->whereBetween($this->defaultUpdatedAt, [$startDate, $endDate]);
         });
+        
         $query->when($this->orderBy, fn($q) => $q->orderBy($this->orderBy, $this->ascending));
-        $query->when($this->defaultOrderBy, fn($q) => $q->orderBy($this->defaultOrderBy, $this->defaultDescending));
-
+        $query->when($this->defaultOrderBy, fn($q) => $q->orderBy($this->defaultOrderBy, $this->defaultDescending));     
         return $query;
     }
 }
