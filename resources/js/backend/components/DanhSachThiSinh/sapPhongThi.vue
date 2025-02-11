@@ -101,7 +101,7 @@
             </div>              
         </div>   
         <div v-show="active==4" class="mt-2" style="max-height: 400px; display: flex; justify-content: center;align-items: center;">
-            <el-result icon="success" title="Success Tip" subTitle="Please follow the instructions">
+            <el-result icon="success" title="Thành công" subTitle="Sắp xếp phòng thi hoàn tất">
             <template slot="extra">
                 <el-button type="primary" size="medium" @click="hoanTat">Hoàn tất</el-button>
             </template>
@@ -209,15 +209,10 @@ import LottieAnimation from 'lottie-web-vue'
                 this.form.set('phongThi',JSON.stringify(this.phongThi) )
                 this.form.set('monThi',JSON.stringify(this.monThi))
                 this.form.set('danhSachThiSinh',JSON.stringify(this.listDataThiSinh))                  
-                // ApiService.post('/api/admin/sapphongthi',  this.form).then(({data}) => {
-                //     this.loading = false
-                //     this.active = 4
-                // })
-                setTimeout(()=>{
+                ApiService.post('/api/admin/sapphongthi',  this.form).then(({data}) => {
                     this.loading = false
                     this.active = 4
-                }, 2000)
-                
+                })
             }
         }
 

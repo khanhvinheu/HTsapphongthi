@@ -225,6 +225,7 @@ Route::prefix('admin')->namespace('admin')->group(function () {
      Route::post('danhsachthisinh/create','DanhSachThiSinhController@store');
      Route::post('danhsachthisinh/delete/{id}','DanhSachThiSinhController@destroy');
      Route::get('danhsachthisinh/gen_code','DanhSachThiSinhController@genCode');
+     Route::post('sapphongthi','DanhSachThiSinhController@sapPhongThi');
      //danhSachNamHoc
      Route::get('danhsachnamhoc','DanhSachNamHocController@index');
      Route::get('danhsachnamhoc/detail/{id}','DanhSachNamHocController@show');
