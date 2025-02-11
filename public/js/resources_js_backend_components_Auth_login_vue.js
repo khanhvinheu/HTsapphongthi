@@ -170,7 +170,7 @@ var render = function render() {
       color: "#fff",
       "text-transform": "uppercase",
       width: "100%",
-      height: "50px"
+      height: "40px"
     },
     attrs: {
       loading: _vm.loading
@@ -187,7 +187,8 @@ var render = function render() {
       background: "rgb(0,0,0,0.5)",
       color: "#fff",
       "text-transform": "uppercase",
-      width: "100%"
+      width: "100%",
+      height: "40px"
     }
   }, [_vm._v("Đăng ký")])], 1)]), _vm._v(" "), _vm._m(2)], 1)])]);
 };

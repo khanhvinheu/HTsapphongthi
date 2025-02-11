@@ -37,10 +37,10 @@
                         </div>
                     </div>
                     <div class="col-12">
-                        <el-button style="background: #ee4d2d; color: #fff;text-transform: uppercase; width: 100%; height: 50px;" :loading="loading" @click="login()">Đăng nhập</el-button>
+                        <el-button style="background: #ee4d2d; color: #fff;text-transform: uppercase; width: 100%; height: 40px;" :loading="loading" @click="login()">Đăng nhập</el-button>
                     </div>
                     <div class="col-12 mt-2">
-                        <el-button style="background: rgb(0,0,0,0.5); color: #fff;text-transform: uppercase; width: 100%" >Đăng ký</el-button>
+                        <el-button style="background: rgb(0,0,0,0.5); color: #fff;text-transform: uppercase; width: 100%; height: 40px;" >Đăng ký</el-button>
                     </div>
                    
                 </div

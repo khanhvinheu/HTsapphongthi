@@ -536,19 +536,71 @@ var render = function render() {
     staticClass: "fas fa-bars"
   })])])]), _vm._v(" "), _c("ul", {
     staticClass: "navbar-nav ml-auto"
-  }, [_vm._m(0), _vm._v(" "), _vm._m(1), _vm._v(" "), _vm._m(2), _vm._v(" "), _vm._m(3), _vm._v(" "), _c("li", {
-    staticClass: "nav-item",
-    staticStyle: {
-      cursor: "pointer"
+  }, [_vm._m(0), _vm._v(" "), _vm._m(1), _vm._v(" "), _c("el-dropdown", {
+    attrs: {
+      trigger: "click"
     }
-  }, [_c("a", {
-    staticClass: "nav-link",
+  }, [_c("span", {
+    staticClass: "el-dropdown-link"
+  }, [_c("img", {
+    staticClass: "img-circle",
+    attrs: {
+      height: "40px",
+      src: "/images/no_img.jpg",
+      alt: "User Image"
+    }
+  })]), _vm._v(" "), _c("el-dropdown-menu", {
+    staticStyle: {
+      width: "150px"
+    },
+    attrs: {
+      slot: "dropdown"
+    },
+    slot: "dropdown"
+  }, [_c("el-dropdown-item", [_c("div", {
+    staticStyle: {
+      display: "flex",
+      "justify-content": "center"
+    }
+  }, [_c("span", {
+    staticStyle: {
+      "font-weight": "bold",
+      "font-size": "16px"
+    }
+  }, [_vm._v(_vm._s(_vm.$store.getters.user.name))])]), _vm._v(" "), _c("div", {
+    staticStyle: {
+      display: "flex",
+      "justify-content": "center"
+    }
+  }, [_c("span", {
+    staticStyle: {
+      "font-size": "12px"
+    }
+  }, [_vm._v(_vm._s(_vm.$store.getters.user.roles[0]))])])]), _vm._v(" "), _c("el-divider", {
+    staticClass: "mt-1 mb-1"
+  }), _vm._v(" "), _c("el-dropdown-item", [_c("a", {
+    on: {
+      click: _vm.logout
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-user"
+  }), _vm._v("\n                My profile\n            ")])]), _vm._v(" "), _c("el-divider", {
+    staticClass: "mt-1 mb-1"
+  }), _vm._v(" "), _c("el-dropdown-item", [_c("a", {
+    on: {
+      click: _vm.logout
+    }
+  }, [_c("i", {
+    staticClass: "fas fa-cog"
+  }), _vm._v("\n                Setting\n            ")])]), _vm._v(" "), _c("el-divider", {
+    staticClass: "mt-1 mb-1"
+  }), _vm._v(" "), _c("el-dropdown-item", [_c("a", {
     on: {
       click: _vm.logout
     }
   }, [_c("i", {
     staticClass: "fas fa-sign-out-alt"
-  }), _vm._v("\n            Logout\n        ")])])])]);
+  }), _vm._v("\n                Logout\n            ")])])], 1)], 1)], 1)]);
 };
 var staticRenderFns = [function () {
   var _vm = this,
@@ -595,182 +647,6 @@ var staticRenderFns = [function () {
   }, [_c("i", {
     staticClass: "fas fa-times"
   })])])])])])]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("li", {
-    staticClass: "nav-item dropdown",
-    staticStyle: {
-      display: "none"
-    }
-  }, [_c("a", {
-    staticClass: "nav-link",
-    attrs: {
-      "data-toggle": "dropdown",
-      href: "#"
-    }
-  }, [_c("i", {
-    staticClass: "far fa-comments"
-  }), _vm._v(" "), _c("span", {
-    staticClass: "badge badge-danger navbar-badge"
-  }, [_vm._v("3")])]), _vm._v(" "), _c("div", {
-    staticClass: "dropdown-menu dropdown-menu-lg dropdown-menu-right"
-  }, [_c("a", {
-    staticClass: "dropdown-item",
-    attrs: {
-      href: "#"
-    }
-  }, [_c("div", {
-    staticClass: "media"
-  }, [_c("img", {
-    staticClass: "img-size-50 mr-3 img-circle",
-    attrs: {
-      src: "/assets/img/user1-128x128.jpg",
-      alt: "User Avatar"
-    }
-  }), _vm._v(" "), _c("div", {
-    staticClass: "media-body"
-  }, [_c("h3", {
-    staticClass: "dropdown-item-title"
-  }, [_vm._v("\n                  Brad Diesel\n                  "), _c("span", {
-    staticClass: "float-right text-sm text-danger"
-  }, [_c("i", {
-    staticClass: "fas fa-star"
-  })])]), _vm._v(" "), _c("p", {
-    staticClass: "text-sm"
-  }, [_vm._v("Call me whenever you can...")]), _vm._v(" "), _c("p", {
-    staticClass: "text-sm text-muted"
-  }, [_c("i", {
-    staticClass: "far fa-clock mr-1"
-  }), _vm._v(" 4 Hours Ago")])])])]), _vm._v(" "), _c("div", {
-    staticClass: "dropdown-divider"
-  }), _vm._v(" "), _c("a", {
-    staticClass: "dropdown-item",
-    attrs: {
-      href: "#"
-    }
-  }, [_c("div", {
-    staticClass: "media"
-  }, [_c("img", {
-    staticClass: "img-size-50 img-circle mr-3",
-    attrs: {
-      src: "/assets/img/user8-128x128.jpg",
-      alt: "User Avatar"
-    }
-  }), _vm._v(" "), _c("div", {
-    staticClass: "media-body"
-  }, [_c("h3", {
-    staticClass: "dropdown-item-title"
-  }, [_vm._v("\n                  John Pierce\n                  "), _c("span", {
-    staticClass: "float-right text-sm text-muted"
-  }, [_c("i", {
-    staticClass: "fas fa-star"
-  })])]), _vm._v(" "), _c("p", {
-    staticClass: "text-sm"
-  }, [_vm._v("I got your message bro")]), _vm._v(" "), _c("p", {
-    staticClass: "text-sm text-muted"
-  }, [_c("i", {
-    staticClass: "far fa-clock mr-1"
-  }), _vm._v(" 4 Hours Ago")])])])]), _vm._v(" "), _c("div", {
-    staticClass: "dropdown-divider"
-  }), _vm._v(" "), _c("a", {
-    staticClass: "dropdown-item",
-    attrs: {
-      href: "#"
-    }
-  }, [_c("div", {
-    staticClass: "media"
-  }, [_c("img", {
-    staticClass: "img-size-50 img-circle mr-3",
-    attrs: {
-      src: "/assets/img/user3-128x128.jpg",
-      alt: "User Avatar"
-    }
-  }), _vm._v(" "), _c("div", {
-    staticClass: "media-body"
-  }, [_c("h3", {
-    staticClass: "dropdown-item-title"
-  }, [_vm._v("\n                  Nora Silvester\n                  "), _c("span", {
-    staticClass: "float-right text-sm text-warning"
-  }, [_c("i", {
-    staticClass: "fas fa-star"
-  })])]), _vm._v(" "), _c("p", {
-    staticClass: "text-sm"
-  }, [_vm._v("The subject goes here")]), _vm._v(" "), _c("p", {
-    staticClass: "text-sm text-muted"
-  }, [_c("i", {
-    staticClass: "far fa-clock mr-1"
-  }), _vm._v(" 4 Hours Ago")])])])]), _vm._v(" "), _c("div", {
-    staticClass: "dropdown-divider"
-  }), _vm._v(" "), _c("a", {
-    staticClass: "dropdown-item dropdown-footer",
-    attrs: {
-      href: "#"
-    }
-  }, [_vm._v("See All Messages")])])]);
-}, function () {
-  var _vm = this,
-    _c = _vm._self._c;
-  return _c("li", {
-    staticClass: "nav-item dropdown",
-    staticStyle: {
-      display: "none"
-    }
-  }, [_c("a", {
-    staticClass: "nav-link",
-    attrs: {
-      "data-toggle": "dropdown",
-      href: "#"
-    }
-  }, [_c("i", {
-    staticClass: "far fa-bell"
-  }), _vm._v(" "), _c("span", {
-    staticClass: "badge badge-warning navbar-badge"
-  }, [_vm._v("15")])]), _vm._v(" "), _c("div", {
-    staticClass: "dropdown-menu dropdown-menu-lg dropdown-menu-right"
-  }, [_c("span", {
-    staticClass: "dropdown-item dropdown-header"
-  }, [_vm._v("15 Notifications")]), _vm._v(" "), _c("div", {
-    staticClass: "dropdown-divider"
-  }), _vm._v(" "), _c("a", {
-    staticClass: "dropdown-item",
-    attrs: {
-      href: "#"
-    }
-  }, [_c("i", {
-    staticClass: "fas fa-envelope mr-2"
-  }), _vm._v(" 4 new messages\n            "), _c("span", {
-    staticClass: "float-right text-muted text-sm"
-  }, [_vm._v("3 mins")])]), _vm._v(" "), _c("div", {
-    staticClass: "dropdown-divider"
-  }), _vm._v(" "), _c("a", {
-    staticClass: "dropdown-item",
-    attrs: {
-      href: "#"
-    }
-  }, [_c("i", {
-    staticClass: "fas fa-users mr-2"
-  }), _vm._v(" 8 friend requests\n            "), _c("span", {
-    staticClass: "float-right text-muted text-sm"
-  }, [_vm._v("12 hours")])]), _vm._v(" "), _c("div", {
-    staticClass: "dropdown-divider"
-  }), _vm._v(" "), _c("a", {
-    staticClass: "dropdown-item",
-    attrs: {
-      href: "#"
-    }
-  }, [_c("i", {
-    staticClass: "fas fa-file mr-2"
-  }), _vm._v(" 3 new reports\n            "), _c("span", {
-    staticClass: "float-right text-muted text-sm"
-  }, [_vm._v("2 days")])]), _vm._v(" "), _c("div", {
-    staticClass: "dropdown-divider"
-  }), _vm._v(" "), _c("a", {
-    staticClass: "dropdown-item dropdown-footer",
-    attrs: {
-      href: "#"
-    }
-  }, [_vm._v("See All Notifications")])])]);
 }, function () {
   var _vm = this,
     _c = _vm._self._c;
@@ -842,31 +718,9 @@ var render = function render() {
     _c = _vm._self._c;
   return _c("aside", {
     staticClass: "main-sidebar sidebar-dark-primary elevation-4"
-  }, [_c("a", {
-    staticClass: "brand-link"
-  }, [_c("img", {
-    staticClass: "brand-image img-circle elevation-3",
-    staticStyle: {
-      opacity: ".8"
-    },
-    attrs: {
-      src: "/images/AdminLTELogo.png",
-      alt: "AdminLTE Logo"
-    }
-  }), _vm._v(" "), _c("span", {
-    staticClass: "brand-text font-weight-light"
-  }, [_vm._v(_vm._s(_vm.$appSetting.NAME))])]), _vm._v(" "), _c("div", {
-    staticClass: "sidebar"
-  }, [_c("div", {
-    staticClass: "user-panel mt-3 pb-3 mb-3 d-flex"
   }, [_vm._m(0), _vm._v(" "), _c("div", {
-    staticClass: "info"
-  }, [_c("a", {
-    staticClass: "d-block",
-    attrs: {
-      href: "#"
-    }
-  }, [_vm._v(_vm._s(_vm.$store.getters.user.name))])])]), _vm._v(" "), !_vm.loading && _vm.data.length > 0 ? _c("el-menu", {
+    staticClass: "sidebar"
+  }, [!_vm.loading && _vm.data.length > 0 ? _c("el-menu", {
     staticClass: "el-menu-vertical-demo",
     staticStyle: {
       "border-right": "none"
@@ -930,15 +784,28 @@ var render = function render() {
 var staticRenderFns = [function () {
   var _vm = this,
     _c = _vm._self._c;
-  return _c("div", {
-    staticClass: "image"
+  return _c("a", {
+    staticClass: "brand-link"
   }, [_c("img", {
-    staticClass: "img-circle elevation-2",
+    staticClass: "brand-image img-circle elevation-3",
+    staticStyle: {
+      opacity: ".8"
+    },
     attrs: {
-      src: "/images/no_img.jpg",
-      alt: "User Image"
+      src: "/images/logo.jpg",
+      alt: "AdminLTE Logo"
     }
-  })]);
+  }), _vm._v(" "), _c("a", {
+    staticClass: "brand-text font-weight-light",
+    staticStyle: {
+      color: "#ee4d2d",
+      "font-size": "18px",
+      "font-weight": "bold"
+    },
+    attrs: {
+      href: "/"
+    }
+  }, [_c("b", [_vm._v("HT SẮP PHÒNG THI")])])]);
 }];
 render._withStripped = true;
 
