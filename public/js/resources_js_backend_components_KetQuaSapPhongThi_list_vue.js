@@ -535,11 +535,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         }
       });
     },
-    deleteBanner: function deleteBanner(id) {
+    deleteItem: function deleteItem(e) {
+      this.dataActiveList = e;
       var _this = this;
       axios({
         method: 'post',
-        url: '/api/admin/danhsachnamhoc/delete/' + id
+        url: '/api/admin/danhsachthisinh/deleteKQ',
+        data: e
       }).then(function (response) {
         if (response.data['success']) {
           _this.$notify({
@@ -934,7 +936,7 @@ var render = function render() {
   }), _vm._v(" "), _c("el-table-column", {
     attrs: {
       label: "THAO TÁC",
-      width: "180"
+      width: "220"
     },
     scopedSlots: _vm._u([{
       key: "default",
@@ -951,7 +953,27 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "el-icon-finished"
-        }), _vm._v(" Xem danh sách\n                                ")])];
+        }), _vm._v(" Xem danh sách\n                                ")]), _vm._v(" "), _c("el-popconfirm", {
+          attrs: {
+            "confirm-button-text": "Xóa",
+            "cancel-button-text": "Không",
+            title: "Bạn có chắc chắn muốn xóa hình ảnh này ?"
+          },
+          on: {
+            confirm: function confirm() {
+              return _vm.deleteItem(scope.row);
+            }
+          }
+        }, [_c("el-button", {
+          attrs: {
+            slot: "reference",
+            type: "danger",
+            size: "mini"
+          },
+          slot: "reference"
+        }, [_c("i", {
+          staticClass: "el-icon-delete"
+        }), _vm._v(" Xóa\n                                        ")])], 1)];
       }
     }])
   }), _vm._v(" "), _c("template", {

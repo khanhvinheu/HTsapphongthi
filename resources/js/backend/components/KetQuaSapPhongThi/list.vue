@@ -92,13 +92,22 @@
                             </el-table-column>
                             <el-table-column prop="phong_thi.tenPhongThi" label="PHÒNG THI" sortable>
                             </el-table-column>
-                            <el-table-column label="THAO TÁC" width="180">
+                            <el-table-column label="THAO TÁC" width="220">
                                 <template slot-scope="scope">
                                     <el-button type="primary" size="mini" @click="openDialogList(scope.row)"><i
                                             class="el-icon-finished"></i> Xem danh sách
                                     </el-button>
-
-
+                                    <!-- danhsachthisinh/deleteKQ -->
+                                    <el-popconfirm
+                                            confirm-button-text='Xóa'
+                                            cancel-button-text='Không'
+                                            :title="'Bạn có chắc chắn muốn xóa hình ảnh này ?'"
+                                            @confirm="()=>deleteItem(scope.row)"
+                                        >
+                                            <el-button slot="reference" type="danger"
+                                                       size="mini"><i class="el-icon-delete"></i> Xóa
+                                            </el-button>
+                                        </el-popconfirm>
                                 </template>
                             </el-table-column>
                             <template slot="empty">
@@ -393,11 +402,13 @@ export default {
                 });
 
         },
-        deleteBanner(id) {
+        deleteItem(e) {
+            this.dataActiveList = e
             let _this = this
             axios({
                 method: 'post',
-                url: '/api/admin/danhsachnamhoc/delete/' + id,
+                url: '/api/admin/danhsachthisinh/deleteKQ',
+                data: e
             })
                 .then(function (response) {
                     if (response.data['success']) {

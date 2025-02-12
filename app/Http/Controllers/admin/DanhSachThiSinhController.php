@@ -390,6 +390,31 @@ class DanhSachThiSinhController extends Controller
             return $this->jsonError($e);
         }
     }
+    public function deleteKQ(Request $request){
+        try{
+            $maNamHoc = $request->get('maNamHoc','');
+            $maKhoiThi = $request->get('maKhoiThi','');        
+            $maMonHoc = $request->get('maMonHoc','');        
+            $maPhongThi = $request->get('maPhongThi','');        
+            $maKyThi = $request->get('maKyThi','');        
+            $maDonVi = $request->get('maDonVi','');      
+            $res = danhSachThiSinhThuocPhongThis::where([
+                ['maNamHoc',$maNamHoc], 
+                ['maKhoiThi',$maKhoiThi],
+                ['maMonHoc',$maMonHoc],
+                ['maPhongThi',$maPhongThi],
+                ['maKyThi',$maKyThi],
+                ['maDonVi',$maDonVi],
+            ])->delete();
+            if($res){
+                return response()->json(['success'=>true, 'mess'=>'Xóa dữ liệu thành công!']);
+            }else{
+                return response()->json(['success'=>false, 'mess'=>'Xóa dữ liệu thất bại!']);
+            }
+        }catch(\Exception $e){
+            return response()->json(['success'=>false, 'mess'=>$e]);
+        }
+    }
     public function importExcel(Request $request){
         $request->validate([
             'file' => 'required|mimes:xls,xlsx,csv',

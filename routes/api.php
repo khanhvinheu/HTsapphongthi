@@ -226,6 +226,7 @@ Route::prefix('admin')->namespace('admin')->group(function () {
      Route::post('danhsachthisinh/exportMau1','DanhSachThiSinhController@exportMau1');
      Route::post('danhsachthisinh/exportMau2','DanhSachThiSinhController@exportMau2');
      Route::post('danhsachthisinh/exportMau3','DanhSachThiSinhController@exportMau3');
+     Route::post('danhsachthisinh/deleteKQ','DanhSachThiSinhController@deleteKQ');
      Route::post('danhsachthisinh/import','DanhSachThiSinhController@importExcel');
      Route::get('danhsachthisinh/danhsach','DanhSachThiSinhController@listThiSinhInNamHocKhoiThi');
      Route::get('danhsachthisinh/detail/{id}','DanhSachThiSinhController@show');
