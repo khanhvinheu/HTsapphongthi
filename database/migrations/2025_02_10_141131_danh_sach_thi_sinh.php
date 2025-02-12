@@ -22,6 +22,7 @@ class DanhSachThiSinh extends Migration
             $table->string('gioiTinh')->nullable();                  
             $table->string('hsLop')->nullable();          
             $table->string('ketQua')->nullable();          
+            $table->string('noiSinh')->nullable();          
             $table->string('ghiChu')->nullable();          
             $table->string('maKhoiThi')->nullable();
             $table->foreign('maKhoiThi')->references('maKhoiThi')->on('khoiThis');   

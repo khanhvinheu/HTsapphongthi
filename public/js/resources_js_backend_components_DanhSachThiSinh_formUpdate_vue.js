@@ -506,7 +506,27 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "el-icon-plus"
-  }), _vm._v("Thêm mới")])], 1)]), _vm._v(" "), _c("el-divider"), _vm._v(" "), _c("el-table", {
+  }), _vm._v("Thêm mới")]), _vm._v(" "), _c("el-button", {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: _vm.formData.maKhoiThi && _vm.formData.maNamHoc && _vm.listDataThiSinh.length > 0,
+      expression: "formData.maKhoiThi && formData.maNamHoc && listDataThiSinh.length>0"
+    }],
+    on: {
+      click: function click($event) {
+        _vm.activeEdit = !_vm.activeEdit;
+      }
+    }
+  }, [_c("i", {
+    staticClass: "el-icon-edit"
+  }), _vm._v(" \n                                        Cập nhật \n                                        "), _c("el-switch", {
+    attrs: {
+      value: !_vm.activeEdit,
+      "active-color": "#13ce66",
+      "inactive-color": "#ff4949"
+    }
+  })], 1)], 1)]), _vm._v(" "), _c("el-divider"), _vm._v(" "), _c("el-table", {
     staticStyle: {
       width: "100%"
     },
@@ -536,7 +556,7 @@ var render = function render() {
         return [_c("el-input", {
           tag: "component",
           attrs: {
-            readonly: scope.row.edit
+            readonly: _vm.activeEdit
           },
           model: {
             value: scope.row.tenThiSinh,
@@ -559,7 +579,7 @@ var render = function render() {
         return [_c("el-input", {
           tag: "component",
           attrs: {
-            readonly: scope.row.edit
+            readonly: _vm.activeEdit
           },
           model: {
             value: scope.row.gioiTinh,
@@ -582,7 +602,7 @@ var render = function render() {
         return [_c("el-input", {
           tag: "component",
           attrs: {
-            readonly: scope.row.edit
+            readonly: _vm.activeEdit
           },
           model: {
             value: scope.row.ngaySinh,
@@ -596,79 +616,14 @@ var render = function render() {
     }])
   }), _vm._v(" "), _c("el-table-column", {
     attrs: {
-      prop: "hsLop",
-      label: "Lớp"
-    },
-    scopedSlots: _vm._u([{
-      key: "default",
-      fn: function fn(scope) {
-        return [_c("el-input", {
-          tag: "component",
-          attrs: {
-            readonly: scope.row.edit
-          },
-          model: {
-            value: scope.row.hsLop,
-            callback: function callback($$v) {
-              _vm.$set(scope.row, "hsLop", $$v);
-            },
-            expression: "scope.row.hsLop"
-          }
-        }, [_vm._v(_vm._s(scope.row.hsLop))])];
-      }
-    }])
-  }), _vm._v(" "), _c("el-table-column", {
-    attrs: {
-      prop: "ketQua",
-      label: "Kết Quả"
-    },
-    scopedSlots: _vm._u([{
-      key: "default",
-      fn: function fn(scope) {
-        return [_c("el-input", {
-          tag: "component",
-          attrs: {
-            readonly: scope.row.edit
-          },
-          model: {
-            value: scope.row.ketQua,
-            callback: function callback($$v) {
-              _vm.$set(scope.row, "ketQua", $$v);
-            },
-            expression: "scope.row.ketQua"
-          }
-        }, [_vm._v(_vm._s(scope.row.ketQua))])];
-      }
-    }])
-  }), _vm._v(" "), _c("el-table-column", {
-    attrs: {
       prop: "edit",
-      label: "Thao Tác"
+      label: "Thao Tác",
+      width: "100px"
     },
     scopedSlots: _vm._u([{
       key: "default",
       fn: function fn(scope) {
-        return [_c("el-button", {
-          directives: [{
-            name: "show",
-            rawName: "v-show",
-            value: _vm.listDataThiSinh.length > 0,
-            expression: "listDataThiSinh.length>0"
-          }],
-          on: {
-            click: function click($event) {
-              scope.row.edit = !scope.row.edit;
-            }
-          }
-        }, [_c("i", {
-          staticClass: "el-icon-edit"
-        }), _vm._v(" \n                                            Cập nhật \n                                            "), _c("el-switch", {
-          attrs: {
-            value: !scope.row.edit,
-            "active-color": "#13ce66",
-            "inactive-color": "#ff4949"
-          }
-        })], 1), _vm._v(" "), _c("el-popconfirm", {
+        return [_c("el-popconfirm", {
           attrs: {
             "confirm-button-text": "Xóa",
             "cancel-button-text": "Không",

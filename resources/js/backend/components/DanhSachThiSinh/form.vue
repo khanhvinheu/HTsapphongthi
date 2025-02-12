@@ -55,9 +55,20 @@
                                 <div style="display: flex; justify-content: space-between;">
                                      <span class="title-divider">Danh sách thí sinh</span>   
                                      <div>
+                                        <el-button @click="validDialogUpload=true" type="primary"><i class="el-icon-upload"></i>Import Excel</el-button>
                                         <el-button @click="addRowList()" type="primary"><i class="el-icon-plus"></i>Thêm mới</el-button>
                                         <el-button v-show="formData.maKhoiThi && formData.maNamHoc" @click="getDanhSachThiSinh()" type="success"><i class="el-icon-refresh-left"></i> Load danh sách</el-button>
-                                     </div>
+                                        <el-button v-show="formData.maKhoiThi && formData.maNamHoc && listDataThiSinh.length>0" @click="activeEdit= !activeEdit" >
+                                            <i class="el-icon-edit"></i> 
+                                            Cập nhật 
+                                            <el-switch
+                                            
+                                            :value="!activeEdit"
+                                            active-color="#13ce66"
+                                            inactive-color="#ff4949">
+                                            </el-switch>
+                                        </el-button>
+                                    </div>
                                     
                                 </div>
                               
@@ -79,7 +90,7 @@
                                     label="Tên Thí Sinh"
                                     >
                                         <template slot-scope="scope">
-                                            <component :readonly="scope.row.edit" :is="'el-input'" v-model="scope.row.tenThiSinh" >{{ scope.row.tenThiSinh }}</component>
+                                            <component :readonly="activeEdit" :is="'el-input'" v-model="scope.row.tenThiSinh" >{{ scope.row.tenThiSinh }}</component>
                                         </template>
                                     </el-table-column>
                                     <el-table-column
@@ -87,7 +98,7 @@
                                     label="Giới Tính"
                                     >
                                         <template slot-scope="scope">
-                                            <component :readonly="scope.row.edit" :is="'el-input'" v-model="scope.row.gioiTinh" >{{ scope.row.gioiTinh }}</component>
+                                            <component :readonly="activeEdit" :is="'el-input'" v-model="scope.row.gioiTinh" >{{ scope.row.gioiTinh }}</component>
                                         </template>
                                     </el-table-column>
                                     <el-table-column
@@ -95,31 +106,32 @@
                                     label="Ngày Sinh"
                                     >
                                         <template slot-scope="scope">
-                                            <component :readonly="scope.row.edit" :is="'el-input'" v-model="scope.row.ngaySinh" >{{ scope.row.ngaySinh }}</component>
+                                            <component :readonly="activeEdit" :is="'el-input'" v-model="scope.row.ngaySinh" >{{ scope.row.ngaySinh }}</component>
                                         </template>
                                     </el-table-column>
-                                    <el-table-column
+                                    <!-- <el-table-column
                                     prop="hsLop"
                                     label="Lớp"
                                     >
                                         <template slot-scope="scope">
                                             <component :readonly="scope.row.edit" :is="'el-input'" v-model="scope.row.hsLop" >{{ scope.row.hsLop }}</component>
                                         </template>
-                                    </el-table-column>
-                                    <el-table-column
+                                    </el-table-column> -->
+                                    <!-- <el-table-column
                                     prop="ketQua"
                                     label="Kết Quả"
                                    >
                                         <template slot-scope="scope">
                                             <component :readonly="scope.row.edit" :is="'el-input'" v-model="scope.row.ketQua" >{{ scope.row.ketQua }}</component>
                                         </template>
-                                    </el-table-column>
+                                    </el-table-column> -->
                                     <el-table-column
                                     prop="edit"
+                                    width="100px"
                                     label="Thao Tác"
                                    >
                                         <template slot-scope="scope">
-                                            <el-button v-show="listDataThiSinh.length>0" @click="scope.row.edit= !scope.row.edit" >
+                                            <!-- <el-button v-show="listDataThiSinh.length>0" @click="scope.row.edit= !scope.row.edit" >
                                                 <i class="el-icon-edit"></i> 
                                                 Cập nhật 
                                                 <el-switch
@@ -128,7 +140,7 @@
                                                 active-color="#13ce66"
                                                 inactive-color="#ff4949">
                                                 </el-switch>
-                                            </el-button>
+                                            </el-button> -->
                                             <el-popconfirm                                            
                                                 confirm-button-text='Xóa'
                                                 cancel-button-text='Không'
@@ -158,6 +170,39 @@
                     <el-button @click="$router.push({name:'DanhSachThiSinh'})">Đóng</el-button>
                 </div>
             </div>
+
+            <!-- dialog -->
+            <el-dialog :visible.sync="validDialogUpload" width="50vw">
+            <div style="margin-top: -30px">
+                <span style="font-size: 13px; font-weight: bold; text-transform: uppercase">Import file excel</span>                
+                <el-divider></el-divider>
+            </div>
+            <div>
+                <el-upload                    
+                    accept=".xls,.xlsx,.csv"
+                    class="upload-demo"
+                    drag
+                    action=""
+                    :limit="1"
+                    :on-change="importExcel"
+                    :auto-upload="false"
+                    :on-remove="handleRemove"
+                    :before-upload="beforeUpload"
+                    :file-list="fileList">
+                    <div @click="clearFile" style="height: 100%; width: 100%;">
+                        <i class="el-icon-upload"></i>
+                        <div class="el-upload__text"><em>Click to upload</em></div>
+                    </div>
+                   
+                    <!-- <div class="el-upload__tip" slot="tip">pdf files with a size less than 500kb</div> -->
+                </el-upload>
+                <el-divider v-if="fileList"></el-divider>
+                <el-button @click="downloadTemplate()"><i class="el-icon-download"></i>Tải file mẫu</el-button>
+                <el-button v-show="fileList" style="margin-left: 10px;" size="small" type="success"
+                           @click="uploadExcel()">Import file
+                </el-button>
+            </div>
+        </el-dialog>
         </div>
     </div>
 
@@ -231,9 +276,9 @@ export default {
             fileList:[],
             dialogVisible:false,
             dialogImageUrl:false,
-            listDataThiSinh:[
-            
-            ]
+            validDialogUpload:false,
+            listDataThiSinh:[],
+            form: new FormData()
         }
     },
     async mounted() {
@@ -246,6 +291,65 @@ export default {
         }
     },
     methods: {
+        downloadTemplate(){
+            var link = document.createElement("a");
+            link.href = '/excel/DanhSachThiSinh.xlsx'; // Set the file URL
+            link.download = name;
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            link.remove();
+        },
+        importExcel(e){           
+            this.fileList = [event.target.files[0]]            
+        },
+        uploadExcel(){
+            this.form.set('file', this.fileList[0])
+            ApiService.post('/api/admin/danhsachthisinh/import',  this.form).then(({data}) => {
+                if(data.success){
+                    this.listDataThiSinh = data['data']
+                    this.validDialogUpload = false
+                }             
+            })
+        },
+        beforeUpload(file) {
+            if (this.fileList.length >= 1) {
+                this.fileList.splice(0, 1); // Remove existing file
+            }
+            return true; // Allow upload
+        },
+        clearFile(){
+            this.fileList = [];  
+        },
+        fakeLoading() {
+            this.percentage = 0
+            setInterval(() => {
+                if (this.percentage < 100) {
+                    this.percentage += 10;
+                }
+            }, 100);
+        },
+        handleRemove(el) {
+            this.fileList = this.fileList.filter(e => e.uid != el.uid)           
+        },
+        handleSuccess(response, file, fileList) {
+            console.log('File uploaded successfully!', response);
+            // You can access the response data here, which will typically be the server response.
+            if (response && response.success === true) {
+                this.$notify({
+                                title: 'Success',
+                                message: response.data['mess'],
+                                type: 'success'
+                            });
+                this.getList()
+            } else {
+                this.$notify({
+                    title: 'Error',
+                    message: 'Import thất bại, Vui lòng kiểm tra nội dung file',
+                    type: 'error'
+                });
+            }
+        },
         getDanhSachThiSinh(){
             let _this = this
             ApiService.query('/api/admin/danhsachthisinh/danhsach', {params: {maNamHoc: this.formData.maNamHoc,maKhoiThi:this.formData.maKhoiThi}}).then(({data}) => {

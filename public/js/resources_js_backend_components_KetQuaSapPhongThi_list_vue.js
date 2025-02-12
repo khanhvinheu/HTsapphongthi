@@ -183,39 +183,295 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         Total: 10,
         Page: 1,
         PageLimit: 10
-      }
+      },
+      listNamHoc: [],
+      listKhoiThi: [],
+      listDonVi: [],
+      listKyThi: [],
+      listMonThi: [],
+      formSearch: {
+        maMonHoc: 'MONTHI0003',
+        maNamHoc: 'NH0002',
+        maKhoiThi: 'KHOI0002',
+        maKyThi: 'KTH0001',
+        maDonVi: 'DV0001'
+      },
+      form: new FormData()
     };
   },
   mounted: function mounted() {
-    this.getList();
+    var _this2 = this;
+    return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
+      return _regeneratorRuntime().wrap(function _callee$(_context) {
+        while (1) switch (_context.prev = _context.next) {
+          case 0:
+            _context.next = 2;
+            return _this2.getListNamHoc();
+          case 2:
+            _context.next = 4;
+            return _this2.getListKhoiThi();
+          case 4:
+            _context.next = 6;
+            return _this2.getListMonThi();
+          case 6:
+            _context.next = 8;
+            return _this2.getListPhongThi();
+          case 8:
+            _context.next = 10;
+            return _this2.getListDonVi();
+          case 10:
+            _context.next = 12;
+            return _this2.getListKyThi();
+          case 12:
+            _context.next = 14;
+            return _this2.getList();
+          case 14:
+          case "end":
+            return _context.stop();
+        }
+      }, _callee);
+    }))();
   },
   methods: {
-    openDialogList: function openDialogList(e) {
-      var _this2 = this;
-      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee() {
-        return _regeneratorRuntime().wrap(function _callee$(_context) {
-          while (1) switch (_context.prev = _context.next) {
-            case 0:
-              _this2.validDialogDanhSach = true;
-              _this2.dataActiveList = e;
-              _context.next = 4;
-              return _this2.getDanhSachThiSinh(_this2.dataActiveList);
-            case 4:
-            case "end":
-              return _context.stop();
-          }
-        }, _callee);
-      }))();
-    },
-    getDanhSachThiSinh: function getDanhSachThiSinh(data) {
+    downloadMau1: function downloadMau1() {
       var _this3 = this;
+      this.form.set('tenPhongThi', this.dataActiveList.phong_thi.tenPhongThi);
+      this.form.set('tenDonVi', this.dataActiveList.don_vi.tenDonVi);
+      this.form.set('tenKyThi', this.dataActiveList.ky_thi.tenKyThi);
+      this.form.set('danhSachThiSinh', JSON.stringify(this.listDataThiSinh));
+      _common_api_service__WEBPACK_IMPORTED_MODULE_0__["default"].post('/api/admin/danhsachthisinh/exportMau1', this.form).then(function (_ref) {
+        var data = _ref.data;
+        if (data.success) {
+          var link = document.createElement("a");
+          link.download = name;
+          link.href = data.url;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          link.remove();
+        } else {
+          _this3.$notify({
+            title: 'Error',
+            message: "Xu\u1EA5t d\u1EEF li\u1EC7u th\u1EA5t b\u1EA1i ",
+            type: 'error'
+          });
+        }
+      });
+    },
+    downloadMau2: function downloadMau2() {
+      var _this4 = this;
+      this.form.set('tenPhongThi', this.dataActiveList.phong_thi.tenPhongThi);
+      this.form.set('tenDonVi', this.dataActiveList.don_vi.tenDonVi);
+      this.form.set('tenKyThi', this.dataActiveList.ky_thi.tenKyThi);
+      this.form.set('danhSachThiSinh', JSON.stringify(this.listDataThiSinh));
+      _common_api_service__WEBPACK_IMPORTED_MODULE_0__["default"].post('/api/admin/danhsachthisinh/exportMau2', this.form).then(function (_ref2) {
+        var data = _ref2.data;
+        if (data.success) {
+          var link = document.createElement("a");
+          link.download = name;
+          link.href = data.url;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          link.remove();
+        } else {
+          _this4.$notify({
+            title: 'Error',
+            message: "Xu\u1EA5t d\u1EEF li\u1EC7u th\u1EA5t b\u1EA1i ",
+            type: 'error'
+          });
+        }
+      });
+    },
+    downloadMau3: function downloadMau3() {
+      var _this5 = this;
+      this.form.set('tenPhongThi', this.dataActiveList.phong_thi.tenPhongThi);
+      this.form.set('tenDonVi', this.dataActiveList.don_vi.tenDonVi);
+      this.form.set('tenKyThi', this.dataActiveList.ky_thi.tenKyThi);
+      this.form.set('danhSachThiSinh', JSON.stringify(this.listDataThiSinh));
+      _common_api_service__WEBPACK_IMPORTED_MODULE_0__["default"].post('/api/admin/danhsachthisinh/exportMau3', this.form).then(function (_ref3) {
+        var data = _ref3.data;
+        if (data.success) {
+          var link = document.createElement("a");
+          link.download = name;
+          link.href = data.url;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          link.remove();
+        } else {
+          _this5.$notify({
+            title: 'Error',
+            message: "Xu\u1EA5t d\u1EEF li\u1EC7u th\u1EA5t b\u1EA1i ",
+            type: 'error'
+          });
+        }
+      });
+    },
+    getListNamHoc: function getListNamHoc() {
+      var _this6 = this;
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee2() {
         var _this;
         return _regeneratorRuntime().wrap(function _callee2$(_context2) {
           while (1) switch (_context2.prev = _context2.next) {
             case 0:
-              _this = _this3;
-              _context2.next = 3;
+              _this = _this6;
+              _common_api_service__WEBPACK_IMPORTED_MODULE_0__["default"].query('/api/admin/danhsachnamhoc', {
+                params: {
+                  type: 'data'
+                }
+              }).then(function (_ref4) {
+                var data = _ref4.data;
+                _this.listNamHoc = data['data'];
+              });
+            case 2:
+            case "end":
+              return _context2.stop();
+          }
+        }, _callee2);
+      }))();
+    },
+    getListKhoiThi: function getListKhoiThi() {
+      var _this7 = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
+        var _this;
+        return _regeneratorRuntime().wrap(function _callee3$(_context3) {
+          while (1) switch (_context3.prev = _context3.next) {
+            case 0:
+              _this = _this7;
+              _common_api_service__WEBPACK_IMPORTED_MODULE_0__["default"].query('/api/admin/danhsachkhoithi', {
+                params: {
+                  type: 'data'
+                }
+              }).then(function (_ref5) {
+                var data = _ref5.data;
+                _this.listKhoiThi = data['data'];
+              });
+            case 2:
+            case "end":
+              return _context3.stop();
+          }
+        }, _callee3);
+      }))();
+    },
+    getListMonThi: function getListMonThi() {
+      var _this8 = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee4() {
+        var _this;
+        return _regeneratorRuntime().wrap(function _callee4$(_context4) {
+          while (1) switch (_context4.prev = _context4.next) {
+            case 0:
+              _this = _this8;
+              _common_api_service__WEBPACK_IMPORTED_MODULE_0__["default"].query('/api/admin/danhsachmonthi', {
+                params: {
+                  type: 'data'
+                }
+              }).then(function (_ref6) {
+                var data = _ref6.data;
+                _this.listMonThi = data['data'];
+              });
+            case 2:
+            case "end":
+              return _context4.stop();
+          }
+        }, _callee4);
+      }))();
+    },
+    getListPhongThi: function getListPhongThi() {
+      var _this9 = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee5() {
+        var _this;
+        return _regeneratorRuntime().wrap(function _callee5$(_context5) {
+          while (1) switch (_context5.prev = _context5.next) {
+            case 0:
+              _this = _this9;
+              _common_api_service__WEBPACK_IMPORTED_MODULE_0__["default"].query('/api/admin/danhsachphongthi', {
+                params: {
+                  type: 'data'
+                }
+              }).then(function (_ref7) {
+                var data = _ref7.data;
+                _this.listPhongThi = data['data'];
+              });
+            case 2:
+            case "end":
+              return _context5.stop();
+          }
+        }, _callee5);
+      }))();
+    },
+    getListDonVi: function getListDonVi() {
+      var _this10 = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee6() {
+        var _this;
+        return _regeneratorRuntime().wrap(function _callee6$(_context6) {
+          while (1) switch (_context6.prev = _context6.next) {
+            case 0:
+              _this = _this10;
+              _common_api_service__WEBPACK_IMPORTED_MODULE_0__["default"].query('/api/admin/thongtindonvi', {
+                params: {
+                  type: 'data'
+                }
+              }).then(function (_ref8) {
+                var data = _ref8.data;
+                _this.listDonVi = data['data'];
+              });
+            case 2:
+            case "end":
+              return _context6.stop();
+          }
+        }, _callee6);
+      }))();
+    },
+    getListKyThi: function getListKyThi() {
+      var _this11 = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee7() {
+        var _this;
+        return _regeneratorRuntime().wrap(function _callee7$(_context7) {
+          while (1) switch (_context7.prev = _context7.next) {
+            case 0:
+              _this = _this11;
+              _common_api_service__WEBPACK_IMPORTED_MODULE_0__["default"].query('/api/admin/danhsachkythi', {
+                params: {
+                  type: 'data'
+                }
+              }).then(function (_ref9) {
+                var data = _ref9.data;
+                _this.listKyThi = data['data'];
+              });
+            case 2:
+            case "end":
+              return _context7.stop();
+          }
+        }, _callee7);
+      }))();
+    },
+    openDialogList: function openDialogList(e) {
+      var _this12 = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee8() {
+        return _regeneratorRuntime().wrap(function _callee8$(_context8) {
+          while (1) switch (_context8.prev = _context8.next) {
+            case 0:
+              _this12.validDialogDanhSach = true;
+              _this12.dataActiveList = e;
+              _context8.next = 4;
+              return _this12.getDanhSachThiSinh(_this12.dataActiveList);
+            case 4:
+            case "end":
+              return _context8.stop();
+          }
+        }, _callee8);
+      }))();
+    },
+    getDanhSachThiSinh: function getDanhSachThiSinh(data) {
+      var _this13 = this;
+      return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee9() {
+        var _this;
+        return _regeneratorRuntime().wrap(function _callee9$(_context9) {
+          while (1) switch (_context9.prev = _context9.next) {
+            case 0:
+              _this = _this13;
+              _context9.next = 3;
               return _common_api_service__WEBPACK_IMPORTED_MODULE_0__["default"].query('/api/admin/danhsachthisinhthuocphongthi', {
                 params: {
                   maNamHoc: data.maNamHoc,
@@ -225,15 +481,15 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                   maKyThi: data.maKyThi,
                   maDonVi: data.maDonVi
                 }
-              }).then(function (_ref) {
-                var data = _ref.data;
+              }).then(function (_ref10) {
+                var data = _ref10.data;
                 _this.listDataThiSinh = data['data'];
               });
             case 3:
             case "end":
-              return _context2.stop();
+              return _context9.stop();
           }
-        }, _callee2);
+        }, _callee9);
       }))();
     },
     success: function success() {
@@ -308,12 +564,13 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       this.options.Page && (param.Page = this.options.Page);
       this.options.PageLimit && (param.PageLimit = this.options.PageLimit);
       this.textSearch && (param.TextSearch = this.textSearch);
+      this.formSearch && (param.formSearch = this.formSearch);
       axios({
         method: 'get',
         url: '/api/admin/ketquasapphongthi',
         params: param
-      }).then(function (_ref2) {
-        var data = _ref2.data;
+      }).then(function (_ref11) {
+        var data = _ref11.data;
         if (data['success']) {
           _this.tableData = data['data'];
           _this.options.Total = data['total'];
@@ -327,9 +584,9 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
     changeStatus: function changeStatus(id) {
       alert(id);
     },
-    tableRowClassName: function tableRowClassName(_ref3) {
-      var row = _ref3.row,
-        rowIndex = _ref3.rowIndex;
+    tableRowClassName: function tableRowClassName(_ref12) {
+      var row = _ref12.row,
+        rowIndex = _ref12.rowIndex;
       if (rowIndex === 1) {
         return 'warning-row';
       } else if (rowIndex === 3) {
@@ -485,59 +742,143 @@ var render = function render() {
       padding: "8px",
       "justify-content": "space-between"
     }
-  }, [_c("el-input", {
+  }, [_c("div", [_c("el-select", {
     staticStyle: {
-      width: "500px"
+      width: "300px"
     },
     attrs: {
-      placeholder: "Nhập kí tự cần tìm kiếm"
+      disabled: false,
+      size: "small",
+      filterable: "",
+      placeholder: "Chọn đơn vị"
     },
-    nativeOn: {
-      keyup: function keyup($event) {
-        if (!$event.type.indexOf("key") && _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")) return null;
-        return _vm.getList();
-      }
-    },
-    scopedSlots: _vm._u([{
-      key: "append",
-      fn: function fn() {
-        return [_c("el-button", {
-          attrs: {
-            type: "primary"
-          },
-          on: {
-            click: function click($event) {
-              return _vm.getList();
-            }
-          }
-        }, [_c("i", {
-          staticClass: "el-icon-search"
-        }), _vm._v(" Tìm\n                                        kiếm\n                                    ")])];
-      },
-      proxy: true
-    }]),
     model: {
-      value: _vm.textSearch,
+      value: _vm.formSearch.maDonVi,
       callback: function callback($$v) {
-        _vm.textSearch = $$v;
+        _vm.$set(_vm.formSearch, "maDonVi", $$v);
       },
-      expression: "textSearch"
+      expression: "formSearch.maDonVi"
     }
-  }), _vm._v(" "), _c("el-button", {
-    staticClass: "ml-2",
+  }, _vm._l(_vm.listDonVi, function (item) {
+    return _c("el-option", {
+      key: item.id,
+      attrs: {
+        label: item.maDonVi + " | " + item.tenDonVi,
+        value: item.maDonVi
+      }
+    });
+  }), 1), _vm._v(" "), _c("el-select", {
+    staticStyle: {
+      width: "300px"
+    },
+    attrs: {
+      disabled: false,
+      size: "small",
+      filterable: "",
+      placeholder: "Chọn kỳ thi"
+    },
+    model: {
+      value: _vm.formSearch.maKyThi,
+      callback: function callback($$v) {
+        _vm.$set(_vm.formSearch, "maKyThi", $$v);
+      },
+      expression: "formSearch.maKyThi"
+    }
+  }, _vm._l(_vm.listKyThi, function (item) {
+    return _c("el-option", {
+      key: item.id,
+      attrs: {
+        label: item.maKyThi + " | " + item.tenKyThi,
+        value: item.maKyThi
+      }
+    });
+  }), 1), _vm._v(" "), _c("el-select", {
+    staticStyle: {
+      width: "300px"
+    },
+    attrs: {
+      disabled: false,
+      size: "small",
+      filterable: "",
+      placeholder: "Chọn khối thi"
+    },
+    model: {
+      value: _vm.formSearch.maKhoiThi,
+      callback: function callback($$v) {
+        _vm.$set(_vm.formSearch, "maKhoiThi", $$v);
+      },
+      expression: "formSearch.maKhoiThi"
+    }
+  }, _vm._l(_vm.listKhoiThi, function (item) {
+    return _c("el-option", {
+      key: item.id,
+      attrs: {
+        label: item.maKhoiThi + " | " + item.tenKhoiThi,
+        value: item.maKhoiThi
+      }
+    });
+  }), 1), _vm._v(" "), _c("el-select", {
+    staticStyle: {
+      width: "300px"
+    },
+    attrs: {
+      disabled: false,
+      size: "small",
+      filterable: "",
+      placeholder: "Chọn năm học"
+    },
+    model: {
+      value: _vm.formSearch.maNamHoc,
+      callback: function callback($$v) {
+        _vm.$set(_vm.formSearch, "maNamHoc", $$v);
+      },
+      expression: "formSearch.maNamHoc"
+    }
+  }, _vm._l(_vm.listNamHoc, function (item) {
+    return _c("el-option", {
+      key: item.id,
+      attrs: {
+        label: item.maNamHoc + " | " + item.tenNamHoc,
+        value: item.maNamHoc
+      }
+    });
+  }), 1), _vm._v(" "), _c("el-select", {
+    staticStyle: {
+      width: "300px"
+    },
+    attrs: {
+      disabled: false,
+      size: "small",
+      filterable: "",
+      placeholder: "Chọn môn học"
+    },
+    model: {
+      value: _vm.formSearch.maMonHoc,
+      callback: function callback($$v) {
+        _vm.$set(_vm.formSearch, "maMonHoc", $$v);
+      },
+      expression: "formSearch.maMonHoc"
+    }
+  }, _vm._l(_vm.listMonThi, function (item) {
+    return _c("el-option", {
+      key: item.id,
+      attrs: {
+        label: item.maMonHoc + " | " + item.tenMonHoc,
+        value: item.maMonHoc
+      }
+    });
+  }), 1)], 1), _vm._v(" "), _c("el-button", {
     attrs: {
       type: "primary"
     },
     on: {
       click: function click($event) {
-        _vm.outerVisible = true;
-        _vm.idUpdate = "";
-        _vm.trigger = new Date().getTime();
+        return _vm.getList();
       }
     }
   }, [_c("i", {
-    staticClass: "el-icon-plus"
-  }), _vm._v(" Thêm mới\n                            ")])], 1), _vm._v(" "), _c("el-table", {
+    staticClass: "el-icon-search"
+  }), _vm._v(" Tìm kiếm\n                            ")])], 1), _vm._v(" "), _c("el-table", {
     directives: [{
       name: "loading",
       rawName: "v-loading",
@@ -610,7 +951,7 @@ var render = function render() {
           }
         }, [_c("i", {
           staticClass: "el-icon-finished"
-        }), _vm._v(" Xem danh sách\n                                    ")])];
+        }), _vm._v(" Xem danh sách\n                                ")])];
       }
     }])
   }), _vm._v(" "), _c("template", {
@@ -673,13 +1014,37 @@ var render = function render() {
       "font-weight": "bold",
       "text-transform": "uppercase"
     }
-  }, [_vm._v("ĐƠN VỊ: " + _vm._s(_vm.dataActiveList.don_vi.tenDonVi) + " ")]), _vm._v(" "), _c("br"), _vm._v("\n            " + _vm._s(_vm.dataActiveList.ky_thi.tenKyThi) + " - (" + _vm._s(_vm.dataActiveList.nam_hoc.tenNamHoc) + ")\n            "), _c("br"), _vm._v(" "), _c("span", {
+  }, [_vm._v("ĐƠN VỊ: " + _vm._s(_vm.dataActiveList.don_vi.tenDonVi) + " ")]), _vm._v(" "), _c("br"), _vm._v("\n        " + _vm._s(_vm.dataActiveList.ky_thi.tenKyThi) + " - (" + _vm._s(_vm.dataActiveList.nam_hoc.tenNamHoc) + ")\n        "), _c("br"), _vm._v(" "), _c("span", {
     staticStyle: {
       "font-size": "13px",
       "font-weight": "bold",
       "text-transform": "uppercase"
     }
-  }, [_vm._v("Môn thi: " + _vm._s(_vm.dataActiveList.mon_hoc.tenMonHoc) + " ")]), _vm._v(" "), _c("el-divider")], 1) : _vm._e(), _vm._v(" "), _c("div", [_c("el-table", {
+  }, [_vm._v("Môn thi: " + _vm._s(_vm.dataActiveList.mon_hoc.tenMonHoc) + " ")]), _vm._v(" "), _c("el-button", {
+    on: {
+      click: function click($event) {
+        return _vm.downloadMau1();
+      }
+    }
+  }, [_c("i", {
+    staticClass: "el-icon-download"
+  }), _vm._v(" Mau.1")]), _vm._v(" "), _c("el-button", {
+    on: {
+      click: function click($event) {
+        return _vm.downloadMau2();
+      }
+    }
+  }, [_c("i", {
+    staticClass: "el-icon-download"
+  }), _vm._v(" Mau.2")]), _vm._v(" "), _c("el-button", {
+    on: {
+      click: function click($event) {
+        return _vm.downloadMau3();
+      }
+    }
+  }, [_c("i", {
+    staticClass: "el-icon-download"
+  }), _vm._v(" Mau.3")]), _vm._v(" "), _c("el-divider")], 1) : _vm._e(), _vm._v(" "), _c("div", [_c("el-table", {
     staticStyle: {
       width: "100%"
     },
@@ -712,6 +1077,11 @@ var render = function render() {
     attrs: {
       prop: "thi_sinh.ngaySinh",
       label: "Ngày Sinh"
+    }
+  }), _vm._v(" "), _c("el-table-column", {
+    attrs: {
+      prop: "thi_sinh.noiSinh",
+      label: "Nơi Sinh"
     }
   })], 1)], 1)]), _vm._v(" "), _c("el-dialog", {
     attrs: {

@@ -56,6 +56,16 @@
                                      <span class="title-divider">Danh sách thí sinh</span>   
                                      <div>
                                         <el-button @click="addRowList()" type="primary"><i class="el-icon-plus"></i>Thêm mới</el-button>
+                                        <el-button v-show="formData.maKhoiThi && formData.maNamHoc && listDataThiSinh.length>0" @click="activeEdit= !activeEdit" >
+                                            <i class="el-icon-edit"></i> 
+                                            Cập nhật 
+                                            <el-switch
+                                            
+                                            :value="!activeEdit"
+                                            active-color="#13ce66"
+                                            inactive-color="#ff4949">
+                                            </el-switch>
+                                        </el-button>
                                      </div>
                                     
                                 </div>
@@ -78,7 +88,7 @@
                                     label="Tên Thí Sinh"
                                     >
                                         <template slot-scope="scope">
-                                            <component :readonly="scope.row.edit" :is="'el-input'" v-model="scope.row.tenThiSinh" >{{ scope.row.tenThiSinh }}</component>
+                                            <component :readonly="activeEdit" :is="'el-input'" v-model="scope.row.tenThiSinh" >{{ scope.row.tenThiSinh }}</component>
                                         </template>
                                     </el-table-column>
                                     <el-table-column
@@ -86,7 +96,7 @@
                                     label="Giới Tính"
                                     >
                                         <template slot-scope="scope">
-                                            <component :readonly="scope.row.edit" :is="'el-input'" v-model="scope.row.gioiTinh" >{{ scope.row.gioiTinh }}</component>
+                                            <component :readonly="activeEdit" :is="'el-input'" v-model="scope.row.gioiTinh" >{{ scope.row.gioiTinh }}</component>
                                         </template>
                                     </el-table-column>
                                     <el-table-column
@@ -94,15 +104,15 @@
                                     label="Ngày Sinh"
                                     >
                                         <template slot-scope="scope">
-                                            <component :readonly="scope.row.edit" :is="'el-input'" v-model="scope.row.ngaySinh" >{{ scope.row.ngaySinh }}</component>
+                                            <component :readonly="activeEdit" :is="'el-input'" v-model="scope.row.ngaySinh" >{{ scope.row.ngaySinh }}</component>
                                         </template>
                                     </el-table-column>
-                                    <el-table-column
+                                    <!-- <el-table-column
                                     prop="hsLop"
                                     label="Lớp"
                                     >
                                         <template slot-scope="scope">
-                                            <component :readonly="scope.row.edit" :is="'el-input'" v-model="scope.row.hsLop" >{{ scope.row.hsLop }}</component>
+                                            <component :readonly="activeEdit" :is="'el-input'" v-model="scope.row.hsLop" >{{ scope.row.hsLop }}</component>
                                         </template>
                                     </el-table-column>
                                     <el-table-column
@@ -110,15 +120,16 @@
                                     label="Kết Quả"
                                    >
                                         <template slot-scope="scope">
-                                            <component :readonly="scope.row.edit" :is="'el-input'" v-model="scope.row.ketQua" >{{ scope.row.ketQua }}</component>
+                                            <component :readonly="activeEdit" :is="'el-input'" v-model="scope.row.ketQua" >{{ scope.row.ketQua }}</component>
                                         </template>
-                                    </el-table-column>
+                                    </el-table-column> -->
                                     <el-table-column
                                     prop="edit"
                                     label="Thao Tác"
+                                    width="100px"
                                    >
                                         <template slot-scope="scope">
-                                            <el-button v-show="listDataThiSinh.length>0" @click="scope.row.edit= !scope.row.edit" >
+                                            <!-- <el-button v-show="listDataThiSinh.length>0" @click="scope.row.edit= !scope.row.edit" >
                                                 <i class="el-icon-edit"></i> 
                                                 Cập nhật 
                                                 <el-switch
@@ -127,7 +138,7 @@
                                                 active-color="#13ce66"
                                                 inactive-color="#ff4949">
                                                 </el-switch>
-                                            </el-button>
+                                            </el-button> -->
                                             <el-popconfirm                                            
                                                 confirm-button-text='Xóa'
                                                 cancel-button-text='Không'

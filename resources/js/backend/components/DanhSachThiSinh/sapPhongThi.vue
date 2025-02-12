@@ -71,7 +71,8 @@
             <el-table
                 :data="listDataThiSinh"
                 border
-                style="width: 100%">
+                height="250"
+                style="width: 100%;">
                 <el-table-column                                 
                 label="STT"
                 width="50px"

@@ -14,6 +14,7 @@ class danhSachThiSinhs extends Model
         'tenThiSinh',
         'ngaySinh',
         'gioiTinh',
+        'noiSinh',
         'hsLop',
         'ketQua',
         'ghiChu',

@@ -9,6 +9,14 @@ use App\Models\admin\danhSachThiSinhThuocPhongThis;
 use Illuminate\Http\JsonResponse;
 use App\Services\QueryService;
 use DB;
+use Rap2hpoutre\FastExcel\FastExcel;
+use Carbon\Carbon;
+use DateTime;
+use PhpOffice\PhpSpreadsheet\Writer\Exception;
+use PhpOffice\PhpWord\Element\Table;
+use PhpOffice\PhpWord\TemplateProcessor;
+use Illuminate\Support\Facades\File;
+use PhpOffice\PhpWord\Shared\Converter;
 
 class DanhSachThiSinhController extends Controller
 {
@@ -304,12 +312,19 @@ class DanhSachThiSinhController extends Controller
 
     public function getListKetQuaSapPhongThi(Request $request)
     {
-        //
-        try {
+        //     
+        // try {
             $limit = $request->get('PageLimit', 25);
             $page = $request->get('Page', 1);
-            
+            $formSearch = json_decode($request->get('formSearch'));
+            $searchWhere = [];
+            if($formSearch && count((array)$formSearch)>0){
+                foreach($formSearch as $key => $item){
+                    array_push($searchWhere,[$key,$item]);
+                }
+            }            
             $data = danhSachThiSinhThuocPhongThis::with(['namHoc','khoiThi','thiSinh','kyThi','phongThi','monHoc','donVi'])
+            ->where($searchWhere)
             ->select('maNamHoc','maMonHoc','maPhongThi','maDonVi','maKhoiThi','maKyThi')
             ->groupBy('maNamHoc','maMonHoc','maPhongThi','maDonVi','maKhoiThi','maKyThi')
             ->paginate($limit, ['*'], 'page', $page)
@@ -319,13 +334,13 @@ class DanhSachThiSinhController extends Controller
                 'data' => $data['data'],
                 'total' => count($data['data'])
             ]);
-        } catch (\Exception $e) {
-            return $this->jsonError($e);
-        }
+        // } catch (\Exception $e) {
+        //     return $this->jsonError($e);
+        // }
     }
 
     public function getDanhSachThiSinhOfPhong(Request $request){
-        // try {
+        try {
             $filter=[];
             $request->input('pack_status')&& array_push($filter,['pack_status','=',$request->input('pack_status')]);
             $limit = $request->get('PageLimit', 25);
@@ -371,9 +386,235 @@ class DanhSachThiSinhController extends Controller
             $query = $query->paginate($limit,['*'],'page',$page);            
             $product = $query->toArray();
             return $this->jsonTable($product);
-        // } catch (\Exception $e) {
-        //     return $this->jsonError($e);
-        // }
+        } catch (\Exception $e) {
+            return $this->jsonError($e);
+        }
     }
-   
+    public function importExcel(Request $request){
+        $request->validate([
+            'file' => 'required|mimes:xls,xlsx,csv',
+        ]);
+        $data = (new FastExcel)->import($request->file('file'));
+        if($data && count($data)>0){
+            $dataExcel =[];
+            foreach($data as $index=>$item){                
+                $formData['tenThiSinh'] = $item['Họ và Tên '];  
+                $formData['gioiTinh'] = $item['Giới Tính '];  
+                $formData['noiSinh'] = $item['Nơi Sinh'];  
+                $formData['ghiChu'] = $item['Ghi Chú'];  
+                $formData['ngaySinh'] = $item['Năm Sinh'];  
+               
+                if(@$formData['ngaySinh'] instanceof DateTime){
+                    $formData['ngaySinh']=  $formData['ngaySinh']->getTimestamp(); 
+                    $formData['ngaySinh']=  Carbon::createFromTimestamp($formData['ngaySinh'])->format('d/m/Y');                
+                }else{
+                    $formData['ngaySinh']=  Carbon::createFromFormat('d/m/Y',$formData['ngaySinh'])->format('m/d/Y');        
+                }
+                array_push($dataExcel, $formData);
+              
+            }
+            return $this->jsonTable([
+                'data' => $dataExcel,
+                'total' => count($dataExcel)
+            ]);
+            
+        }
+
+    }
+
+    public function exportMau1(Request $request){
+        try {            
+            $formData = $request->post();
+            if(@$formData){
+                $dataFill = [
+                    'tenDonVi' => @$formData['tenDonVi'],
+                    'tenKyThi'=> @$formData['tenKyThi'],
+                    'tenPhongThi'=> @$formData['tenPhongThi'],     
+                    'soLuong'=>1               
+                ];
+                $formData['danhSachThiSinh']=json_decode($formData['danhSachThiSinh']);
+                if(@$formData['danhSachThiSinh'] && count((array)$formData['danhSachThiSinh'])){
+                    $dataFill['soLuong']= count((array)$formData['danhSachThiSinh']);
+                    $path = public_path('word/mau1.docx');
+                    if(!File::isDirectory($path)){
+                        File::makeDirectory($path, 0777, true, true);
+                    }
+                    $table = new Table(array('borderSize' => 1, 'borderColor' => 'black', 'unit' => 'auto', 'width' =>  Converter::cmToTwip(16.5)));
+                    $styleTitle = array('bold' => true, 'color' => 'black','alignment' => [
+                        'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+                        'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+                    ]);
+                    $styleCenter = array('alignment' => [
+                        'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+                        'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+                    ]);
+                    $myParagraphStyle = array('align'=>'center', 'spaceBefore'=>150, 'spaceafter' => 150);
+                    $cellRowSpan = array('vMerge' => 'restart');
+                    $cellRowContinue = array('vMerge' => 'continue');
+                    $cellColSpan = array('gridSpan' => 3);
+                    $table->addRow();
+                    $table->addCell(null, $cellRowSpan)->addText("STT",$styleTitle,$myParagraphStyle);
+                    $table->addCell(Converter::cmToTwip(3), $cellRowSpan)->addText("SBD",$styleTitle,$myParagraphStyle);
+                    $table->addCell(Converter::cmToTwip(4), $cellRowSpan)->addText("Họ và Tên",$styleTitle,$myParagraphStyle);
+                    $table->addCell(null, $cellColSpan)->addText("Môn Thi",$styleTitle,$myParagraphStyle);
+                    $table->addCell(null, $cellRowSpan)->addText("Chữ ký của thí sinh",$styleTitle,$myParagraphStyle);
+                    
+                    $table->addRow();
+                    $table->addCell(null, $cellRowContinue);
+                    $table->addCell(null, $cellRowContinue);
+                    $table->addCell(null, $cellRowContinue);
+                    $table->addCell(Converter::cmToTwip(3))->addText("Toán",$styleTitle,$myParagraphStyle);
+                    $table->addCell(Converter::cmToTwip(3))->addText("Văn",$styleTitle,$myParagraphStyle);
+                    $table->addCell(Converter::cmToTwip(3))->addText("...",$styleTitle,$myParagraphStyle);
+                    $table->addCell(null, $cellRowContinue);                 
+                    foreach ($formData['danhSachThiSinh'] as $index =>$detail) {                                       
+                        $table->addRow();
+                        $table->addCell(null)->addText($index + 1, $styleCenter, $myParagraphStyle);
+                        $table->addCell(null)->addText(@$detail->maThiSinh,$styleCenter, $myParagraphStyle);
+                        $table->addCell(null)->addText(@$detail->thi_sinh->tenThiSinh, $styleCenter, $myParagraphStyle);
+                        $table->addCell(null)->addText('',$styleCenter, $myParagraphStyle);
+                        $table->addCell(null)->addText('',$styleCenter, $myParagraphStyle);
+                        $table->addCell(null)->addText('', $styleCenter, $myParagraphStyle);
+                        $table->addCell(null)->addText('', $styleCenter, $myParagraphStyle);
+                       
+                    }
+                    $phpWord = new TemplateProcessor(public_path('word/mau1.docx'));
+                    $phpWord->setComplexBlock('{table}', $table);
+                    $phpWord->setValues($dataFill);
+                    $phpWord->saveAs('word/mau1_ex.docx');
+                    return response()->json(['success'=>true,'url'=> '/word/mau1_ex.docx']);
+                }
+                else{
+                    
+                    return response()->json(['success'=>false]);
+                }
+            }
+        }catch (Exception $e){
+            return response()->json(['success'=>false]);
+        }
+    }
+    public function exportMau2(Request $request){
+        try {            
+            $formData = $request->post();
+            if(@$formData){
+                $dataFill = [
+                    'tenDonVi' => @$formData['tenDonVi'],
+                    'tenKyThi'=> @$formData['tenKyThi'],
+                    'tenPhongThi'=> @$formData['tenPhongThi'],     
+                    'soLuong'=>1               
+                ];
+                $formData['danhSachThiSinh']=json_decode($formData['danhSachThiSinh']);
+                if(@$formData['danhSachThiSinh'] && count((array)$formData['danhSachThiSinh'])){
+                    $dataFill['soLuong']= count((array)$formData['danhSachThiSinh']);
+                    $path = public_path('word/mau2.docx');
+                    if(!File::isDirectory($path)){
+                        File::makeDirectory($path, 0777, true, true);
+                    }
+                    $table = new Table(array('borderSize' => 1, 'borderColor' => 'black', 'unit' => 'auto', 'width' =>  Converter::cmToTwip(16.5)));
+                    $styleTitle = array('bold' => true, 'color' => 'black','alignment' => [
+                        'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+                        'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+                    ]);
+                    $styleCenter = array('alignment' => [
+                        'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+                        'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+                    ]);
+                    $myParagraphStyle = array('align'=>'center', 'spaceBefore'=>150, 'spaceafter' => 150);
+                    $cellRowSpan = array('vMerge' => 'restart');
+                    $cellRowContinue = array('vMerge' => 'continue');
+                    $cellColSpan = array('gridSpan' => 3);
+                    $table->addRow();
+                    $table->addCell(Converter::cmToTwip(2), $cellRowSpan)->addText("STT",$styleTitle,$myParagraphStyle);
+                    $table->addCell(Converter::cmToTwip(3), $cellRowSpan)->addText("SBD",$styleTitle,$myParagraphStyle);
+                    $table->addCell(Converter::cmToTwip(4), $cellRowSpan)->addText("Họ và Tên",$styleTitle,$myParagraphStyle);
+                    $table->addCell(Converter::cmToTwip(3), $cellRowSpan)->addText("Năm Sinh",$styleTitle,$myParagraphStyle);
+                    $table->addCell(Converter::cmToTwip(5), $cellRowSpan)->addText("Nơi Sinh",$styleTitle,$myParagraphStyle);
+                                
+                    foreach ($formData['danhSachThiSinh'] as $index =>$detail) {                                       
+                        $table->addRow();
+                        $table->addCell(null)->addText($index + 1, $styleCenter, $myParagraphStyle);
+                        $table->addCell(null)->addText(@$detail->maThiSinh,$styleCenter, $myParagraphStyle);
+                        $table->addCell(null)->addText(@$detail->thi_sinh->tenThiSinh, $styleCenter, $myParagraphStyle);
+                        $table->addCell(null)->addText('',$styleCenter, $myParagraphStyle);
+                        $table->addCell(null)->addText('',$styleCenter, $myParagraphStyle);                       
+                       
+                    }
+                    $phpWord = new TemplateProcessor(public_path('word/mau2.docx'));
+                    $phpWord->setComplexBlock('{table}', $table);
+                    $phpWord->setValues($dataFill);
+                    $phpWord->saveAs('word/mau2_ex.docx');
+                    return response()->json(['success'=>true,'url'=> '/word/mau2_ex.docx']);
+                }
+                else{
+                    
+                    return response()->json(['success'=>false]);
+                }
+            }
+        }catch (Exception $e){
+            return response()->json(['success'=>false]);
+        }
+    }
+    public function exportMau3(Request $request){
+        try {            
+            $formData = $request->post();
+            if(@$formData){
+                $dataFill = [
+                    'tenDonVi' => @$formData['tenDonVi'],
+                    'tenKyThi'=> @$formData['tenKyThi'],
+                    'tenPhongThi'=> @$formData['tenPhongThi'],     
+                    'soLuong'=>1               
+                ];
+                $formData['danhSachThiSinh']=json_decode($formData['danhSachThiSinh']);
+                if(@$formData['danhSachThiSinh'] && count((array)$formData['danhSachThiSinh'])){
+                    $dataFill['soLuong']= count((array)$formData['danhSachThiSinh']);
+                    $path = public_path('word/mau3.docx');
+                    if(!File::isDirectory($path)){
+                        File::makeDirectory($path, 0777, true, true);
+                    }
+                    $table = new Table(array('borderSize' => 1, 'borderColor' => 'black', 'unit' => 'auto', 'width' =>  Converter::cmToTwip(16.5)));
+                    $styleTitle = array('bold' => true, 'color' => 'black','alignment' => [
+                        'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+                        'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+                    ]);
+                    $styleCenter = array('alignment' => [
+                        'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+                        'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+                    ]);
+                    $myParagraphStyle = array('align'=>'center', 'spaceBefore'=>150, 'spaceafter' => 150);
+                    $cellRowSpan = array('vMerge' => 'restart');
+                    $cellRowContinue = array('vMerge' => 'continue');
+                    $cellColSpan = array('gridSpan' => 3);
+                    $table->addRow();
+                    $table->addCell(Converter::cmToTwip(2), $cellRowSpan)->addText("STT",$styleTitle,$myParagraphStyle);
+                    $table->addCell(Converter::cmToTwip(3), $cellRowSpan)->addText("SBD",$styleTitle,$myParagraphStyle);
+                    $table->addCell(Converter::cmToTwip(4), $cellRowSpan)->addText("Họ và Tên",$styleTitle,$myParagraphStyle);
+                    $table->addCell(Converter::cmToTwip(3), $cellRowSpan)->addText("Số tờ/số bài",$styleTitle,$myParagraphStyle);
+                    $table->addCell(Converter::cmToTwip(5), $cellRowSpan)->addText("Ký Nộp",$styleTitle,$myParagraphStyle);
+                    $table->addCell(Converter::cmToTwip(5), $cellRowSpan)->addText("Ghi Chú",$styleTitle,$myParagraphStyle);
+                                
+                    foreach ($formData['danhSachThiSinh'] as $index =>$detail) {                                       
+                        $table->addRow();
+                        $table->addCell(null)->addText($index + 1, $styleCenter, $myParagraphStyle);
+                        $table->addCell(null)->addText(@$detail->maThiSinh,$styleCenter, $myParagraphStyle);
+                        $table->addCell(null)->addText(@$detail->thi_sinh->tenThiSinh, $styleCenter, $myParagraphStyle);
+                        $table->addCell(null)->addText('',$styleCenter, $myParagraphStyle);
+                        $table->addCell(null)->addText('',$styleCenter, $myParagraphStyle);                       
+                        $table->addCell(null)->addText('',$styleCenter, $myParagraphStyle);                       
+                       
+                    }
+                    $phpWord = new TemplateProcessor(public_path('word/mau3.docx'));
+                    $phpWord->setComplexBlock('{table}', $table);
+                    $phpWord->setValues($dataFill);
+                    $phpWord->saveAs('word/mau3_ex.docx');
+                    return response()->json(['success'=>true,'url'=> '/word/mau3_ex.docx']);
+                }
+                else{
+                    
+                    return response()->json(['success'=>false]);
+                }
+            }
+        }catch (Exception $e){
+            return response()->json(['success'=>false]);
+        }
+    }
 }

@@ -161,8 +161,8 @@
                     >                                      
                     </el-table-column>
                     <el-table-column
-                    prop="hsLop"
-                    label="Lớp"
+                    prop="noiSinh"
+                    label="Nơi Sinh"
                     >                                       
                     </el-table-column>   
                 </el-table>                   
