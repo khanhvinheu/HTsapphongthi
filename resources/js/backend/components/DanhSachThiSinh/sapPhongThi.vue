@@ -1,10 +1,10 @@
 <template>
     <div>
         <el-steps :active="active" align-center>
-        <el-step title="Step 1" description="Chọn thông tin"></el-step>
-        <el-step title="Step 2" description="Danh sách thí sinh"></el-step>
-        <el-step title="Step 3" description="Phòng và môn thi"></el-step>
-        <el-step title="Step 4" description="Hoàn tất"></el-step>
+        <el-step title="Bước 1" description="Chọn thông tin"></el-step>
+        <el-step title="Bước 2" description="Danh sách thí sinh"></el-step>
+        <el-step title="Bước 3" description="Phòng và môn thi"></el-step>
+        <el-step title="Bước 4" description="Hoàn tất"></el-step>
         </el-steps>
         <div v-show="active==0" class="mt-2">
             <el-divider></el-divider>
@@ -96,11 +96,11 @@
                 label="Ngày Sinh"
                 >                                      
                 </el-table-column>
-                <el-table-column
+                <!-- <el-table-column
                 prop="hsLop"
                 label="Lớp"
                 >                                       
-                </el-table-column>   
+                </el-table-column>    -->
             </el-table>  
             <el-button style="margin-top: 12px;" @click="next">Bước tiếp theo</el-button> 
         </div>
