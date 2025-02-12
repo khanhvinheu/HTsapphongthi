@@ -90,7 +90,7 @@
                                             confirm-button-text='Xóa'
                                             cancel-button-text='Không'
                                             :title="'Bạn có chắc chắn muốn xóa ?'"
-                                            @confirm="()=>deleteBanner(scope.row.id)"
+                                            @confirm="()=>deleteBanner(scope.row)"
                                         >
                                             <el-button slot="reference" type="danger"
                                                        size="mini"><i class="el-icon-delete"></i>
@@ -303,11 +303,13 @@ export default {
             this.getList()
         },
       
-        deleteBanner(id) {
+        deleteBanner(data) {
             let _this = this
             axios({
                 method: 'post',
-                url: '/api/admin/danhsachthisinh/delete/' + id,
+                url: '/api/admin/danhsachthisinh/delete',
+                data: data
+
             })
                 .then(function (response) {
                     if (response.data['success']) {

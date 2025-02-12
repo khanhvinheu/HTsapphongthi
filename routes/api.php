@@ -232,7 +232,7 @@ Route::prefix('admin')->namespace('admin')->group(function () {
      Route::get('danhsachthisinh/detail/{id}','DanhSachThiSinhController@show');
      Route::post('danhsachthisinh/update/{id}','DanhSachThiSinhController@update');
      Route::post('danhsachthisinh/create','DanhSachThiSinhController@store');
-     Route::post('danhsachthisinh/delete/{id}','DanhSachThiSinhController@destroy');
+     Route::post('danhsachthisinh/delete','DanhSachThiSinhController@destroy');
      Route::get('danhsachthisinh/gen_code','DanhSachThiSinhController@genCode');
      Route::post('sapphongthi','DanhSachThiSinhController@sapPhongThi');
      //danhSachNamHoc

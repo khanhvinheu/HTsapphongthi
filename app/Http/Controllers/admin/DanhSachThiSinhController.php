@@ -221,11 +221,16 @@ class DanhSachThiSinhController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        //
-        try{
-            $res = danhSachThiSinhs::find($id)->delete();
+        //      
+        try{       
+            $maNamHoc = $request->get('maNamHoc','');
+            $maKhoiThi = $request->get('maKhoiThi','');      
+            $res = danhSachThiSinhs::where([
+                ['maNamHoc',$maNamHoc], 
+                ['maKhoiThi',$maKhoiThi],
+            ])->delete();
             if($res){
                 return response()->json(['success'=>true, 'mess'=>'Xóa dữ liệu thành công!']);
             }else{
