@@ -769,7 +769,7 @@ var render = function render() {
     });
   }), 1), _vm._v(" "), _c("el-select", {
     staticStyle: {
-      width: "300px"
+      width: "250px"
     },
     attrs: {
       disabled: false,
@@ -794,7 +794,7 @@ var render = function render() {
     });
   }), 1), _vm._v(" "), _c("el-select", {
     staticStyle: {
-      width: "300px"
+      width: "250px"
     },
     attrs: {
       disabled: false,
@@ -819,7 +819,7 @@ var render = function render() {
     });
   }), 1), _vm._v(" "), _c("el-select", {
     staticStyle: {
-      width: "300px"
+      width: "250px"
     },
     attrs: {
       disabled: false,
@@ -844,7 +844,7 @@ var render = function render() {
     });
   }), 1), _vm._v(" "), _c("el-select", {
     staticStyle: {
-      width: "300px"
+      width: "250px"
     },
     attrs: {
       disabled: false,
@@ -1000,9 +1000,11 @@ var render = function render() {
     }
   }, [_vm.dataActiveList ? _c("div", {
     staticStyle: {
-      "margin-top": "-30px"
+      "margin-top": "-30px",
+      display: "flex",
+      "justify-content": "space-between"
     }
-  }, [_c("span", {
+  }, [_c("div", [_c("span", {
     staticStyle: {
       "font-size": "13px",
       "font-weight": "bold",
@@ -1014,13 +1016,18 @@ var render = function render() {
       "font-weight": "bold",
       "text-transform": "uppercase"
     }
-  }, [_vm._v("ĐƠN VỊ: " + _vm._s(_vm.dataActiveList.don_vi.tenDonVi) + " ")]), _vm._v(" "), _c("br"), _vm._v("\n        " + _vm._s(_vm.dataActiveList.ky_thi.tenKyThi) + " - (" + _vm._s(_vm.dataActiveList.nam_hoc.tenNamHoc) + ")\n        "), _c("br"), _vm._v(" "), _c("span", {
+  }, [_vm._v("ĐƠN VỊ: " + _vm._s(_vm.dataActiveList.don_vi.tenDonVi) + " ")]), _vm._v(" "), _c("br"), _vm._v("\n            " + _vm._s(_vm.dataActiveList.ky_thi.tenKyThi) + " - (" + _vm._s(_vm.dataActiveList.nam_hoc.tenNamHoc) + ")\n            "), _c("br"), _vm._v(" "), _c("span", {
     staticStyle: {
       "font-size": "13px",
       "font-weight": "bold",
       "text-transform": "uppercase"
     }
-  }, [_vm._v("Môn thi: " + _vm._s(_vm.dataActiveList.mon_hoc.tenMonHoc) + " ")]), _vm._v(" "), _c("el-button", {
+  }, [_vm._v("Môn thi: " + _vm._s(_vm.dataActiveList.mon_hoc.tenMonHoc) + " ")])]), _vm._v(" "), _c("div", {
+    staticClass: "pr-3"
+  }, [_c("el-button", {
+    attrs: {
+      type: "primary"
+    },
     on: {
       click: function click($event) {
         return _vm.downloadMau1();
@@ -1029,6 +1036,9 @@ var render = function render() {
   }, [_c("i", {
     staticClass: "el-icon-download"
   }), _vm._v(" Mau.1")]), _vm._v(" "), _c("el-button", {
+    attrs: {
+      type: "primary"
+    },
     on: {
       click: function click($event) {
         return _vm.downloadMau2();
@@ -1037,6 +1047,9 @@ var render = function render() {
   }, [_c("i", {
     staticClass: "el-icon-download"
   }), _vm._v(" Mau.2")]), _vm._v(" "), _c("el-button", {
+    attrs: {
+      type: "primary"
+    },
     on: {
       click: function click($event) {
         return _vm.downloadMau3();
@@ -1044,7 +1057,7 @@ var render = function render() {
     }
   }, [_c("i", {
     staticClass: "el-icon-download"
-  }), _vm._v(" Mau.3")]), _vm._v(" "), _c("el-divider")], 1) : _vm._e(), _vm._v(" "), _c("div", [_c("el-table", {
+  }), _vm._v(" Mau.3")])], 1)]) : _vm._e(), _vm._v(" "), _c("el-divider"), _vm._v(" "), _c("div", [_c("el-table", {
     staticStyle: {
       width: "100%"
     },
@@ -1083,7 +1096,7 @@ var render = function render() {
       prop: "thi_sinh.noiSinh",
       label: "Nơi Sinh"
     }
-  })], 1)], 1)]), _vm._v(" "), _c("el-dialog", {
+  })], 1)], 1)], 1), _vm._v(" "), _c("el-dialog", {
     attrs: {
       visible: _vm.outerVisible
     },

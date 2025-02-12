@@ -39,7 +39,7 @@
                                     </el-select>
                                     <!-- </div> -->
 
-                                    <el-select :disabled="false" style="width: 300px" v-model="formSearch.maKyThi" size="small" filterable
+                                    <el-select :disabled="false" style="width: 250px" v-model="formSearch.maKyThi" size="small" filterable
                                         placeholder="Chọn kỳ thi">
                                         <el-option v-for="item in listKyThi" :key="item.id"
                                             :label="item.maKyThi + ' | ' + item.tenKyThi" :value="item.maKyThi">
@@ -47,7 +47,7 @@
                                     </el-select>
 
 
-                                    <el-select :disabled="false" style="width: 300px" v-model="formSearch.maKhoiThi" size="small" filterable
+                                    <el-select :disabled="false" style="width: 250px" v-model="formSearch.maKhoiThi" size="small" filterable
                                         placeholder="Chọn khối thi">
                                         <el-option v-for="item in listKhoiThi" :key="item.id"
                                             :label="item.maKhoiThi + ' | ' + item.tenKhoiThi" :value="item.maKhoiThi">
@@ -55,24 +55,24 @@
                                     </el-select>
 
 
-                                    <el-select :disabled="false" style="width: 300px" v-model="formSearch.maNamHoc" size="small" filterable
+                                    <el-select :disabled="false" style="width: 250px" v-model="formSearch.maNamHoc" size="small" filterable
                                         placeholder="Chọn năm học">
                                         <el-option v-for="item in listNamHoc" :key="item.id"
                                             :label="item.maNamHoc + ' | ' + item.tenNamHoc" :value="item.maNamHoc">
                                         </el-option>
                                     </el-select>
-                                    <el-select :disabled="false" style="width: 300px" v-model="formSearch.maMonHoc" size="small" filterable
+                                    <el-select :disabled="false" style="width: 250px" v-model="formSearch.maMonHoc" size="small" filterable
                                         placeholder="Chọn môn học">
                                         <el-option v-for="item in listMonThi" :key="item.id"
                                             :label="item.maMonHoc + ' | ' + item.tenMonHoc" :value="item.maMonHoc">
                                         </el-option>
                                     </el-select>
+                                    
                                 </div>
+
                                 <el-button type="primary" @click="getList()">
                                     <i class="el-icon-search"></i> Tìm kiếm
                                 </el-button>
-
-
                             <!-- <el-button @click="outerVisible = true; idUpdate = ''; trigger = new Date().getTime()"
                                 class="ml-2" type="primary"><i class="el-icon-plus"></i> Thêm mới
                             </el-button> -->
@@ -125,24 +125,27 @@
         </div>
     </div>
     <el-dialog :visible.sync="validDialogDanhSach" width="50vw">
-        <div style="margin-top: -30px" v-if="dataActiveList">
-            <span style="font-size: 13px; font-weight: bold; text-transform: uppercase">DANH SÁCH THÍ SINH {{
+        <div style="margin-top: -30px; display: flex; justify-content: space-between;" v-if="dataActiveList">
+            <div>
+                <span style="font-size: 13px; font-weight: bold; text-transform: uppercase">DANH SÁCH THÍ SINH {{
                 dataActiveList.khoi_thi.tenKhoiThi }} - {{ dataActiveList.phong_thi.tenPhongThi }}</span>
-            <br>
-            <span style="font-size: 13px; font-weight: bold; text-transform: uppercase">ĐƠN VỊ: {{
-                dataActiveList.don_vi.tenDonVi }} </span>
-            <br>
-            {{ dataActiveList.ky_thi.tenKyThi }} - ({{ dataActiveList.nam_hoc.tenNamHoc }})
-            <br>
-            <span style="font-size: 13px; font-weight: bold; text-transform: uppercase">Môn thi: {{
-                dataActiveList.mon_hoc.tenMonHoc }} </span>
+                <br>
+                <span style="font-size: 13px; font-weight: bold; text-transform: uppercase">ĐƠN VỊ: {{
+                    dataActiveList.don_vi.tenDonVi }} </span>
+                <br>
+                {{ dataActiveList.ky_thi.tenKyThi }} - ({{ dataActiveList.nam_hoc.tenNamHoc }})
+                <br>
+                <span style="font-size: 13px; font-weight: bold; text-transform: uppercase">Môn thi: {{
+                    dataActiveList.mon_hoc.tenMonHoc }} </span>
+            </div>
+            <div class="pr-3">
+                <el-button type="primary" @click="downloadMau1()"><i class="el-icon-download"></i> Mau.1</el-button>    
+                <el-button type="primary" @click="downloadMau2()"><i class="el-icon-download"></i> Mau.2</el-button>    
+                <el-button type="primary" @click="downloadMau3()"><i class="el-icon-download"></i> Mau.3</el-button>
+            </div>    
 
-            <el-button @click="downloadMau1()"><i class="el-icon-download"></i> Mau.1</el-button>    
-            <el-button @click="downloadMau2()"><i class="el-icon-download"></i> Mau.2</el-button>    
-            <el-button @click="downloadMau3()"><i class="el-icon-download"></i> Mau.3</el-button>    
-
-            <el-divider></el-divider>
         </div>
+        <el-divider></el-divider>
         <div>
             <el-table :data="listDataThiSinh" border style="width: 100%">
                 <el-table-column label="STT" width="50px">
