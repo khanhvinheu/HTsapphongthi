@@ -31,7 +31,7 @@
                                 </el-input> -->
 
                                 <div>
-                                    <el-select :disabled="false" style="width: 300px" v-model="formSearch.maDonVi" size="small"
+                                    <el-select clearable :disabled="false" style="width: 300px" v-model="formSearch.maDonVi" size="small"
                                         filterable placeholder="Chọn đơn vị">
                                         <el-option v-for="item in listDonVi" :key="item.id"
                                             :label="item.maDonVi + ' | ' + item.tenDonVi" :value="item.maDonVi">
@@ -39,7 +39,7 @@
                                     </el-select>
                                     <!-- </div> -->
 
-                                    <el-select :disabled="false" style="width: 250px" v-model="formSearch.maKyThi" size="small" filterable
+                                    <el-select clearable :disabled="false" style="width: 250px" v-model="formSearch.maKyThi" size="small" filterable
                                         placeholder="Chọn kỳ thi">
                                         <el-option v-for="item in listKyThi" :key="item.id"
                                             :label="item.maKyThi + ' | ' + item.tenKyThi" :value="item.maKyThi">
@@ -47,7 +47,7 @@
                                     </el-select>
 
 
-                                    <el-select :disabled="false" style="width: 250px" v-model="formSearch.maKhoiThi" size="small" filterable
+                                    <el-select clearable :disabled="false" style="width: 250px" v-model="formSearch.maKhoiThi" size="small" filterable
                                         placeholder="Chọn khối thi">
                                         <el-option v-for="item in listKhoiThi" :key="item.id"
                                             :label="item.maKhoiThi + ' | ' + item.tenKhoiThi" :value="item.maKhoiThi">
@@ -55,13 +55,13 @@
                                     </el-select>
 
 
-                                    <el-select :disabled="false" style="width: 250px" v-model="formSearch.maNamHoc" size="small" filterable
+                                    <el-select clearable :disabled="false" style="width: 250px" v-model="formSearch.maNamHoc" size="small" filterable
                                         placeholder="Chọn năm học">
                                         <el-option v-for="item in listNamHoc" :key="item.id"
                                             :label="item.maNamHoc + ' | ' + item.tenNamHoc" :value="item.maNamHoc">
                                         </el-option>
                                     </el-select>
-                                    <el-select :disabled="false" style="width: 250px" v-model="formSearch.maMonHoc" size="small" filterable
+                                    <el-select clearable :disabled="false" style="width: 250px" v-model="formSearch.maMonHoc" size="small" filterable
                                         placeholder="Chọn môn học">
                                         <el-option v-for="item in listMonThi" :key="item.id"
                                             :label="item.maMonHoc + ' | ' + item.tenMonHoc" :value="item.maMonHoc">
@@ -156,7 +156,7 @@
         </div>
         <el-divider></el-divider>
         <div>
-            <el-table :data="listDataThiSinh" border style="width: 100%">
+            <el-table :data="listDataThiSinh" border style="width: 100%" height="400px">
                 <el-table-column label="STT" width="50px">
                     <template slot-scope="scope">
                         <span>{{ scope.$index + 1 }}</span>
@@ -209,11 +209,16 @@ export default {
             listKyThi:[],
             listMonThi:[],
             formSearch:{
-                maMonHoc:'MONTHI0003',
-                maNamHoc:'NH0002',
-                maKhoiThi:'KHOI0002',
-                maKyThi:'KTH0001',
-                maDonVi:'DV0001'
+                // maMonHoc:'MONTHI0003',
+                // maNamHoc:'NH0002',
+                // maKhoiThi:'KHOI0002',
+                // maKyThi:'KTH0001',
+                // maDonVi:'DV0001'
+                maMonHoc:'',
+                maNamHoc:'',
+                maKhoiThi:'',
+                maKyThi:'',
+                maDonVi:''
             },
             form: new FormData()
 

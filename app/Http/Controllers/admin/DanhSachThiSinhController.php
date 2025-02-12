@@ -313,30 +313,33 @@ class DanhSachThiSinhController extends Controller
     public function getListKetQuaSapPhongThi(Request $request)
     {
         //     
-        // try {
+        try {
             $limit = $request->get('PageLimit', 25);
             $page = $request->get('Page', 1);
             $formSearch = json_decode($request->get('formSearch'));
             $searchWhere = [];
+            $data = danhSachThiSinhThuocPhongThis::with(['namHoc','khoiThi','thiSinh','kyThi','phongThi','monHoc','donVi']);
             if($formSearch && count((array)$formSearch)>0){
                 foreach($formSearch as $key => $item){
-                    array_push($searchWhere,[$key,$item]);
+                    if($item !== null && $item !==""){
+                         array_push($searchWhere,[$key,$item]);
+                    }                   
                 }
-            }            
-            $data = danhSachThiSinhThuocPhongThis::with(['namHoc','khoiThi','thiSinh','kyThi','phongThi','monHoc','donVi'])
-            ->where($searchWhere)
-            ->select('maNamHoc','maMonHoc','maPhongThi','maDonVi','maKhoiThi','maKyThi')
-            ->groupBy('maNamHoc','maMonHoc','maPhongThi','maDonVi','maKhoiThi','maKyThi')
-            ->paginate($limit, ['*'], 'page', $page)
-            ->toArray();          
-            
+                if($searchWhere && count($searchWhere)>0){
+                     $data = $data->where($searchWhere);
+                }               
+            }               
+            $data =$data->select('maNamHoc','maMonHoc','maPhongThi','maDonVi','maKhoiThi','maKyThi');
+            $data =$data->groupBy('maNamHoc','maMonHoc','maPhongThi','maDonVi','maKhoiThi','maKyThi');
+            $data =$data->paginate($limit, ['*'], 'page', $page);
+            $data = $data->toArray();  
             return $this->jsonTable([
                 'data' => $data['data'],
                 'total' => count($data['data'])
             ]);
-        // } catch (\Exception $e) {
-        //     return $this->jsonError($e);
-        // }
+        } catch (\Exception $e) {
+            return $this->jsonError($e);
+        }
     }
 
     public function getDanhSachThiSinhOfPhong(Request $request){

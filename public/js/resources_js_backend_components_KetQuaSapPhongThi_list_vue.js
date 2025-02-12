@@ -190,11 +190,16 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
       listKyThi: [],
       listMonThi: [],
       formSearch: {
-        maMonHoc: 'MONTHI0003',
-        maNamHoc: 'NH0002',
-        maKhoiThi: 'KHOI0002',
-        maKyThi: 'KTH0001',
-        maDonVi: 'DV0001'
+        // maMonHoc:'MONTHI0003',
+        // maNamHoc:'NH0002',
+        // maKhoiThi:'KHOI0002',
+        // maKyThi:'KTH0001',
+        // maDonVi:'DV0001'
+        maMonHoc: '',
+        maNamHoc: '',
+        maKhoiThi: '',
+        maKyThi: '',
+        maDonVi: ''
       },
       form: new FormData()
     };
@@ -749,6 +754,7 @@ var render = function render() {
       width: "300px"
     },
     attrs: {
+      clearable: "",
       disabled: false,
       size: "small",
       filterable: "",
@@ -774,6 +780,7 @@ var render = function render() {
       width: "250px"
     },
     attrs: {
+      clearable: "",
       disabled: false,
       size: "small",
       filterable: "",
@@ -799,6 +806,7 @@ var render = function render() {
       width: "250px"
     },
     attrs: {
+      clearable: "",
       disabled: false,
       size: "small",
       filterable: "",
@@ -824,6 +832,7 @@ var render = function render() {
       width: "250px"
     },
     attrs: {
+      clearable: "",
       disabled: false,
       size: "small",
       filterable: "",
@@ -849,6 +858,7 @@ var render = function render() {
       width: "250px"
     },
     attrs: {
+      clearable: "",
       disabled: false,
       size: "small",
       filterable: "",
@@ -1085,7 +1095,8 @@ var render = function render() {
     },
     attrs: {
       data: _vm.listDataThiSinh,
-      border: ""
+      border: "",
+      height: "400px"
     }
   }, [_c("el-table-column", {
     attrs: {

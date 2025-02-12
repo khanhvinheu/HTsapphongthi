@@ -136,6 +136,7 @@
                 <el-table
                     :data="listDataThiSinh"
                     border
+                    height="400px"
                     style="width: 100%">
                     <el-table-column                                 
                     label="STT"
