@@ -92,7 +92,7 @@
                             </el-table-column>
                             <el-table-column prop="phong_thi.tenPhongThi" label="PHÒNG THI" sortable>
                             </el-table-column>
-                            <el-table-column label="THAO TÁC" width="220">
+                            <el-table-column label="THAO TÁC" width="250">
                                 <template slot-scope="scope">
                                     <el-button type="primary" size="mini" @click="openDialogList(scope.row)"><i
                                             class="el-icon-finished"></i> Xem danh sách

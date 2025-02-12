@@ -936,7 +936,7 @@ var render = function render() {
   }), _vm._v(" "), _c("el-table-column", {
     attrs: {
       label: "THAO TÁC",
-      width: "220"
+      width: "250"
     },
     scopedSlots: _vm._u([{
       key: "default",
