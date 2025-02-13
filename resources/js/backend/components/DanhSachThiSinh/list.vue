@@ -166,6 +166,11 @@
                     label="Nơi Sinh"
                     >                                       
                     </el-table-column>   
+                    <el-table-column
+                    prop="CCCD"
+                    label="CCCD"
+                    >                                       
+                    </el-table-column>   
                 </el-table>                   
             </div>
         </el-dialog>

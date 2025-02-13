@@ -1129,6 +1129,11 @@ var render = function render() {
       prop: "thi_sinh.noiSinh",
       label: "Nơi Sinh"
     }
+  }), _vm._v(" "), _c("el-table-column", {
+    attrs: {
+      prop: "thi_sinh.CCCD",
+      label: "CCCD"
+    }
   })], 1)], 1)], 1), _vm._v(" "), _c("el-dialog", {
     attrs: {
       visible: _vm.outerVisible

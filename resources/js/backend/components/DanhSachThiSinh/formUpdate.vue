@@ -107,15 +107,15 @@
                                             <component :readonly="activeEdit" :is="'el-input'" v-model="scope.row.ngaySinh" >{{ scope.row.ngaySinh }}</component>
                                         </template>
                                     </el-table-column>
-                                    <!-- <el-table-column
-                                    prop="hsLop"
-                                    label="Lớp"
+                                     <el-table-column
+                                    prop="CCCD"
+                                    label="CCCD"
                                     >
                                         <template slot-scope="scope">
-                                            <component :readonly="activeEdit" :is="'el-input'" v-model="scope.row.hsLop" >{{ scope.row.hsLop }}</component>
+                                            <component :readonly="activeEdit" :is="'el-input'" v-model="scope.row.CCCD" >{{ scope.row.CCCD }}</component>
                                         </template>
                                     </el-table-column>
-                                    <el-table-column
+                                    <!--<el-table-column
                                     prop="ketQua"
                                     label="Kết Quả"
                                    >
@@ -229,7 +229,7 @@ export default {
                 tenThiSinh:'',
                 ngaySinh:'',
                 gioiTinh:'',
-                hsLop:'',
+                CCCD:'',
                 ketQua:'',
                 ghiChu:'',
                 maKhoiThi:'',
@@ -273,7 +273,7 @@ export default {
                 tenThiSinh:'',
                 gioiTinh:'',
                 ngaySinh:'',
-                hsLop:'',
+                CCCD:'',
                 maNamHoc:'',
                 maKhoiThi:'',  
                 edit:false,            
@@ -365,7 +365,7 @@ export default {
                         _this.formData.tenThiSinh=res['tenThiSinh'],
                         _this.formData.ngaySinh=res['ngaySinh'],
                         _this.formData.gioiTinh=res['gioiTinh'],
-                        _this.formData.hsLop=res['hsLop'],
+                        _this.formData.CCCD=res['CCCD'],
                         _this.formData.ghiChu=res['ghiChu'],
                         _this.formData.maKhoiThi=res['maKhoiThi'],
                         _this.formData.maNamHoc=res['maNamHoc']                     

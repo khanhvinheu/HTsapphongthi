@@ -96,11 +96,11 @@
                 label="Ngày Sinh"
                 >                                      
                 </el-table-column>
-                <!-- <el-table-column
-                prop="hsLop"
-                label="Lớp"
+                <el-table-column
+                prop="CCCD"
+                label="CCCD"
                 >                                       
-                </el-table-column>    -->
+                </el-table-column>   
             </el-table>  
             <el-button style="margin-top: 12px;" @click="next">Bước tiếp theo</el-button> 
         </div>

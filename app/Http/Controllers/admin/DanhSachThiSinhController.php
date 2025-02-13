@@ -436,6 +436,7 @@ class DanhSachThiSinhController extends Controller
                 $formData['noiSinh'] = $item['Nơi Sinh'];  
                 $formData['ghiChu'] = $item['Ghi Chú'];  
                 $formData['ngaySinh'] = $item['Năm Sinh'];  
+                $formData['CCCD'] = @$item['CCCD'];  
                
                 if(@$formData['ngaySinh'] instanceof DateTime){
                     $formData['ngaySinh']=  $formData['ngaySinh']->getTimestamp(); 

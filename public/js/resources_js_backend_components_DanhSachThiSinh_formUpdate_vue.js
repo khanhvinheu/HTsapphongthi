@@ -80,7 +80,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
         tenThiSinh: '',
         ngaySinh: '',
         gioiTinh: '',
-        hsLop: '',
+        CCCD: '',
         ketQua: '',
         ghiChu: '',
         maKhoiThi: '',
@@ -149,7 +149,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 tenThiSinh: '',
                 gioiTinh: '',
                 ngaySinh: '',
-                hsLop: '',
+                CCCD: '',
                 maNamHoc: '',
                 maKhoiThi: '',
                 edit: false
@@ -281,7 +281,7 @@ function _asyncToGenerator(fn) { return function () { var self = this, args = ar
                 var data = _ref4.data;
                 if (data['success']) {
                   var res = data['data'];
-                  _this.formData.maThiSinh = res['maThiSinh'], _this.formData.tenThiSinh = res['tenThiSinh'], _this.formData.ngaySinh = res['ngaySinh'], _this.formData.gioiTinh = res['gioiTinh'], _this.formData.hsLop = res['hsLop'], _this.formData.ghiChu = res['ghiChu'], _this.formData.maKhoiThi = res['maKhoiThi'], _this.formData.maNamHoc = res['maNamHoc'];
+                  _this.formData.maThiSinh = res['maThiSinh'], _this.formData.tenThiSinh = res['tenThiSinh'], _this.formData.ngaySinh = res['ngaySinh'], _this.formData.gioiTinh = res['gioiTinh'], _this.formData.CCCD = res['CCCD'], _this.formData.ghiChu = res['ghiChu'], _this.formData.maKhoiThi = res['maKhoiThi'], _this.formData.maNamHoc = res['maNamHoc'];
                 }
               });
             case 4:
@@ -612,6 +612,29 @@ var render = function render() {
             expression: "scope.row.ngaySinh"
           }
         }, [_vm._v(_vm._s(scope.row.ngaySinh))])];
+      }
+    }])
+  }), _vm._v(" "), _c("el-table-column", {
+    attrs: {
+      prop: "CCCD",
+      label: "CCCD"
+    },
+    scopedSlots: _vm._u([{
+      key: "default",
+      fn: function fn(scope) {
+        return [_c("el-input", {
+          tag: "component",
+          attrs: {
+            readonly: _vm.activeEdit
+          },
+          model: {
+            value: scope.row.CCCD,
+            callback: function callback($$v) {
+              _vm.$set(scope.row, "CCCD", $$v);
+            },
+            expression: "scope.row.CCCD"
+          }
+        }, [_vm._v(_vm._s(scope.row.CCCD))])];
       }
     }])
   }), _vm._v(" "), _c("el-table-column", {

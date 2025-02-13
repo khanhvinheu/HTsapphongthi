@@ -170,6 +170,8 @@
                 </el-table-column>
                 <el-table-column prop="thi_sinh.noiSinh" label="Nơi Sinh">
                 </el-table-column>
+                <el-table-column prop="thi_sinh.CCCD" label="CCCD">
+                </el-table-column>
             </el-table>
         </div>
     </el-dialog>

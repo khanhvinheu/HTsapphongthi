@@ -20,6 +20,7 @@ class danhSachThiSinhs extends Model
         'ghiChu',
         'maKhoiThi',
         'maNamHoc',
+        'CCCD',
     ];
     public function namHoc(): \Illuminate\Database\Eloquent\Relations\belongsTo
     {
